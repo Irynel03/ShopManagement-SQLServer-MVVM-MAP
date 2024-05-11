@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShopMngModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BonFiscal">
+          <Key>
+            <PropertyRef Name="IdBon" />
+          </Key>
+          <Property Name="DataEliberare" Type="date" Nullable="false" />
+          <Property Name="IdCasier" Type="int" Nullable="false" />
+          <Property Name="SumaIncasata" Type="float" Nullable="false" />
+          <Property Name="IdBon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BonProdus">
+          <Key>
+            <PropertyRef Name="IdBon" />
+            <PropertyRef Name="IdProdus" />
+          </Key>
+          <Property Name="IdBon" Type="int" Nullable="false" />
+          <Property Name="IdProdus" Type="int" Nullable="false" />
+          <Property Name="Cantitate" Type="int" Nullable="false" />
+          <Property Name="Subtotal" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Oferta">
+          <Key>
+            <PropertyRef Name="IdOferta" />
+          </Key>
+          <Property Name="MotivOferta" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="IdProdus" Type="int" Nullable="false" />
+          <Property Name="ProcentReducere" Type="int" Nullable="false" />
+          <Property Name="DataInceputOferta" Type="date" Nullable="false" />
+          <Property Name="DataFinalOferta" Type="date" Nullable="false" />
+          <Property Name="IdOferta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NumeProducator" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="TaraDeOrigine" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="char" MaxLength="30" Nullable="false" />
+          <Property Name="Categorie" Type="char" MaxLength="30" Nullable="false" />
+          <Property Name="Producator_Id" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StocProdus">
+          <Key>
+            <PropertyRef Name="IdStocProdus" />
+          </Key>
+          <Property Name="IdStocProdus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProdus" Type="int" Nullable="false" />
+          <Property Name="Cantitate" Type="int" Nullable="false" />
+          <Property Name="DataAprovizionare" Type="date" Nullable="false" />
+          <Property Name="DataExpirare" Type="date" Nullable="false" />
+          <Property Name="UnitateMasura" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="PretAchizitie" Type="float" Nullable="false" />
+          <Property Name="PretVanzare" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilizator">
+          <Key>
+            <PropertyRef Name="IdUtilizator" />
+          </Key>
+          <Property Name="Nume" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Parola" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Tip" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="IdUtilizator" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BonFiscal_Utilizator">
+          <End Role="Utilizator" Type="Self.Utilizator" Multiplicity="1" />
+          <End Role="BonFiscal" Type="Self.BonFiscal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizator">
+              <PropertyRef Name="IdUtilizator" />
+            </Principal>
+            <Dependent Role="BonFiscal">
+              <PropertyRef Name="IdCasier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BonProdus_BonFiscal">
+          <End Role="BonFiscal" Type="Self.BonFiscal" Multiplicity="1" />
+          <End Role="BonProdus" Type="Self.BonProdus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BonFiscal">
+              <PropertyRef Name="IdBon" />
+            </Principal>
+            <Dependent Role="BonProdus">
+              <PropertyRef Name="IdBon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oferta_Produs">
+          <End Role="Produs" Type="Self.Produs" Multiplicity="1" />
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Oferta">
+              <PropertyRef Name="IdProdus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produs_Producator">
+          <End Role="Producator" Type="Self.Producator" Multiplicity="1" />
+          <End Role="Produs" Type="Self.Produs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producator">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produs">
+              <PropertyRef Name="Producator_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StocProdus_Produs">
+          <End Role="Produs" Type="Self.Produs" Multiplicity="1" />
+          <End Role="StocProdus" Type="Self.StocProdus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StocProdus">
+              <PropertyRef Name="IdProdus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AdaugareBonFiscal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCasier" Type="int" Mode="In" />
+          <Parameter Name="SumaIncasata" Type="float" Mode="In" />
+        </Function>
+        <Function Name="AdaugareBonProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdBon" Type="int" Mode="In" />
+          <Parameter Name="IdProdus" Type="int" Mode="In" />
+          <Parameter Name="Cantitate" Type="int" Mode="In" />
+          <Parameter Name="Subtotal" Type="float" Mode="In" />
+        </Function>
+        <Function Name="AdaugareOferta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MotivOferta" Type="char" Mode="In" />
+          <Parameter Name="IdProdus" Type="int" Mode="In" />
+          <Parameter Name="ProcentReducere" Type="int" Mode="In" />
+          <Parameter Name="DataInceputOferta" Type="date" Mode="In" />
+          <Parameter Name="DataFinalOferta" Type="date" Mode="In" />
+        </Function>
+        <Function Name="AdaugareProducator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeProducator" Type="char" Mode="In" />
+          <Parameter Name="TaraDeOrigine" Type="char" Mode="In" />
+        </Function>
+        <Function Name="AdaugareProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nume" Type="char" Mode="In" />
+          <Parameter Name="Categorie" Type="char" Mode="In" />
+          <Parameter Name="Producator_Id" Type="char" Mode="In" />
+        </Function>
+        <Function Name="AdaugareUtilizator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nume" Type="char" Mode="In" />
+          <Parameter Name="Parola" Type="char" Mode="In" />
+          <Parameter Name="Tip" Type="char" Mode="In" />
+        </Function>
+        <EntityContainer Name="ShopMngModelStoreContainer">
+          <EntitySet Name="BonFiscal" EntityType="Self.BonFiscal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BonProdus" EntityType="Self.BonProdus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oferta" EntityType="Self.Oferta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producator" EntityType="Self.Producator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produs" EntityType="Self.Produs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StocProdus" EntityType="Self.StocProdus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilizator" EntityType="Self.Utilizator" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BonFiscal_Utilizator" Association="Self.FK_BonFiscal_Utilizator">
+            <End Role="Utilizator" EntitySet="Utilizator" />
+            <End Role="BonFiscal" EntitySet="BonFiscal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BonProdus_BonFiscal" Association="Self.FK_BonProdus_BonFiscal">
+            <End Role="BonFiscal" EntitySet="BonFiscal" />
+            <End Role="BonProdus" EntitySet="BonProdus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oferta_Produs" Association="Self.FK_Oferta_Produs">
+            <End Role="Produs" EntitySet="Produs" />
+            <End Role="Oferta" EntitySet="Oferta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produs_Producator" Association="Self.FK_Produs_Producator">
+            <End Role="Producator" EntitySet="Producator" />
+            <End Role="Produs" EntitySet="Produs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StocProdus_Produs" Association="Self.FK_StocProdus_Produs">
+            <End Role="Produs" EntitySet="Produs" />
+            <End Role="StocProdus" EntitySet="StocProdus" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopMngModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BonFiscal">
+          <Key>
+            <PropertyRef Name="IdBon" />
+          </Key>
+          <Property Name="DataEliberare" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdCasier" Type="Int32" Nullable="false" />
+          <Property Name="SumaIncasata" Type="Double" Nullable="false" />
+          <Property Name="IdBon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Utilizator" Relationship="Self.FK_BonFiscal_Utilizator" FromRole="BonFiscal" ToRole="Utilizator" />
+          <NavigationProperty Name="BonProdus" Relationship="Self.FK_BonProdus_BonFiscal" FromRole="BonFiscal" ToRole="BonProdus" />
+        </EntityType>
+        <EntityType Name="BonProdus">
+          <Key>
+            <PropertyRef Name="IdBon" />
+            <PropertyRef Name="IdProdus" />
+          </Key>
+          <Property Name="IdBon" Type="Int32" Nullable="false" />
+          <Property Name="IdProdus" Type="Int32" Nullable="false" />
+          <Property Name="Cantitate" Type="Int32" Nullable="false" />
+          <Property Name="Subtotal" Type="Double" Nullable="false" />
+          <NavigationProperty Name="BonFiscal" Relationship="Self.FK_BonProdus_BonFiscal" FromRole="BonProdus" ToRole="BonFiscal" />
+        </EntityType>
+        <EntityType Name="Oferta">
+          <Key>
+            <PropertyRef Name="IdOferta" />
+          </Key>
+          <Property Name="MotivOferta" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdProdus" Type="Int32" Nullable="false" />
+          <Property Name="ProcentReducere" Type="Int32" Nullable="false" />
+          <Property Name="DataInceputOferta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataFinalOferta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdOferta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Produs" Relationship="Self.FK_Oferta_Produs" FromRole="Oferta" ToRole="Produs" />
+        </EntityType>
+        <EntityType Name="Producator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NumeProducator" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TaraDeOrigine" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Produs" Relationship="Self.FK_Produs_Producator" FromRole="Producator" ToRole="Produs" />
+        </EntityType>
+        <EntityType Name="Produs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="30" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Categorie" Type="String" MaxLength="30" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Producator_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Oferta" Relationship="Self.FK_Oferta_Produs" FromRole="Produs" ToRole="Oferta" />
+          <NavigationProperty Name="Producator" Relationship="Self.FK_Produs_Producator" FromRole="Produs" ToRole="Producator" />
+          <NavigationProperty Name="StocProdus" Relationship="Self.FK_StocProdus_Produs" FromRole="Produs" ToRole="StocProdus" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StocProdus">
+          <Key>
+            <PropertyRef Name="IdStocProdus" />
+          </Key>
+          <Property Name="IdStocProdus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProdus" Type="Int32" Nullable="false" />
+          <Property Name="Cantitate" Type="Int32" Nullable="false" />
+          <Property Name="DataAprovizionare" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataExpirare" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UnitateMasura" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PretAchizitie" Type="Double" Nullable="false" />
+          <Property Name="PretVanzare" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Produs" Relationship="Self.FK_StocProdus_Produs" FromRole="StocProdus" ToRole="Produs" />
+        </EntityType>
+        <EntityType Name="Utilizator">
+          <Key>
+            <PropertyRef Name="IdUtilizator" />
+          </Key>
+          <Property Name="Nume" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Parola" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tip" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdUtilizator" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="BonFiscal" Relationship="Self.FK_BonFiscal_Utilizator" FromRole="Utilizator" ToRole="BonFiscal" />
+        </EntityType>
+        <Association Name="FK_BonFiscal_Utilizator">
+          <End Role="Utilizator" Type="Self.Utilizator" Multiplicity="1" />
+          <End Role="BonFiscal" Type="Self.BonFiscal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizator">
+              <PropertyRef Name="IdUtilizator" />
+            </Principal>
+            <Dependent Role="BonFiscal">
+              <PropertyRef Name="IdCasier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BonProdus_BonFiscal">
+          <End Role="BonFiscal" Type="Self.BonFiscal" Multiplicity="1" />
+          <End Role="BonProdus" Type="Self.BonProdus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BonFiscal">
+              <PropertyRef Name="IdBon" />
+            </Principal>
+            <Dependent Role="BonProdus">
+              <PropertyRef Name="IdBon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Oferta_Produs">
+          <End Role="Produs" Type="Self.Produs" Multiplicity="1" />
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Oferta">
+              <PropertyRef Name="IdProdus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produs_Producator">
+          <End Role="Producator" Type="Self.Producator" Multiplicity="1" />
+          <End Role="Produs" Type="Self.Produs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producator">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produs">
+              <PropertyRef Name="Producator_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StocProdus_Produs">
+          <End Role="Produs" Type="Self.Produs" Multiplicity="1" />
+          <End Role="StocProdus" Type="Self.StocProdus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StocProdus">
+              <PropertyRef Name="IdProdus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopMngEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BonFiscal" EntityType="Self.BonFiscal" />
+          <EntitySet Name="BonProdus" EntityType="Self.BonProdus" />
+          <EntitySet Name="Oferta" EntityType="Self.Oferta" />
+          <EntitySet Name="Producator" EntityType="Self.Producator" />
+          <EntitySet Name="Produs" EntityType="Self.Produs" />
+          <EntitySet Name="StocProdus" EntityType="Self.StocProdus" />
+          <EntitySet Name="Utilizator" EntityType="Self.Utilizator" />
+          <AssociationSet Name="FK_BonFiscal_Utilizator" Association="Self.FK_BonFiscal_Utilizator">
+            <End Role="Utilizator" EntitySet="Utilizator" />
+            <End Role="BonFiscal" EntitySet="BonFiscal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BonProdus_BonFiscal" Association="Self.FK_BonProdus_BonFiscal">
+            <End Role="BonFiscal" EntitySet="BonFiscal" />
+            <End Role="BonProdus" EntitySet="BonProdus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Oferta_Produs" Association="Self.FK_Oferta_Produs">
+            <End Role="Produs" EntitySet="Produs" />
+            <End Role="Oferta" EntitySet="Oferta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produs_Producator" Association="Self.FK_Produs_Producator">
+            <End Role="Producator" EntitySet="Producator" />
+            <End Role="Produs" EntitySet="Produs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StocProdus_Produs" Association="Self.FK_StocProdus_Produs">
+            <End Role="Produs" EntitySet="Produs" />
+            <End Role="StocProdus" EntitySet="StocProdus" />
+          </AssociationSet>
+          <FunctionImport Name="AdaugareBonFiscal">
+            <Parameter Name="IdCasier" Mode="In" Type="Int32" />
+            <Parameter Name="SumaIncasata" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="AdaugareProducator">
+            <Parameter Name="NumeProducator" Mode="In" Type="String" />
+            <Parameter Name="TaraDeOrigine" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AdaugareProdus">
+            <Parameter Name="Nume" Mode="In" Type="String" />
+            <Parameter Name="Categorie" Mode="In" Type="String" />
+            <Parameter Name="Producator_Id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AdaugareUtilizator">
+            <Parameter Name="Nume" Mode="In" Type="String" />
+            <Parameter Name="Parola" Mode="In" Type="String" />
+            <Parameter Name="Tip" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AdaugareBonProdus">
+            <Parameter Name="IdBon" Mode="In" Type="Int32" />
+            <Parameter Name="IdProdus" Mode="In" Type="Int32" />
+            <Parameter Name="Cantitate" Mode="In" Type="Int32" />
+            <Parameter Name="Subtotal" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="AdaugareOferta">
+            <Parameter Name="MotivOferta" Mode="In" Type="String" />
+            <Parameter Name="IdProdus" Mode="In" Type="Int32" />
+            <Parameter Name="ProcentReducere" Mode="In" Type="Int32" />
+            <Parameter Name="DataInceputOferta" Mode="In" Type="DateTime" />
+            <Parameter Name="DataFinalOferta" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopMngModelStoreContainer" CdmEntityContainer="ShopMngEntities2">
+          <EntitySetMapping Name="BonFiscal">
+            <EntityTypeMapping TypeName="ShopMngModel.BonFiscal">
+              <MappingFragment StoreEntitySet="BonFiscal">
+                <ScalarProperty Name="DataEliberare" ColumnName="DataEliberare" />
+                <ScalarProperty Name="IdCasier" ColumnName="IdCasier" />
+                <ScalarProperty Name="SumaIncasata" ColumnName="SumaIncasata" />
+                <ScalarProperty Name="IdBon" ColumnName="IdBon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BonProdus">
+            <EntityTypeMapping TypeName="ShopMngModel.BonProdus">
+              <MappingFragment StoreEntitySet="BonProdus">
+                <ScalarProperty Name="IdBon" ColumnName="IdBon" />
+                <ScalarProperty Name="IdProdus" ColumnName="IdProdus" />
+                <ScalarProperty Name="Cantitate" ColumnName="Cantitate" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oferta">
+            <EntityTypeMapping TypeName="ShopMngModel.Oferta">
+              <MappingFragment StoreEntitySet="Oferta">
+                <ScalarProperty Name="MotivOferta" ColumnName="MotivOferta" />
+                <ScalarProperty Name="IdProdus" ColumnName="IdProdus" />
+                <ScalarProperty Name="ProcentReducere" ColumnName="ProcentReducere" />
+                <ScalarProperty Name="DataInceputOferta" ColumnName="DataInceputOferta" />
+                <ScalarProperty Name="DataFinalOferta" ColumnName="DataFinalOferta" />
+                <ScalarProperty Name="IdOferta" ColumnName="IdOferta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producator">
+            <EntityTypeMapping TypeName="ShopMngModel.Producator">
+              <MappingFragment StoreEntitySet="Producator">
+                <ScalarProperty Name="NumeProducator" ColumnName="NumeProducator" />
+                <ScalarProperty Name="TaraDeOrigine" ColumnName="TaraDeOrigine" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produs">
+            <EntityTypeMapping TypeName="ShopMngModel.Produs">
+              <MappingFragment StoreEntitySet="Produs">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+                <ScalarProperty Name="Producator_Id" ColumnName="Producator_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StocProdus">
+            <EntityTypeMapping TypeName="ShopMngModel.StocProdus">
+              <MappingFragment StoreEntitySet="StocProdus">
+                <ScalarProperty Name="IdStocProdus" ColumnName="IdStocProdus" />
+                <ScalarProperty Name="IdProdus" ColumnName="IdProdus" />
+                <ScalarProperty Name="Cantitate" ColumnName="Cantitate" />
+                <ScalarProperty Name="DataAprovizionare" ColumnName="DataAprovizionare" />
+                <ScalarProperty Name="DataExpirare" ColumnName="DataExpirare" />
+                <ScalarProperty Name="UnitateMasura" ColumnName="UnitateMasura" />
+                <ScalarProperty Name="PretAchizitie" ColumnName="PretAchizitie" />
+                <ScalarProperty Name="PretVanzare" ColumnName="PretVanzare" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilizator">
+            <EntityTypeMapping TypeName="ShopMngModel.Utilizator">
+              <MappingFragment StoreEntitySet="Utilizator">
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="Tip" ColumnName="Tip" />
+                <ScalarProperty Name="IdUtilizator" ColumnName="IdUtilizator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AdaugareBonFiscal" FunctionName="ShopMngModel.Store.AdaugareBonFiscal" />
+          <FunctionImportMapping FunctionImportName="AdaugareProducator" FunctionName="ShopMngModel.Store.AdaugareProducator" />
+          <FunctionImportMapping FunctionImportName="AdaugareProdus" FunctionName="ShopMngModel.Store.AdaugareProdus" />
+          <FunctionImportMapping FunctionImportName="AdaugareUtilizator" FunctionName="ShopMngModel.Store.AdaugareUtilizator" />
+          <FunctionImportMapping FunctionImportName="AdaugareBonProdus" FunctionName="ShopMngModel.Store.AdaugareBonProdus" />
+          <FunctionImportMapping FunctionImportName="AdaugareOferta" FunctionName="ShopMngModel.Store.AdaugareOferta" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
