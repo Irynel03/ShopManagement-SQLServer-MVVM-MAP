@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ShopManagement.Models.BusinessLogic
 {
@@ -6,6 +8,36 @@ namespace ShopManagement.Models.BusinessLogic
     {
         private ShopMngEntities2 context = new ShopMngEntities2();
         public string ErrorMessage { get; set; }
+
+
+
+
+
+
+
+
+        public List<string> GetProduseDeLaProducatorul(int producatorId)
+        {
+            //int? producatorId = context.Producatori.FirstOrDefault(p => p.Nume == numeProducator)?.Id;
+
+            var result = context.GetProduseDeLaProducator(producatorId);
+
+            // Parsarea rezultatului și obținerea numelor produselor
+            List<string> numeProduse = result.Select(r => r.Nume).ToList();
+
+            return numeProduse;
+
+
+        }
+
+
+
+
+
+
+
+
+
 
         public void AddUtilizator(object obj)
         {

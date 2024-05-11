@@ -210,5 +210,23 @@ namespace ShopManagement.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareStocProdus", idProdusParameter, cantitateParameter, dataAprovizionareParameter, dataExpirareParameter, unitateMasuraParameter, pretAchizitieParameter, pretVanzareParameter);
         }
+    
+        public virtual ObjectResult<GetProduseDeLaProducator_Result> GetProduseDeLaProducator(Nullable<int> producatorId)
+        {
+            var producatorIdParameter = producatorId.HasValue ?
+                new ObjectParameter("ProducatorId", producatorId) :
+                new ObjectParameter("ProducatorId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProduseDeLaProducator_Result>("GetProduseDeLaProducator", producatorIdParameter);
+        }
+    
+        public virtual ObjectResult<CalculeazaSumaTotalaProduseCategoriaSpecifica_Result> CalculeazaSumaTotalaProduseCategoriaSpecifica(string numeCategorie)
+        {
+            var numeCategorieParameter = numeCategorie != null ?
+                new ObjectParameter("NumeCategorie", numeCategorie) :
+                new ObjectParameter("NumeCategorie", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CalculeazaSumaTotalaProduseCategoriaSpecifica_Result>("CalculeazaSumaTotalaProduseCategoriaSpecifica", numeCategorieParameter);
+        }
     }
 }

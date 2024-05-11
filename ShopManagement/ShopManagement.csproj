@@ -93,6 +93,12 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BusinessLogic\GeneralBLL.cs" />
+    <Compile Include="Models\CalculeazaSumaTotalaProduseCategoriaSpecifica_Result.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetProduseDeLaProducator_Result.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Oferta.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>

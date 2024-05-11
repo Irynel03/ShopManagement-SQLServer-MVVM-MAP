@@ -176,6 +176,12 @@
           <Parameter Name="Parola" Type="char" Mode="In" />
           <Parameter Name="Tip" Type="char" Mode="In" />
         </Function>
+        <Function Name="CalculeazaSumaTotalaProduseCategoriaSpecifica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeCategorie" Type="char" Mode="In" />
+        </Function>
+        <Function Name="GetProduseDeLaProducator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProducatorId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ShopMngModelStoreContainer">
           <EntitySet Name="BonFiscal" EntityType="Self.BonFiscal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BonProdus" EntityType="Self.BonProdus" Schema="dbo" store:Type="Tables" />
@@ -427,7 +433,30 @@
             <Parameter Name="PretAchizitie" Mode="In" Type="Double" />
             <Parameter Name="PretVanzare" Mode="In" Type="Double" />
           </FunctionImport>
+          <FunctionImport Name="GetProduseDeLaProducator" ReturnType="Collection(ShopMngModel.GetProduseDeLaProducator_Result)">
+          <Parameter Name="ProducatorId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CalculeazaSumaTotalaProduseCategoriaSpecifica" ReturnType="Collection(ShopMngModel.CalculeazaSumaTotalaProduseCategoriaSpecifica_Result)">
+            <Parameter Name="NumeCategorie" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetProduseDeLaProducator_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nume" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Categorie" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="Producator_Id" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="CalculeazaSumaTotalaProduseCategoriaSpecifica_Result">
+          <Property Type="Int32" Name="IdStocProdus" Nullable="false" />
+          <Property Type="Int32" Name="IdProdus" Nullable="false" />
+          <Property Type="Int32" Name="Cantitate" Nullable="false" />
+          <Property Type="DateTime" Name="DataAprovizionare" Nullable="false" />
+          <Property Type="DateTime" Name="DataExpirare" Nullable="false" />
+          <Property Type="String" Name="UnitateMasura" Nullable="false" MaxLength="15" />
+          <Property Type="Double" Name="PretAchizitie" Nullable="false" />
+          <Property Type="Double" Name="PretVanzare" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -517,6 +546,31 @@
           <FunctionImportMapping FunctionImportName="AdaugareBonProdus" FunctionName="ShopMngModel.Store.AdaugareBonProdus" />
           <FunctionImportMapping FunctionImportName="AdaugareOferta" FunctionName="ShopMngModel.Store.AdaugareOferta" />
           <FunctionImportMapping FunctionImportName="AdaugareStocProdus" FunctionName="ShopMngModel.Store.AdaugareStocProdus" />
+          <FunctionImportMapping FunctionImportName="GetProduseDeLaProducator" FunctionName="ShopMngModel.Store.GetProduseDeLaProducator">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShopMngModel.GetProduseDeLaProducator_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+                <ScalarProperty Name="Producator_Id" ColumnName="Producator_Id" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CalculeazaSumaTotalaProduseCategoriaSpecifica" FunctionName="ShopMngModel.Store.CalculeazaSumaTotalaProduseCategoriaSpecifica">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShopMngModel.CalculeazaSumaTotalaProduseCategoriaSpecifica_Result">
+                <ScalarProperty Name="IdStocProdus" ColumnName="IdStocProdus" />
+                <ScalarProperty Name="IdProdus" ColumnName="IdProdus" />
+                <ScalarProperty Name="Cantitate" ColumnName="Cantitate" />
+                <ScalarProperty Name="DataAprovizionare" ColumnName="DataAprovizionare" />
+                <ScalarProperty Name="DataExpirare" ColumnName="DataExpirare" />
+                <ScalarProperty Name="UnitateMasura" ColumnName="UnitateMasura" />
+                <ScalarProperty Name="PretAchizitie" ColumnName="PretAchizitie" />
+                <ScalarProperty Name="PretVanzare" ColumnName="PretVanzare" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

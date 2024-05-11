@@ -25,17 +25,17 @@
                     Height="70"
                     Margin="25"
                     VerticalAlignment="Bottom"
-                    Command="{Binding LoginAsAdmin}"
+                    Click="btnLoginAsAdmin_Click"
                     FontSize="30">
                     Login Admin
                 </Button>
                 <Button
-                    x:Name="btnLoginAsAdmi2"
+                    x:Name="btnLoginAsCasier"
                     Width="200"
                     Height="70"
                     Margin="25"
                     VerticalAlignment="Bottom"
-                    Command="{Binding LoginAsCasier}"
+                    Click="btnLoginAsCasier_Click"
                     FontSize="30">
                     Login Casier
                 </Button>
@@ -47,6 +47,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
             <StackPanel
                 Grid.Column="0"
                 Margin="0,80,0,0"
@@ -56,7 +59,7 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AdaugaProdus}"
+                    Click="btnAdaugaProdus_Click"
                     FontSize="25">
                     AdaugaProdus
                 </Button>
@@ -65,16 +68,27 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AfisarePreturiProduseCategoria}"
+                    Click="btnAfisarePreturiProduseDupaCategoriaSpecificata_Click"
+                    Command="{Binding AfisareSumaProduseDupaCategorieCommand}"
+                    Content="Cost total la Categoria"
                     FontSize="25">
-                    PreturiLaCategoria
+                    <Button.CommandParameter>
+                        <Binding ElementName="CategoriePreturiCautareTB" Path="Text" />
+                    </Button.CommandParameter>
                 </Button>
+                <TextBox
+                    x:Name="CategoriePreturiCautareTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    Text="categoria..."
+                    TextAlignment="Center" />
                 <Button
                     x:Name="btnAfisareSumeIncasateDeCasier"
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AfisareSumeIncasateCasier}"
+                    Click="btnAfisareSumeIncasateDeCasier_Click"
                     FontSize="25">
                     AfisareSumeIncasate de:
                 </Button>
@@ -83,7 +97,7 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AdaugareUtilizator}"
+                    Click="btnAdaugareUtilizator_Click"
                     FontSize="25">
                     Adauga Utilizator
                 </Button>
@@ -97,7 +111,7 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AdaugaStocProdus}"
+                    Click="btnAdaugaStocProdus_Click"
                     FontSize="25">
                     AdaugaStocProdus
                 </Button>
@@ -106,16 +120,27 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AfisareProduseDeLaUnProducator}"
+                    Click="btnSelectareProdListareProduse_Click"
+                    Command="{Binding AfisareProduseProducatorCommand}"
+                    Content="ProduseProducator"
                     FontSize="25">
-                    ProduseProducator
+                    <Button.CommandParameter>
+                        <Binding ElementName="ProduseAleUnuiProducatorTB" Path="Text" />
+                    </Button.CommandParameter>
                 </Button>
+                <TextBox
+                    x:Name="ProduseAleUnuiProducatorTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    Text="producatorul..."
+                    TextAlignment="Center" />
                 <Button
                     x:Name="btnAfisareCelMaiMareBonZiSelectata"
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AfisareCMMBonDinZiSelectata}"
+                    Click="btnAfisareCelMaiMareBonZiSelectata_Click"
                     FontSize="25">
                     CMM Bon din ziua:
                 </Button>
@@ -124,7 +149,7 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Command="{Binding AdminAdaugaProducator}"
+                    Click="btnAdaugaProducator_Click"
                     FontSize="25">
                     Adauga Producator:
                 </Button>
@@ -245,7 +270,7 @@
 
         </Grid>
 
-        <Grid x:Name="AddProdusGrid" Visibility="Visible">
+        <Grid x:Name="AddProdusGrid" Visibility="Collapsed">
             <Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>

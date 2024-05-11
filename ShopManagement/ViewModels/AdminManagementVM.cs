@@ -1,10 +1,12 @@
 ﻿using ShopManagement.Helpers;
+using ShopManagement.Models;
 using ShopManagement.Models.BusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ShopManagement.ViewModels
@@ -16,14 +18,57 @@ namespace ShopManagement.ViewModels
 
 
 
+        public void AfisareProduseProducator(object obj)
+        {
+            int producatorId = System.Convert.ToInt32(obj.ToString());
+            List<string> listaProduse = bsLogic.GetProduseDeLaProducatorul(producatorId);
+            string listaProduseString = string.Join(Environment.NewLine, listaProduse);
+
+            MessageBox.Show(listaProduseString);
+        }
+
+        private ICommand afisareProduseProducatorCommand;
+        public ICommand AfisareProduseProducatorCommand
+        {
+            get
+            {
+                if (afisareProduseProducatorCommand == null)
+                {
+                    afisareProduseProducatorCommand = new RelayCommand(AfisareProduseProducator);
+                }
+                return afisareProduseProducatorCommand;
+            }
+        }
+
+        public void AfisareSumaProduseDupaCategorie(object obj)
+        {
+            string numeCategorie = obj.ToString();
+
+
+
+
+            float sumaTotala = 0;
+
+            MessageBox.Show(sumaTotala.ToString());
+        }
+        private ICommand afisareSumaProduseDupaCategorieCommand;
+        public ICommand AfisareSumaProduseDupaCategorieCommand
+        {
+            get
+            {
+                if(afisareSumaProduseDupaCategorieCommand == null)
+                {
+                    afisareSumaProduseDupaCategorieCommand = new RelayCommand(AfisareSumaProduseDupaCategorie);
+                }
+                return afisareSumaProduseDupaCategorieCommand;
+            }
+        }
 
 
 
 
 
-
-
-        #region Used ICommands To Add
+        #region AddToDB ICommands
 
         public void AddStocProdus(Object obj)
         {
