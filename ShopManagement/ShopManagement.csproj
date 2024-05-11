@@ -79,7 +79,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\BonFiscalConvert.cs" />
-    <Compile Include="Converters\BonProdus.cs" />
+    <Compile Include="Converters\BonProdusConvert.cs" />
     <Compile Include="Converters\OfertaConvert.cs" />
     <Compile Include="Converters\ProducatorConvert.cs" />
     <Compile Include="Converters\ProdusConvert.cs" />

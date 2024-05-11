@@ -61,7 +61,7 @@ namespace ShopManagement.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareProducator", numeProducatorParameter, taraDeOrigineParameter);
         }
     
-        public virtual int AdaugareProdus(string nume, string categorie, string producator_Id)
+        public virtual int AdaugareProdus(string nume, string categorie, Nullable<int> producator_Id, Nullable<bool> isActive)
         {
             var numeParameter = nume != null ?
                 new ObjectParameter("Nume", nume) :
@@ -71,11 +71,15 @@ namespace ShopManagement.Models
                 new ObjectParameter("Categorie", categorie) :
                 new ObjectParameter("Categorie", typeof(string));
     
-            var producator_IdParameter = producator_Id != null ?
+            var producator_IdParameter = producator_Id.HasValue ?
                 new ObjectParameter("Producator_Id", producator_Id) :
-                new ObjectParameter("Producator_Id", typeof(string));
+                new ObjectParameter("Producator_Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareProdus", numeParameter, categorieParameter, producator_IdParameter);
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareProdus", numeParameter, categorieParameter, producator_IdParameter, isActiveParameter);
         }
     
         public virtual int AdaugareUtilizator(string nume, string parola, string tip)
@@ -139,6 +143,72 @@ namespace ShopManagement.Models
                 new ObjectParameter("DataFinalOferta", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareOferta", motivOfertaParameter, idProdusParameter, procentReducereParameter, dataInceputOfertaParameter, dataFinalOfertaParameter);
+        }
+    
+        public virtual int AdaugrareStocProdus(Nullable<int> idProdus, Nullable<int> cantitate, Nullable<System.DateTime> dataAprovizionare, Nullable<System.DateTime> dataExpirare, string unitateMasura, Nullable<double> pretAchizitie, Nullable<double> pretVanzare)
+        {
+            var idProdusParameter = idProdus.HasValue ?
+                new ObjectParameter("IdProdus", idProdus) :
+                new ObjectParameter("IdProdus", typeof(int));
+    
+            var cantitateParameter = cantitate.HasValue ?
+                new ObjectParameter("Cantitate", cantitate) :
+                new ObjectParameter("Cantitate", typeof(int));
+    
+            var dataAprovizionareParameter = dataAprovizionare.HasValue ?
+                new ObjectParameter("DataAprovizionare", dataAprovizionare) :
+                new ObjectParameter("DataAprovizionare", typeof(System.DateTime));
+    
+            var dataExpirareParameter = dataExpirare.HasValue ?
+                new ObjectParameter("DataExpirare", dataExpirare) :
+                new ObjectParameter("DataExpirare", typeof(System.DateTime));
+    
+            var unitateMasuraParameter = unitateMasura != null ?
+                new ObjectParameter("UnitateMasura", unitateMasura) :
+                new ObjectParameter("UnitateMasura", typeof(string));
+    
+            var pretAchizitieParameter = pretAchizitie.HasValue ?
+                new ObjectParameter("PretAchizitie", pretAchizitie) :
+                new ObjectParameter("PretAchizitie", typeof(double));
+    
+            var pretVanzareParameter = pretVanzare.HasValue ?
+                new ObjectParameter("PretVanzare", pretVanzare) :
+                new ObjectParameter("PretVanzare", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugrareStocProdus", idProdusParameter, cantitateParameter, dataAprovizionareParameter, dataExpirareParameter, unitateMasuraParameter, pretAchizitieParameter, pretVanzareParameter);
+        }
+    
+        public virtual int AdaugareStocProdus(Nullable<int> idProdus, Nullable<int> cantitate, Nullable<System.DateTime> dataAprovizionare, Nullable<System.DateTime> dataExpirare, string unitateMasura, Nullable<double> pretAchizitie, Nullable<double> pretVanzare)
+        {
+            var idProdusParameter = idProdus.HasValue ?
+                new ObjectParameter("IdProdus", idProdus) :
+                new ObjectParameter("IdProdus", typeof(int));
+    
+            var cantitateParameter = cantitate.HasValue ?
+                new ObjectParameter("Cantitate", cantitate) :
+                new ObjectParameter("Cantitate", typeof(int));
+    
+            var dataAprovizionareParameter = dataAprovizionare.HasValue ?
+                new ObjectParameter("DataAprovizionare", dataAprovizionare) :
+                new ObjectParameter("DataAprovizionare", typeof(System.DateTime));
+    
+            var dataExpirareParameter = dataExpirare.HasValue ?
+                new ObjectParameter("DataExpirare", dataExpirare) :
+                new ObjectParameter("DataExpirare", typeof(System.DateTime));
+    
+            var unitateMasuraParameter = unitateMasura != null ?
+                new ObjectParameter("UnitateMasura", unitateMasura) :
+                new ObjectParameter("UnitateMasura", typeof(string));
+    
+            var pretAchizitieParameter = pretAchizitie.HasValue ?
+                new ObjectParameter("PretAchizitie", pretAchizitie) :
+                new ObjectParameter("PretAchizitie", typeof(double));
+    
+            var pretVanzareParameter = pretVanzare.HasValue ?
+                new ObjectParameter("PretVanzare", pretVanzare) :
+                new ObjectParameter("PretVanzare", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareStocProdus", idProdusParameter, cantitateParameter, dataAprovizionareParameter, dataExpirareParameter, unitateMasuraParameter, pretAchizitieParameter, pretVanzareParameter);
         }
     }
 }

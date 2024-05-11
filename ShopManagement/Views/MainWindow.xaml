@@ -119,6 +119,15 @@
                     FontSize="25">
                     CMM Bon din ziua:
                 </Button>
+                <Button
+                    x:Name="btnAdaugaProducator"
+                    Width="270"
+                    Height="70"
+                    Margin="0,25,0,0"
+                    Command="{Binding AdminAdaugaProducator}"
+                    FontSize="25">
+                    Adauga Producator:
+                </Button>
             </StackPanel>
         </Grid>
 
@@ -236,17 +245,17 @@
 
         </Grid>
 
-        <Grid x:Name="AddProdusGrid" Visibility="Collapsed">
+        <Grid x:Name="AddProdusGrid" Visibility="Visible">
             <Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>
             <Grid.Resources>
-                <localConverter:UtilizatorConvert x:Key="utilizatorConvert" />
+                <localConverter:ProdusConvert x:Key="produsConvert" />
             </Grid.Resources>
             <StackPanel Margin="0,150,0,0">
                 <Label
                     HorizontalAlignment="Center"
-                    Content="Introdu numele"
+                    Content="Introdu numele produsului"
                     FontSize="20" />
                 <TextBox
                     x:Name="ProdusNumeTB"
@@ -255,7 +264,7 @@
                     Margin="0,0,0,30" />
                 <Label
                     HorizontalAlignment="Center"
-                    Content="Introdu parola"
+                    Content="Introdu categoria"
                     FontSize="20" />
                 <TextBox
                     x:Name="ProdusCategorieTB"
@@ -264,19 +273,10 @@
                     Margin="0,0,0,30" />
                 <Label
                     HorizontalAlignment="Center"
-                    Content="Introdu Tipul"
+                    Content="Introdu IdProducator"
                     FontSize="20" />
                 <TextBox
                     x:Name="ProdusProducatorIdTB"
-                    Width="300"
-                    Height="80"
-                    Margin="0,0,0,30" />
-                <Label
-                    HorizontalAlignment="Center"
-                    Content="Introdu Tipul"
-                    FontSize="20" />
-                <TextBox
-                    x:Name="ProdusIsActiveTB"
                     Width="300"
                     Height="80"
                     Margin="0,0,0,30" />
@@ -288,15 +288,152 @@
                     Content="Add Produs"
                     FontSize="20">
                     <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource utilizatorConvert}">
-                            <Binding ElementName="UtilizatorNumeTB" Path="Text" />
-                            <Binding ElementName="UtilizatorParolaTB" Path="Text" />
-                            <Binding ElementName="UtilizatorTipTB" Path="Text" />
+                        <MultiBinding Converter="{StaticResource produsConvert}">
+                            <Binding ElementName="ProdusNumeTB" Path="Text" />
+                            <Binding ElementName="ProdusCategorieTB" Path="Text" />
+                            <Binding ElementName="ProdusProducatorIdTB" Path="Text" />
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
             </StackPanel>
         </Grid>
+        <Grid x:Name="AddProducatorGrid" Visibility="Collapsed">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+            <Grid.Resources>
+                <localConverter:ProducatorConvert x:Key="producatorConvert" />
+            </Grid.Resources>
+            <StackPanel Margin="0,150,0,0">
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu numele producatorului"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="ProducatorNumeTB"
+                    Width="300"
+                    Height="80"
+                    Margin="0,0,0,30" />
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu tara de origine"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="ProducatorTaraOrigineTB"
+                    Width="300"
+                    Height="80"
+                    Margin="0,0,0,30" />
+                <Button
+                    x:Name="btnAddProducator"
+                    Width="200"
+                    Height="60"
+                    Command="{Binding AddProducatorCommand}"
+                    Content="Add Producator"
+                    FontSize="20">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource producatorConvert}">
+                            <Binding ElementName="ProducatorNumeTB" Path="Text" />
+                            <Binding ElementName="ProducatorTaraOrigineTB" Path="Text" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="AddStocProdusGrid" Visibility="Collapsed">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+            <Grid.Resources>
+                <localConverter:StocProdusConvert x:Key="stocProdusConvert" />
+            </Grid.Resources>
+            <StackPanel Margin="0,0,0,0">
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu Id-ul produsului"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="StocProdusIdProdusTB"
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10" />
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu cantitatea"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="StocProdusCantitateTB"
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10" />
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu data Aprovizionare"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="StocProdusDataAprovizionareTB"
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10" />
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu DataExpirare"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="StocProdusDataExpirareTB"
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10" />
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu unitatea de masura"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="StocProdusUnitateMasuraTB"
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10" />
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu pret Achizitie"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="StocProdusPretAchizitieTB"
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10" />
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Introdu Pret Vanzare"
+                    FontSize="20" />
+                <TextBox
+                    x:Name="StocProdusPretVanzareTB"
+                    Width="300"
+                    Height="80"
+                    Margin="0,0,0,10" />
+                <Button
+                    x:Name="btnAddStocProdus"
+                    Width="200"
+                    Height="60"
+                    Command="{Binding AddStocProdusCommand}"
+                    Content="Add Producator"
+                    FontSize="20">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource stocProdusConvert}">
+                            <Binding ElementName="StocProdusIdProdusTB" Path="Text" />
+                            <Binding ElementName="StocProdusCantitateTB" Path="Text" />
+                            <Binding ElementName="StocProdusDataAprovizionareTB" Path="Text" />
+                            <Binding ElementName="StocProdusDataExpirareTB" Path="Text" />
+                            <Binding ElementName="StocProdusUnitateMasuraTB" Path="Text" />
+                            <Binding ElementName="StocProdusPretAchizitieTB" Path="Text" />
+                            <Binding ElementName="StocProdusPretVanzareTB" Path="Text" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+
+
 
     </Grid>
 </Window>

@@ -15,6 +15,36 @@ namespace ShopManagement.ViewModels
 
 
 
+
+
+
+
+
+
+
+
+        #region Used ICommands To Add
+
+        public void AddStocProdus(Object obj)
+        {
+            if (obj != null)
+            {
+                bsLogic.AddStocProdus(obj);
+            }
+        }
+
+        private ICommand addStocProdusCommand;
+        public ICommand AddStocProdusCommand
+        {
+            get
+            {
+                if (addStocProdusCommand == null)
+                {
+                    addStocProdusCommand = new RelayCommand(AddStocProdus);
+                }
+                return addStocProdusCommand;
+            }
+        }
         public void AddOferta(Object obj)
         {
             if (obj != null)
@@ -140,10 +170,6 @@ namespace ShopManagement.ViewModels
             }
         }
 
-
-
-
-
-
+        #endregion
     }
 }

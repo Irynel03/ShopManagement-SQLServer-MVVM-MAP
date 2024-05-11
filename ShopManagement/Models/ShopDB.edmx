@@ -159,7 +159,17 @@
         <Function Name="AdaugareProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nume" Type="char" Mode="In" />
           <Parameter Name="Categorie" Type="char" Mode="In" />
-          <Parameter Name="Producator_Id" Type="char" Mode="In" />
+          <Parameter Name="Producator_Id" Type="int" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="AdaugareStocProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProdus" Type="int" Mode="In" />
+          <Parameter Name="Cantitate" Type="int" Mode="In" />
+          <Parameter Name="DataAprovizionare" Type="date" Mode="In" />
+          <Parameter Name="DataExpirare" Type="date" Mode="In" />
+          <Parameter Name="UnitateMasura" Type="char" Mode="In" />
+          <Parameter Name="PretAchizitie" Type="float" Mode="In" />
+          <Parameter Name="PretVanzare" Type="float" Mode="In" />
         </Function>
         <Function Name="AdaugareUtilizator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nume" Type="char" Mode="In" />
@@ -378,7 +388,8 @@
           <FunctionImport Name="AdaugareProdus">
             <Parameter Name="Nume" Mode="In" Type="String" />
             <Parameter Name="Categorie" Mode="In" Type="String" />
-            <Parameter Name="Producator_Id" Mode="In" Type="String" />
+            <Parameter Name="Producator_Id" Mode="In" Type="Int32" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="AdaugareUtilizator">
             <Parameter Name="Nume" Mode="In" Type="String" />
@@ -397,6 +408,24 @@
             <Parameter Name="ProcentReducere" Mode="In" Type="Int32" />
             <Parameter Name="DataInceputOferta" Mode="In" Type="DateTime" />
             <Parameter Name="DataFinalOferta" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="AdaugrareStocProdus">
+            <Parameter Name="IdProdus" Mode="In" Type="Int32" />
+            <Parameter Name="Cantitate" Mode="In" Type="Int32" />
+            <Parameter Name="DataAprovizionare" Mode="In" Type="DateTime" />
+            <Parameter Name="DataExpirare" Mode="In" Type="DateTime" />
+            <Parameter Name="UnitateMasura" Mode="In" Type="String" />
+            <Parameter Name="PretAchizitie" Mode="In" Type="Double" />
+            <Parameter Name="PretVanzare" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="AdaugareStocProdus">
+            <Parameter Name="IdProdus" Mode="In" Type="Int32" />
+            <Parameter Name="Cantitate" Mode="In" Type="Int32" />
+            <Parameter Name="DataAprovizionare" Mode="In" Type="DateTime" />
+            <Parameter Name="DataExpirare" Mode="In" Type="DateTime" />
+            <Parameter Name="UnitateMasura" Mode="In" Type="String" />
+            <Parameter Name="PretAchizitie" Mode="In" Type="Double" />
+            <Parameter Name="PretVanzare" Mode="In" Type="Double" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -487,6 +516,7 @@
           <FunctionImportMapping FunctionImportName="AdaugareUtilizator" FunctionName="ShopMngModel.Store.AdaugareUtilizator" />
           <FunctionImportMapping FunctionImportName="AdaugareBonProdus" FunctionName="ShopMngModel.Store.AdaugareBonProdus" />
           <FunctionImportMapping FunctionImportName="AdaugareOferta" FunctionName="ShopMngModel.Store.AdaugareOferta" />
+          <FunctionImportMapping FunctionImportName="AdaugareStocProdus" FunctionName="ShopMngModel.Store.AdaugareStocProdus" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
