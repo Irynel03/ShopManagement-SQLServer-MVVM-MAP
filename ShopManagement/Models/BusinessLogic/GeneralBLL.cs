@@ -30,6 +30,27 @@ namespace ShopManagement.Models.BusinessLogic
 
         }
 
+        public double GetSumaProduseStocCurentCategoria(string categorie)
+        {
+            //int? producatorId = context.Producatori.FirstOrDefault(p => p.Nume == numeProducator)?.Id;
+
+            var result = context.CalculeazaSumaTotalaProduseCategoriaSpecifica(categorie);
+
+            double sumaTotala = 0;
+
+            // Iterați prin fiecare element din result și adunați cantitatea * prețul de vânzare la suma totală
+            foreach (var item in result)
+            {
+                sumaTotala += item.Cantitate * item.PretVanzare;
+                
+            }
+
+            // Returnați suma totală calculată
+            return sumaTotala;
+
+
+        }
+
 
 
 

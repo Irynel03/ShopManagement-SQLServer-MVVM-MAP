@@ -44,10 +44,7 @@ namespace ShopManagement.ViewModels
         {
             string numeCategorie = obj.ToString();
 
-
-
-
-            float sumaTotala = 0;
+            double sumaTotala = bsLogic.GetSumaProduseStocCurentCategoria(numeCategorie);
 
             MessageBox.Show(sumaTotala.ToString());
         }

@@ -135,6 +135,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ActualizeazaStatusProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="AdaugareBonFiscal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCasier" Type="int" Mode="In" />
           <Parameter Name="SumaIncasata" Type="float" Mode="In" />
@@ -181,6 +182,11 @@
         </Function>
         <Function Name="GetProduseDeLaProducator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProducatorId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ModificaStocProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdStocProdus" Type="int" Mode="In" />
+          <Parameter Name="NouaCantitate" Type="int" Mode="In" />
+          <Parameter Name="NoulPretVanzare" Type="float" Mode="In" />
         </Function>
         <EntityContainer Name="ShopMngModelStoreContainer">
           <EntitySet Name="BonFiscal" EntityType="Self.BonFiscal" Schema="dbo" store:Type="Tables" />
@@ -437,7 +443,13 @@
           <Parameter Name="ProducatorId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CalculeazaSumaTotalaProduseCategoriaSpecifica" ReturnType="Collection(ShopMngModel.CalculeazaSumaTotalaProduseCategoriaSpecifica_Result)">
-            <Parameter Name="NumeCategorie" Mode="In" Type="String" />
+          <Parameter Name="NumeCategorie" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ActualizeazaStatusProdus" />
+          <FunctionImport Name="ModificaStocProdus">
+            <Parameter Name="IdStocProdus" Mode="In" Type="Int32" />
+            <Parameter Name="NouaCantitate" Mode="In" Type="Int32" />
+            <Parameter Name="NoulPretVanzare" Mode="In" Type="Double" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetProduseDeLaProducator_Result">
@@ -571,6 +583,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ActualizeazaStatusProdus" FunctionName="ShopMngModel.Store.ActualizeazaStatusProdus" />
+          <FunctionImportMapping FunctionImportName="ModificaStocProdus" FunctionName="ShopMngModel.Store.ModificaStocProdus" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
