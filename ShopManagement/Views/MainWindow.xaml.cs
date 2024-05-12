@@ -1,4 +1,5 @@
-﻿using ShopManagement.ViewModels;
+﻿using ShopManagement.Models.BusinessLogic;
+using ShopManagement.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,8 +15,14 @@ namespace ShopManagement
             InitializeComponent();
         }
 
-        private void btnLoginAsAdmin_Click(object sender, RoutedEventArgs e)
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            string numeUtilizator = NumeLoginTB.Text;
+            string parolaUtilizator = ParolaLoginPB.Password;
+
+            GeneralBLL gbl = new GeneralBLL();
+
+
             var adminManagementVM = new AdminManagementVM();
 
             AdminMenuGrid.DataContext = adminManagementVM;

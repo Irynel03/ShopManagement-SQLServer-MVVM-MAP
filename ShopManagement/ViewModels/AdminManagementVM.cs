@@ -18,6 +18,56 @@ namespace ShopManagement.ViewModels
 
 
 
+
+
+
+        public void AfisareSumeIncasatePeZileTimpDeOLuna(object obj)
+        {
+            // Verifică dacă obiectul primit ca parametru este un tuple cu doi parametri de tip int (idCasier și luna)
+            if (obj is Tuple<string, string> tupleParams)
+            {
+                // Extrage parametrii din tuple
+                int idCasier = System.Convert.ToInt32(tupleParams.Item1);
+                int luna = System.Convert.ToInt32(tupleParams.Item2);
+
+                // Obține lista de sume încasate pe zile pentru casierul și luna specificate
+                List<string> sumePeZile = bsLogic.GetSumePeZileTimpDeOLuna(idCasier, luna);
+
+                // Verifică dacă lista de sume este goală
+                if (sumePeZile.Count > 0)
+                {
+                    // Construiește un șir de caractere care conține toate sumele încasate pe zile, separate prin linii noi
+                    string sumeText = string.Join(Environment.NewLine, sumePeZile);
+
+                    // Afisează sumele încasate pe zile într-un MessageBox
+                    MessageBox.Show(sumeText, "Sume încasate pe zile timp de o lună", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    // Afisează un mesaj de informare dacă nu există sume încasate pentru luna specificată
+                    MessageBox.Show("Nu există sume încasate pentru luna specificată.", "Informare", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                // Afisează un mesaj de eroare dacă obiectul primit nu este un tuple cu doi parametri de tip int
+                MessageBox.Show("Parametrii invalizi pentru afișarea sumelor încasate pe zile.", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private ICommand afisareSumeIncasatePeZileTimpDeOLunaCommand;
+        public ICommand AfisareSumeIncasatePeZileTimpDeOLunaCommand
+        {
+            get
+            {
+                if (afisareSumeIncasatePeZileTimpDeOLunaCommand == null)
+                {
+                    afisareSumeIncasatePeZileTimpDeOLunaCommand = new RelayCommand(AfisareSumeIncasatePeZileTimpDeOLuna);
+                }
+                return afisareSumeIncasatePeZileTimpDeOLunaCommand;
+            }
+        }
+
         public void AfisareProduseProducator(object obj)
         {
             int producatorId = System.Convert.ToInt32(obj.ToString());
@@ -197,6 +247,7 @@ namespace ShopManagement.ViewModels
             {
                 bsLogic.AddUtilizator(obj);
             }
+            MessageBox.Show("Adaugat");
         }
 
         private ICommand addUtilizatorCommand;

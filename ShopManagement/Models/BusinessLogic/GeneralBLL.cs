@@ -15,6 +15,26 @@ namespace ShopManagement.Models.BusinessLogic
 
 
 
+        public List<string> GetSumePeZileTimpDeOLuna(int idCasier, int luna)
+        {
+            var result = context.GetIncasariCasierPeZiLuna(idCasier, luna, 2024);
+
+            List<string> sumePeZile = new List<string>();
+
+            // Iterează prin fiecare element din result și adaugă sumele încasate pentru fiecare zi în listă
+            foreach (var item in result)
+            {
+                // Formatul sumei încasate poate fi modificat în funcție de necesități
+                string sumaFormatted = $"{item.SumaIncasata:N2} RON"; // Afișează suma cu două zecimale și adaugă "RON" la final
+                sumePeZile.Add($"{item.Ziua}: {sumaFormatted}"); // Adaugă ziua și suma încasată formatată în listă
+            }
+
+            // Returnează lista de sume încasate pe zile
+            return sumePeZile;
+        }
+
+
+
 
         public List<string> GetProduseDeLaProducatorul(int producatorId)
         {
@@ -64,7 +84,7 @@ namespace ShopManagement.Models.BusinessLogic
         {
             Tuple<string, string, string> utilizator = obj as Tuple<string, string, string>;
 
-            if (utilizator.Item1 != "" && utilizator.Item2 != "" && (utilizator.Item3 == "admin" || utilizator.Item3 == "casier"))
+            if (utilizator.Item1 != "" && utilizator.Item2 != "" && (utilizator.Item3 == "Admin" || utilizator.Item3 == "Casier"))
             {
                 context.AdaugareUtilizator(utilizator.Item1, utilizator.Item2, utilizator.Item3);
             }

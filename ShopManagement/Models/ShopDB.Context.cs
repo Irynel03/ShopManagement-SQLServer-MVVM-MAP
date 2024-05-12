@@ -250,5 +250,27 @@ namespace ShopManagement.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ModificaStocProdus", idStocProdusParameter, nouaCantitateParameter, noulPretVanzareParameter);
         }
+    
+        public virtual ObjectResult<GetIncasariCasierPeZiLuna_Result> GetIncasariCasierPeZiLuna(Nullable<int> idCasier, Nullable<int> luna, Nullable<int> an)
+        {
+            var idCasierParameter = idCasier.HasValue ?
+                new ObjectParameter("IdCasier", idCasier) :
+                new ObjectParameter("IdCasier", typeof(int));
+    
+            var lunaParameter = luna.HasValue ?
+                new ObjectParameter("Luna", luna) :
+                new ObjectParameter("Luna", typeof(int));
+    
+            var anParameter = an.HasValue ?
+                new ObjectParameter("An", an) :
+                new ObjectParameter("An", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetIncasariCasierPeZiLuna_Result>("GetIncasariCasierPeZiLuna", idCasierParameter, lunaParameter, anParameter);
+        }
+    
+        public virtual ObjectResult<SelectUtilizatori_Result> SelectUtilizatori()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectUtilizatori_Result>("SelectUtilizatori");
+        }
     }
 }

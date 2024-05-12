@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Converters\BonFiscalConvert.cs" />
     <Compile Include="Converters\BonProdusConvert.cs" />
+    <Compile Include="Converters\Int_DateConvert.cs" />
     <Compile Include="Converters\OfertaConvert.cs" />
     <Compile Include="Converters\ProducatorConvert.cs" />
     <Compile Include="Converters\ProdusConvert.cs" />
@@ -96,6 +97,9 @@
     <Compile Include="Models\CalculeazaSumaTotalaProduseCategoriaSpecifica_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetIncasariCasierPeZiLuna_Result.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetProduseDeLaProducator_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
@@ -106,6 +110,9 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Produs.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SelectUtilizatori_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShopDB.Context.cs">
@@ -130,6 +137,7 @@
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AdminManagementVM.cs" />
+    <Compile Include="ViewModels\CasierManagementVM.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

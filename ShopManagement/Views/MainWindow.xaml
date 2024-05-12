@@ -13,7 +13,7 @@
     Height="800"
     mc:Ignorable="d">
     <Grid>
-        <Grid x:Name="MainMenuGrid" Visibility="Collapsed">
+        <Grid x:Name="MainMenuGrid" Visibility="Visible">
             <Grid.Background>
                 <ImageBrush ImageSource="\Images\backgroundMainMenu.png" Stretch="UniformToFill" />
             </Grid.Background>
@@ -25,11 +25,11 @@
                     Height="70"
                     Margin="25"
                     VerticalAlignment="Bottom"
-                    Click="btnLoginAsAdmin_Click"
+                    Click="btnLogin_Click"
                     FontSize="30">
-                    Login Admin
+                    Login
                 </Button>
-                <Button
+                <!--<Button
                     x:Name="btnLoginAsCasier"
                     Width="200"
                     Height="70"
@@ -38,11 +38,30 @@
                     Click="btnLoginAsCasier_Click"
                     FontSize="30">
                     Login Casier
-                </Button>
+                </Button>-->
+                <TextBlock TextAlignment="Center">
+                    Nume
+                </TextBlock>
+                <TextBox
+                    x:Name="NumeLoginTB"
+                    Width="200"
+                    Height="30"
+                    Margin="0,0,0,20"
+                    FontSize="20"
+                    TextAlignment="Center" />
+                <TextBlock TextAlignment="Center">
+                    Parola
+                </TextBlock>
+                <PasswordBox
+                    x:Name="ParolaLoginPB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20" />
+
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="AdminMenuGrid" Visibility="Visible">
+        <Grid x:Name="AdminMenuGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -89,9 +108,33 @@
                     Height="70"
                     Margin="0,25,0,0"
                     Click="btnAfisareSumeIncasateDeCasier_Click"
+                    Command="{Binding AfisareSumeIncasatePeZileTimpDeOLunaCommand}"
+                    Content="AfisareSumeIncasate de:"
                     FontSize="25">
-                    AfisareSumeIncasate de:
+                    <Button.Resources>
+                        <localConverter:Int_DateConvert x:Key="int_DateConvert" />
+                    </Button.Resources>
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource int_DateConvert}">
+                            <Binding ElementName="IdCasierToSearchAfisareSumeTB" Path="Text" />
+                            <Binding ElementName="LunaSelectAfisareSumeTB" Path="Text" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
                 </Button>
+                <TextBox
+                    x:Name="IdCasierToSearchAfisareSumeTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    Text="id casier..."
+                    TextAlignment="Center" />
+                <TextBox
+                    x:Name="LunaSelectAfisareSumeTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    Text="luna..."
+                    TextAlignment="Center" />
                 <Button
                     x:Name="btnAdaugareUtilizator"
                     Width="270"
