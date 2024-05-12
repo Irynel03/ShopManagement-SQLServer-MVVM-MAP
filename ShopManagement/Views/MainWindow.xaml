@@ -11,9 +11,10 @@
     Title="MainWindow"
     Width="800"
     Height="800"
+    ResizeMode="NoResize"
     mc:Ignorable="d">
     <Grid>
-        <Grid x:Name="MainMenuGrid" Visibility="Visible">
+        <Grid x:Name="MainMenuGrid" Visibility="Collapsed">
             <Grid.Background>
                 <ImageBrush ImageSource="\Images\backgroundMainMenu.png" Stretch="UniformToFill" />
             </Grid.Background>
@@ -29,16 +30,6 @@
                     FontSize="30">
                     Login
                 </Button>
-                <!--<Button
-                    x:Name="btnLoginAsCasier"
-                    Width="200"
-                    Height="70"
-                    Margin="25"
-                    VerticalAlignment="Bottom"
-                    Click="btnLoginAsCasier_Click"
-                    FontSize="30">
-                    Login Casier
-                </Button>-->
                 <TextBlock TextAlignment="Center">
                     Nume
                 </TextBlock>
@@ -199,7 +190,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="CasierMenuGrid" Visibility="Collapsed">
+        <Grid x:Name="CasierMenuGrid" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*" />
                 <ColumnDefinition Width="*" />
@@ -213,17 +204,23 @@
                     Width="300"
                     Height="60"
                     FontSize="25" />
+                <TextBlock
+                    Margin="20,20,0,0"
+                    FontSize="20"
+                    Text="Produsele scanate:" />
                 <ScrollViewer
-                    Margin="0,100,0,0"
+                    Grid.ColumnSpan="2"
+                    Margin="0,10,0,0"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <ListBox
                         x:Name="listBoxProduseScanate"
-                        Width="300"
-                        Height="400"
+                        Width="350"
+                        Height="450"
                         HorizontalContentAlignment="Center"
                         Background="Transparent"
-                        ItemsSource="{Binding ProduseScanate}">
+                        ItemsSource="{Binding ProduseScanate}"
+                        SelectionChanged="listBoxProduseScanate_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -239,22 +236,119 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                </ScrollViewer>
 
+                </ScrollViewer>
+                <TextBlock
+                    Margin="180,20,0,0"
+                    FontSize="20"
+                    Text="Total de plata:" />
             </StackPanel>
+            
+            <TextBlock
+                Width="150"
+                Height="30"
+                Margin="308,675,22,79"
+                FontSize="20"
+                Text="{Binding SumaTotalaProduseScanateCommand}" />
             <Button
                 x:Name="btnAdaugaProdusBon"
-                Width="50"
-                Height="45"
-                Margin="400,120,0,600"
-                Command="{Binding CautaSiAdaugaProdusPeBon}">
+                Width="60"
+                Height="40"
+                FontSize="15"
+                Margin="410,115,10,609"
+                Click="btnAdaugaProdusBon_Click"
+                Command="{Binding CautaSiAdaugaProdusPeBonCommand}">
                 Adauga
             </Button>
 
-            <StackPanel
+            <TextBlock
                 Grid.Column="1"
-                Margin="0,80,0,0"
+                Margin="25,130,0,0"
+                FontSize="15"
+                Text="Filtreaza dupa categorie" />
+            <TextBox
+                x:Name="FiltreazaProduseDupaCategorieTB"
+                Grid.Column="1"
+                Width="220"
+                Height="30"
+                Margin="0,150,50,0"
                 VerticalAlignment="Top" />
+            <Button
+                x:Name="btnFiltreazaDupaCategorie"
+                Grid.Column="1"
+                Width="70"
+                Height="30"
+                Margin="235,100,0,554"
+                Command="{Binding FiltreazaDupaCategorieCommand}"
+                FontSize="15">
+                apasa-ma
+            </Button>
+            <TextBlock
+                Grid.Column="1"
+                Margin="25,200,0,0"
+                FontSize="15"
+                Text="Filtreaza dupa producator:" />
+            <TextBox
+                x:Name="FiltreazaProduseDupaProducatorTB"
+                Grid.Column="1"
+                Width="220"
+                Height="30"
+                Margin="0,220,50,0"
+                VerticalAlignment="Top" />
+            <Button
+                x:Name="btnFiltreazaDupaProducator"
+                Grid.Column="1"
+                Width="70"
+                Height="30"
+                Margin="235,170,0,484"
+                Command="{Binding FiltreazaDupaProducatorCommand}"
+                FontSize="15">
+                apasa-ma
+            </Button>
+            <TextBlock
+                Grid.Column="1"
+                Margin="25,270,0,0"
+                FontSize="15"
+                Text="Filtreaza produse expira dupa:" />
+            <TextBox
+                x:Name="FiltreazaProduseExpiraDupaDataTB"
+                Grid.Column="1"
+                Width="220"
+                Height="30"
+                Margin="0,290,50,0"
+                VerticalAlignment="Top" />
+            <Button
+                x:Name="btnFiltreazaDupaDataExpirare"
+                Grid.Column="1"
+                Width="70"
+                Height="30"
+                Margin="235,170,0,344"
+                Command="{Binding FiltreazaDupaDataExpirareCommand}"
+                FontSize="15">
+                apasa-ma
+            </Button>
+            <Button
+                x:Name="btnResetareFiltrare"
+                Grid.Column="1"
+                Width="150"
+                Height="40"
+                Margin="0,0,0,50"
+                Command="{Binding ResetareFiltrareProduseCommand}"
+                FontSize="20">
+                Resetare Filtrare
+            </Button>
+
+            <Button
+                x:Name="btnAdaugaBonFiscal"
+                Grid.Column="1"
+                Width="150"
+                Height="60"
+                Margin="100,600,0,0"
+                Command="{Binding FinalizeazaBonFiscalCommand}"
+                FontSize="20">
+                Finalizeaza Bon
+            </Button>
+
 
 
         </Grid>
@@ -469,15 +563,6 @@
                     Width="300"
                     Height="50"
                     Margin="0,0,0,10" />
-                <Label
-                    HorizontalAlignment="Center"
-                    Content="Introdu Pret Vanzare"
-                    FontSize="20" />
-                <TextBox
-                    x:Name="StocProdusPretVanzareTB"
-                    Width="300"
-                    Height="80"
-                    Margin="0,0,0,10" />
                 <Button
                     x:Name="btnAddStocProdus"
                     Width="200"
@@ -493,15 +578,11 @@
                             <Binding ElementName="StocProdusDataExpirareTB" Path="Text" />
                             <Binding ElementName="StocProdusUnitateMasuraTB" Path="Text" />
                             <Binding ElementName="StocProdusPretAchizitieTB" Path="Text" />
-                            <Binding ElementName="StocProdusPretVanzareTB" Path="Text" />
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
             </StackPanel>
         </Grid>
-
-
-
 
     </Grid>
 </Window>

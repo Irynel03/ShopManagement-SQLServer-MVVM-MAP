@@ -15,6 +15,21 @@ namespace ShopManagement.Models.BusinessLogic
 
 
 
+        public List<Tuple<string, string, string, int>> GetUtilizatoriData()
+        {
+            var result = context.SelectUtilizatori();
+
+            List<Tuple<string, string, string, int>> dateUtilizatori = new List<Tuple<string, string, string, int>>();
+
+            foreach(var item in result)
+            {
+                dateUtilizatori.Add(Tuple.Create(item.Nume.Trim(), item.Parola.Trim(), item.Tip.Trim(), item.IdUtilizator));
+            }
+
+            return dateUtilizatori;
+        }
+
+
         public List<string> GetSumePeZileTimpDeOLuna(int idCasier, int luna)
         {
             var result = context.GetIncasariCasierPeZiLuna(idCasier, luna, 2024);
@@ -32,10 +47,6 @@ namespace ShopManagement.Models.BusinessLogic
             // Returnează lista de sume încasate pe zile
             return sumePeZile;
         }
-
-
-
-
         public List<string> GetProduseDeLaProducatorul(int producatorId)
         {
             //int? producatorId = context.Producatori.FirstOrDefault(p => p.Nume == numeProducator)?.Id;
@@ -91,9 +102,15 @@ namespace ShopManagement.Models.BusinessLogic
             else
                 ErrorMessage = "Date introduse gresit la utilizator";
         }
+
+
+        private double CalculeazaPretFinalProdus(double pretInitial)
+        {
+            return (pretInitial + pretInitial * 25 / 100);
+        }
         public void AddStocProdus(object obj)
         {
-            Tuple<int, int, Nullable<DateTime>, Nullable<DateTime>, string, double, double> stocProdus = obj as Tuple<int, int, Nullable<DateTime>, Nullable<DateTime>, string, double, double>;
+            Tuple<int, int, Nullable<DateTime>, Nullable<DateTime>, string, double> stocProdus = obj as Tuple<int, int, Nullable<DateTime>, Nullable<DateTime>, string, double>;
 
             //var tupleData = (Tuple<int, int, DateTime, DateTime, string, double, double>)obj;
 
@@ -101,9 +118,10 @@ namespace ShopManagement.Models.BusinessLogic
             //Tuple<int, int, DateTime, DateTime, string, double, double> stocProdus =
             //    Tuple.Create(tupleData.Item1, tupleData.Item2, tupleData.Item3, tupleData.Item4, tupleData.Item5, tupleData.Item6, tupleData.Item7);
 
+            double pretFinal = CalculeazaPretFinalProdus(stocProdus.Item6);
             if (stocProdus.Item5 != "")
             {
-                context.AdaugareStocProdus(stocProdus.Item1, stocProdus.Item2, stocProdus.Item3, stocProdus.Item4, stocProdus.Item5.ToString(), stocProdus.Item6, stocProdus.Item7);
+                context.AdaugareStocProdus(stocProdus.Item1, stocProdus.Item2, stocProdus.Item3, stocProdus.Item4, stocProdus.Item5.ToString(), stocProdus.Item6, pretFinal);
             }
         }
         public void AddProdus(object obj)

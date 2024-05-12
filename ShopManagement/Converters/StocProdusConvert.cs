@@ -32,7 +32,7 @@ namespace ShopManagement.Converters
             if (values[0] != null && values[1] != null && date != null && date2 != null && values[4] != null && values[5] != null && values[6] != null)
             {
                 // Creează și returnează obiectul Tuple cu valorile convertite
-                return Tuple.Create(System.Convert.ToInt32(values[0].ToString()), System.Convert.ToInt32(values[1].ToString()), date, date2, values[4].ToString(), System.Convert.ToDouble(values[5].ToString()), System.Convert.ToDouble(values[6].ToString()));
+                return Tuple.Create(System.Convert.ToInt32(values[0].ToString()), System.Convert.ToInt32(values[1].ToString()), date, date2, values[4].ToString(), System.Convert.ToDouble(values[5].ToString()));
             }
             else
             {

@@ -1,13 +1,12 @@
 ﻿using ShopManagement.Models.BusinessLogic;
 using ShopManagement.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace ShopManagement
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -22,21 +21,44 @@ namespace ShopManagement
 
             GeneralBLL gbl = new GeneralBLL();
 
+            List<Tuple<string, string, string, int>> utilizatori = gbl.GetUtilizatoriData();
 
-            var adminManagementVM = new AdminManagementVM();
+            bool utilizatorGasit = false;
+            foreach (var utilizator in utilizatori)
+            {
+                if (utilizator.Item1.ToString() == numeUtilizator && utilizator.Item2.ToString() == parolaUtilizator)
+                {
+                    utilizatorGasit = true;
+                    if (utilizator.Item3 == "Casier")
+                    {
+                        MessageBox.Show("de implementat");
 
-            AdminMenuGrid.DataContext = adminManagementVM;
-            AdminMenuGrid.Visibility = Visibility.Visible;
-            MainMenuGrid.Visibility = Visibility.Collapsed;
+
+
+                        var casierManagementVM = new CasierManagementVM();
+
+                        CasierMenuGrid.DataContext = casierManagementVM;
+                        CasierMenuGrid.Visibility = Visibility.Visible;
+                        MainMenuGrid.Visibility = Visibility.Collapsed;
+
+                    }
+                    else
+                    {
+                        var adminManagementVM = new AdminManagementVM();
+
+                        AdminMenuGrid.DataContext = adminManagementVM;
+                        AdminMenuGrid.Visibility = Visibility.Visible;
+                        MainMenuGrid.Visibility = Visibility.Collapsed;
+                    }
+                    break;
+                }
+            }
+            if (!utilizatorGasit)
+            {
+                ParolaLoginPB.Password = "";
+                MessageBox.Show("Datele introduse nu corespund, mai incearca!");
+            }
         }
-
-        private void btnLoginAsCasier_Click(object sender, RoutedEventArgs e)
-        {
-
-
-
-        }
-
         private void btnAdaugaProdus_Click(object sender, RoutedEventArgs e)
         {
             AdminMenuGrid.Visibility = Visibility.Collapsed;
@@ -81,6 +103,16 @@ namespace ShopManagement
 
             AddProducatorGrid.Visibility = Visibility.Visible;
             AdminMenuGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void listBoxProduseScanate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btnAdaugaProdusBon_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

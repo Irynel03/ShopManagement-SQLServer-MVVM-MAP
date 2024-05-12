@@ -272,5 +272,15 @@ namespace ShopManagement.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectUtilizatori_Result>("SelectUtilizatori");
         }
+    
+        public virtual ObjectResult<GetProduse_Result> GetProduse()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProduse_Result>("GetProduse");
+        }
+    
+        public virtual ObjectResult<GetStocProduse_Result> GetStocProduse()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStocProduse_Result>("GetStocProduse");
+        }
     }
 }
