@@ -8,7 +8,7 @@
     xmlns:local="clr-namespace:ShopManagement"
     xmlns:localConverter="clr-namespace:ShopManagement.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
+    Title="ShopManagement"
     Width="800"
     Height="800"
     ResizeMode="NoResize"
@@ -190,60 +190,66 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="CasierMenuGrid" Visibility="Visible">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.5*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackPanel
-                Grid.Column="0"
-                Margin="0,80,0,0"
-                VerticalAlignment="Top">
-                <TextBlock Margin="20,0,0,10" FontSize="20"><Run Text="Introdu Numele sau Codul Produselor" /><Run Language="ro-ro" Text=":" /></TextBlock>
-                <TextBox
-                    Width="300"
-                    Height="60"
-                    FontSize="25" />
-                <TextBlock
-                    Margin="20,20,0,0"
-                    FontSize="20"
-                    Text="Produsele scanate:" />
-                <ScrollViewer
-                    Grid.ColumnSpan="2"
-                    Margin="0,10,0,0"
-                    HorizontalScrollBarVisibility="Disabled"
-                    VerticalScrollBarVisibility="Auto">
-                    <ListBox
-                        x:Name="listBoxProduseScanate"
-                        Width="350"
-                        Height="450"
-                        HorizontalContentAlignment="Center"
-                        Background="Transparent"
-                        ItemsSource="{Binding ProduseScanate}"
-                        SelectionChanged="listBoxProduseScanate_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding NumeProdus}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding NumarProduse}" />
-                                    <TextBlock Grid.Column="2" Text="{Binding SumaTotala}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+        <Grid
+            x:Name="CasierMenuGrid"
+            Width="800"
+            Height="785"
+            Visibility="Visible">
+            <TextBlock
+                Height="30"
+                Margin="51,47,380,707"
+                FontSize="20"><Run Text="Introdu Numele sau Codul Produselor" /><Run Language="ro-ro" Text=":" /></TextBlock>
+            <TextBox
+                Width="300"
+                Height="60"
+                Margin="51,82,449,642"
+                FontSize="25" />
+            <TextBlock
+                Width="200"
+                Height="30"
+                Margin="51,185,549,569"
+                FontSize="20"
+                Text="Produsele scanate:" />
+            <ScrollViewer
+                Width="400"
+                Height="500"
+                Margin="20,207,380,77"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <ListBox
+                    x:Name="listBoxProduseScanate"
+                    Width="350"
+                    Height="450"
+                    HorizontalContentAlignment="Center"
+                    Background="Transparent"
+                    ItemsSource="{Binding ProduseScanate}"
+                    SelectionChanged="listBoxProduseScanate_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding NumeProdus}" />
+                                <TextBlock Grid.Column="1" Text="{Binding NumarProduse}" />
+                                <TextBlock Grid.Column="2" Text="{Binding SumaTotala}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
-                </ScrollViewer>
-                <TextBlock
-                    Margin="180,20,0,0"
-                    FontSize="20"
-                    Text="Total de plata:" />
-            </StackPanel>
-            
+            </ScrollViewer>
+            <TextBlock
+                Width="200"
+                Height="30"
+                Margin="210,705,390,49"
+                FontSize="20"
+                Text="Total de plata:" />
+
+
+
             <TextBlock
                 Width="150"
                 Height="30"
@@ -252,87 +258,83 @@
                 Text="{Binding SumaTotalaProduseScanateCommand}" />
             <Button
                 x:Name="btnAdaugaProdusBon"
-                Width="60"
+                Width="55"
                 Height="40"
-                FontSize="15"
-                Margin="410,115,10,609"
+                Margin="365,92,380,653"
                 Click="btnAdaugaProdusBon_Click"
-                Command="{Binding CautaSiAdaugaProdusPeBonCommand}">
+                Command="{Binding CautaSiAdaugaProdusPeBonCommand}"
+                FontSize="15">
                 Adauga
             </Button>
 
             <TextBlock
-                Grid.Column="1"
-                Margin="25,130,0,0"
+                Width="200"
+                Height="20"
+                Margin="480,216,120,548"
                 FontSize="15"
                 Text="Filtreaza dupa categorie" />
             <TextBox
                 x:Name="FiltreazaProduseDupaCategorieTB"
-                Grid.Column="1"
                 Width="220"
                 Height="30"
-                Margin="0,150,50,0"
+                Margin="480,241,100,0"
                 VerticalAlignment="Top" />
             <Button
                 x:Name="btnFiltreazaDupaCategorie"
-                Grid.Column="1"
                 Width="70"
                 Height="30"
-                Margin="235,100,0,554"
+                Margin="705,241,25,514"
                 Command="{Binding FiltreazaDupaCategorieCommand}"
                 FontSize="15">
                 apasa-ma
             </Button>
             <TextBlock
-                Grid.Column="1"
-                Margin="25,200,0,0"
+                Width="200"
+                Height="20"
+                Margin="480,286,120,478"
                 FontSize="15"
                 Text="Filtreaza dupa producator:" />
             <TextBox
                 x:Name="FiltreazaProduseDupaProducatorTB"
-                Grid.Column="1"
                 Width="220"
                 Height="30"
-                Margin="0,220,50,0"
+                Margin="480,311,100,0"
                 VerticalAlignment="Top" />
             <Button
                 x:Name="btnFiltreazaDupaProducator"
-                Grid.Column="1"
                 Width="70"
                 Height="30"
-                Margin="235,170,0,484"
+                Margin="705,311,25,444"
                 Command="{Binding FiltreazaDupaProducatorCommand}"
                 FontSize="15">
                 apasa-ma
             </Button>
             <TextBlock
-                Grid.Column="1"
-                Margin="25,270,0,0"
+                Width="200"
+                Height="20"
+                Margin="480,356,120,408"
                 FontSize="15"
                 Text="Filtreaza produse expira dupa:" />
             <TextBox
                 x:Name="FiltreazaProduseExpiraDupaDataTB"
-                Grid.Column="1"
                 Width="220"
                 Height="30"
-                Margin="0,290,50,0"
+                Margin="480,381,100,0"
                 VerticalAlignment="Top" />
             <Button
                 x:Name="btnFiltreazaDupaDataExpirare"
-                Grid.Column="1"
                 Width="70"
                 Height="30"
-                Margin="235,170,0,344"
+                Margin="705,381,25,374"
                 Command="{Binding FiltreazaDupaDataExpirareCommand}"
                 FontSize="15">
                 apasa-ma
             </Button>
             <Button
                 x:Name="btnResetareFiltrare"
-                Grid.Column="1"
                 Width="150"
                 Height="40"
-                Margin="0,0,0,50"
+                Margin="543,449,107,295"
                 Command="{Binding ResetareFiltrareProduseCommand}"
                 FontSize="20">
                 Resetare Filtrare
@@ -340,10 +342,9 @@
 
             <Button
                 x:Name="btnAdaugaBonFiscal"
-                Grid.Column="1"
                 Width="150"
                 Height="60"
-                Margin="100,600,0,0"
+                Margin="618,690,32,34"
                 Command="{Binding FinalizeazaBonFiscalCommand}"
                 FontSize="20">
                 Finalizeaza Bon
