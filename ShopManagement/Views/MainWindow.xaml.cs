@@ -35,7 +35,7 @@ namespace ShopManagement
 
 
 
-                        var casierManagementVM = new CasierManagementVM();
+                        var casierManagementVM = new CasierManagementVM(Convert.ToInt32(utilizator.Item1));
 
                         CasierMenuGrid.DataContext = casierManagementVM;
                         CasierMenuGrid.Visibility = Visibility.Visible;

@@ -20,7 +20,15 @@ namespace ShopManagement.Models
             this.Oferta = new HashSet<Oferta>();
             this.StocProdus = new HashSet<StocProdus>();
         }
-    
+        public Produs(int id, string nume, string categorie, int producator_Id, bool isActive)
+        {
+            Id = id;
+            Nume = nume;
+            Categorie = categorie;
+            Producator_Id = producator_Id;
+            IsActive = isActive;
+        }
+
         public int Id { get; set; }
         public string Nume { get; set; }
         public string Categorie { get; set; }

@@ -15,9 +15,15 @@ namespace ShopManagement.Models
     public partial class BonFiscal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BonFiscal()
+        //public BonFiscal()
+        //{
+        //    this.BonProdus = new HashSet<BonProdus>();
+        //}
+        public BonFiscal(int IdCasier)
         {
-            this.BonProdus = new HashSet<BonProdus>();
+            this.IdCasier = IdCasier;
+            this.DataEliberare = System.DateTime.Now;
+            SumaIncasata = 0;
         }
     
         public System.DateTime DataEliberare { get; set; }

@@ -22,7 +22,21 @@ namespace ShopManagement.Models
         public string UnitateMasura { get; set; }
         public double PretAchizitie { get; set; }
         public double PretVanzare { get; set; }
-    
+
+        public StocProdus(int idStocProdus, int idProdus, int cantitate, DateTime dataAprovizionare, DateTime dataExpirare, string unitateMasura, double pretAchizitie, double pretVanzare)
+        {
+            IdStocProdus = idStocProdus;
+            IdProdus = idProdus;
+            Cantitate = cantitate;
+            DataAprovizionare = dataAprovizionare;
+            DataExpirare = dataExpirare;
+            UnitateMasura = unitateMasura;
+            PretAchizitie = pretAchizitie;
+            PretVanzare = pretVanzare;
+        }
+
+
+
         public virtual Produs Produs { get; set; }
     }
 }

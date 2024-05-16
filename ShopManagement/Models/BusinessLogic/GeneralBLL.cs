@@ -12,8 +12,33 @@ namespace ShopManagement.Models.BusinessLogic
 
 
 
+        public List<StocProdus> GetStocProduse()
+        {
+            var result = context.GetStocProduse();
+            List<StocProdus> stocProduse = new List<StocProdus>();
+
+            foreach (var item in result)
+            {
+                stocProduse.Add(new StocProdus(item.IdStocProdus, item.IdProdus, item.Cantitate, item.DataAprovizionare,
+                    item.DataExpirare, item.UnitateMasura.Trim(), item.PretAchizitie, item.PretVanzare));
+            }
+
+            return stocProduse;
+        }
 
 
+        public List<Produs> GetProduse()
+        {
+            var result = context.GetProduse();
+            List<Produs> produse = new List<Produs>();
+
+            foreach (var item in result)
+            {
+                produse.Add(new Produs(item.Id, item.Nume.Trim(), item.Categorie, item.Producator_Id, item.IsActive));
+            }
+
+            return produse;
+        }
 
         public List<Tuple<string, string, string, int>> GetUtilizatoriData()
         {
