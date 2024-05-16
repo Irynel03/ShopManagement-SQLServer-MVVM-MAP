@@ -34,6 +34,7 @@ namespace ShopManagement.Models
         public virtual DbSet<Produs> Produs { get; set; }
         public virtual DbSet<StocProdus> StocProdus { get; set; }
         public virtual DbSet<Utilizator> Utilizator { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     
         public virtual int AdaugareBonFiscal(Nullable<int> idCasier, Nullable<double> sumaIncasata)
         {
@@ -281,6 +282,86 @@ namespace ShopManagement.Models
         public virtual ObjectResult<GetStocProduse_Result> GetStocProduse()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStocProduse_Result>("GetStocProduse");
+        }
+    
+        public virtual ObjectResult<GetProducatori_Result> GetProducatori()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProducatori_Result>("GetProducatori");
+        }
+    
+        public virtual int UpdateCantitateStocProdus(Nullable<int> idStocProdus, Nullable<int> nouaCantitate)
+        {
+            var idStocProdusParameter = idStocProdus.HasValue ?
+                new ObjectParameter("IdStocProdus", idStocProdus) :
+                new ObjectParameter("IdStocProdus", typeof(int));
+    
+            var nouaCantitateParameter = nouaCantitate.HasValue ?
+                new ObjectParameter("NouaCantitate", nouaCantitate) :
+                new ObjectParameter("NouaCantitate", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateCantitateStocProdus", idStocProdusParameter, nouaCantitateParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetLastBonFiscalId()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetLastBonFiscalId");
+        }
+    
+        public virtual int SetProducatorActivity(string numeProducator, Nullable<bool> isActive)
+        {
+            var numeProducatorParameter = numeProducator != null ?
+                new ObjectParameter("NumeProducator", numeProducator) :
+                new ObjectParameter("NumeProducator", typeof(string));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetProducatorActivity", numeProducatorParameter, isActiveParameter);
+        }
+    
+        public virtual int SetProdusActivity(string numeProdus, Nullable<bool> isActive)
+        {
+            var numeProdusParameter = numeProdus != null ?
+                new ObjectParameter("NumeProdus", numeProdus) :
+                new ObjectParameter("NumeProdus", typeof(string));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetProdusActivity", numeProdusParameter, isActiveParameter);
+        }
+    
+        public virtual int SetStocProdusActivity(Nullable<int> idStocProdus, Nullable<bool> isActive)
+        {
+            var idStocProdusParameter = idStocProdus.HasValue ?
+                new ObjectParameter("IdStocProdus", idStocProdus) :
+                new ObjectParameter("IdStocProdus", typeof(int));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetStocProdusActivity", idStocProdusParameter, isActiveParameter);
+        }
+    
+        public virtual int SetUilizatorActivity(string numeUtilizator, Nullable<bool> isActive)
+        {
+            var numeUtilizatorParameter = numeUtilizator != null ?
+                new ObjectParameter("NumeUtilizator", numeUtilizator) :
+                new ObjectParameter("NumeUtilizator", typeof(string));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetUilizatorActivity", numeUtilizatorParameter, isActiveParameter);
+        }
+    
+        public virtual int UpdateStocProdusIsActiveOnConditions()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateStocProdusIsActiveOnConditions");
         }
     }
 }

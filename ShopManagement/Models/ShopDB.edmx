@@ -14,10 +14,14 @@
           <Property Name="SumaIncasata" Type="float" Nullable="false" />
           <Property Name="IdBon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BonProdus">
           <Key>
             <PropertyRef Name="IdBon" />
             <PropertyRef Name="IdProdus" />
+            
+            
           </Key>
           <Property Name="IdBon" Type="int" Nullable="false" />
           <Property Name="IdProdus" Type="int" Nullable="false" />
@@ -42,6 +46,7 @@
           <Property Name="NumeProducator" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="TaraDeOrigine" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Produs">
           <Key>
@@ -65,6 +70,17 @@
           <Property Name="UnitateMasura" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="PretAchizitie" Type="float" Nullable="false" />
           <Property Name="PretVanzare" Type="float" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Utilizator">
           <Key>
@@ -74,6 +90,7 @@
           <Property Name="Parola" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="Tip" Type="nchar" MaxLength="15" Nullable="false" />
           <Property Name="IdUtilizator" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <Association Name="FK_BonFiscal_Utilizator">
           <End Role="Utilizator" Type="Self.Utilizator" Multiplicity="1" />
@@ -185,6 +202,8 @@
           <Parameter Name="Luna" Type="int" Mode="In" />
           <Parameter Name="An" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetLastBonFiscalId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetProducatori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetProduse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetProduseDeLaProducator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProducatorId" Type="int" Mode="In" />
@@ -196,14 +215,43 @@
           <Parameter Name="NoulPretVanzare" Type="float" Mode="In" />
         </Function>
         <Function Name="SelectUtilizatori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SetProducatorActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeProducator" Type="nchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SetProdusActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeProdus" Type="char" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SetStocProdusActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdStocProdus" Type="int" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SetUilizatorActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeUtilizator" Type="nchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="UpdateCantitateStocProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdStocProdus" Type="int" Mode="In" />
+          <Parameter Name="NouaCantitate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateStocProdusIsActiveOnConditions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ShopMngModelStoreContainer">
           <EntitySet Name="BonFiscal" EntityType="Self.BonFiscal" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BonProdus" EntityType="Self.BonProdus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Oferta" EntityType="Self.Oferta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producator" EntityType="Self.Producator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produs" EntityType="Self.Produs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StocProdus" EntityType="Self.StocProdus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilizator" EntityType="Self.Utilizator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BonProdus" EntityType="Self.BonProdus" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BonProdus].[IdBon] AS [IdBon], 
+    [BonProdus].[IdProdus] AS [IdProdus], 
+    [BonProdus].[Cantitate] AS [Cantitate], 
+    [BonProdus].[Subtotal] AS [Subtotal]
+    FROM [dbo].[BonProdus] AS [BonProdus]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_BonFiscal_Utilizator" Association="Self.FK_BonFiscal_Utilizator">
             <End Role="Utilizator" EntitySet="Utilizator" />
             <End Role="BonFiscal" EntitySet="BonFiscal" />
@@ -271,6 +319,7 @@
           <Property Name="TaraDeOrigine" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Produs" Relationship="Self.FK_Produs_Producator" FromRole="Producator" ToRole="Produs" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="Produs">
           <Key>
@@ -298,6 +347,7 @@
           <Property Name="PretAchizitie" Type="Double" Nullable="false" />
           <Property Name="PretVanzare" Type="Double" Nullable="false" />
           <NavigationProperty Name="Produs" Relationship="Self.FK_StocProdus_Produs" FromRole="StocProdus" ToRole="Produs" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="Utilizator">
           <Key>
@@ -308,6 +358,7 @@
           <Property Name="Tip" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="IdUtilizator" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="BonFiscal" Relationship="Self.FK_BonFiscal_Utilizator" FromRole="Utilizator" ToRole="BonFiscal" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <Association Name="FK_BonFiscal_Utilizator">
           <End Role="Utilizator" Type="Self.Utilizator" Multiplicity="1" />
@@ -467,6 +518,30 @@
           <FunctionImport Name="SelectUtilizatori" ReturnType="Collection(ShopMngModel.SelectUtilizatori_Result)" />
           <FunctionImport Name="GetProduse" ReturnType="Collection(ShopMngModel.GetProduse_Result)" />
           <FunctionImport Name="GetStocProduse" ReturnType="Collection(ShopMngModel.GetStocProduse_Result)" />
+          <FunctionImport Name="GetProducatori" ReturnType="Collection(ShopMngModel.GetProducatori_Result)" />
+          <FunctionImport Name="UpdateCantitateStocProdus">
+            <Parameter Name="IdStocProdus" Mode="In" Type="Int32" />
+            <Parameter Name="NouaCantitate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetLastBonFiscalId" ReturnType="Collection(Int32)" />
+          <EntitySet Name="sysdiagrams" EntityType="ShopMngModel.sysdiagrams" />
+          <FunctionImport Name="SetProducatorActivity">
+            <Parameter Name="NumeProducator" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SetProdusActivity">
+            <Parameter Name="NumeProdus" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SetStocProdusActivity">
+            <Parameter Name="IdStocProdus" Mode="In" Type="Int32" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SetUilizatorActivity">
+            <Parameter Name="NumeUtilizator" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateStocProdusIsActiveOnConditions" />
         </EntityContainer>
         <ComplexType Name="GetProduseDeLaProducator_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -512,6 +587,21 @@
           <Property Type="Double" Name="PretAchizitie" Nullable="false" />
           <Property Type="Double" Name="PretVanzare" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="GetProducatori_Result">
+          <Property Type="String" Name="NumeProducator" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="TaraDeOrigine" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -553,6 +643,7 @@
           <EntitySetMapping Name="Producator">
             <EntityTypeMapping TypeName="ShopMngModel.Producator">
               <MappingFragment StoreEntitySet="Producator">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="NumeProducator" ColumnName="NumeProducator" />
                 <ScalarProperty Name="TaraDeOrigine" ColumnName="TaraDeOrigine" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -573,6 +664,7 @@
           <EntitySetMapping Name="StocProdus">
             <EntityTypeMapping TypeName="ShopMngModel.StocProdus">
               <MappingFragment StoreEntitySet="StocProdus">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="IdStocProdus" ColumnName="IdStocProdus" />
                 <ScalarProperty Name="IdProdus" ColumnName="IdProdus" />
                 <ScalarProperty Name="Cantitate" ColumnName="Cantitate" />
@@ -587,6 +679,7 @@
           <EntitySetMapping Name="Utilizator">
             <EntityTypeMapping TypeName="ShopMngModel.Utilizator">
               <MappingFragment StoreEntitySet="Utilizator">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Nume" ColumnName="Nume" />
                 <ScalarProperty Name="Parola" ColumnName="Parola" />
                 <ScalarProperty Name="Tip" ColumnName="Tip" />
@@ -671,6 +764,33 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProducatori" FunctionName="ShopMngModel.Store.GetProducatori">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShopMngModel.GetProducatori_Result">
+                <ScalarProperty Name="NumeProducator" ColumnName="NumeProducator" />
+                <ScalarProperty Name="TaraDeOrigine" ColumnName="TaraDeOrigine" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateCantitateStocProdus" FunctionName="ShopMngModel.Store.UpdateCantitateStocProdus" />
+          <FunctionImportMapping FunctionImportName="GetLastBonFiscalId" FunctionName="ShopMngModel.Store.GetLastBonFiscalId" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShopMngModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SetProducatorActivity" FunctionName="ShopMngModel.Store.SetProducatorActivity" />
+          <FunctionImportMapping FunctionImportName="SetProdusActivity" FunctionName="ShopMngModel.Store.SetProdusActivity" />
+          <FunctionImportMapping FunctionImportName="SetStocProdusActivity" FunctionName="ShopMngModel.Store.SetStocProdusActivity" />
+          <FunctionImportMapping FunctionImportName="SetUilizatorActivity" FunctionName="ShopMngModel.Store.SetUilizatorActivity" />
+          <FunctionImportMapping FunctionImportName="UpdateStocProdusIsActiveOnConditions" FunctionName="ShopMngModel.Store.UpdateStocProdusIsActiveOnConditions" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

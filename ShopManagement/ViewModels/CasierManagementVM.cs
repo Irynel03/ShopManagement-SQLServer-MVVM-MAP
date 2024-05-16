@@ -31,7 +31,7 @@ namespace ShopManagement.ViewModels
         }
         public CasierManagementVM()
         {
-            casierBL = new CasierBL(2);
+            casierBL = new CasierBL(1);
             
 
 
@@ -130,6 +130,7 @@ namespace ShopManagement.ViewModels
 
         private void FiltreazaDupaProducator(object commandParameter)
         {
+            casierBL.FiltreazaDupaProducator(producatorFiltrareText);
         }
 
         private string categorieFiltrareText;
@@ -153,10 +154,47 @@ namespace ShopManagement.ViewModels
 
         private void FiltreazaDupaCategorie(object commandParameter)
         {
+            casierBL.FiltreazaDupaCategorie(categorieFiltrareText);
+        }
 
+        private RelayCommand resetareFiltrareProduseCommand;
 
+        public ICommand ResetareFiltrareProduseCommand
+        {
+            get
+            {
+                if (resetareFiltrareProduseCommand == null)
+                {
+                    resetareFiltrareProduseCommand = new RelayCommand(ResetareFiltrareProduse);
+                }
 
+                return resetareFiltrareProduseCommand;
+            }
+        }
 
+        private void ResetareFiltrareProduse(object commandParameter)
+        {
+            casierBL.ResetareFiltrareProduse();
+        }
+
+        private RelayCommand finalizeazaBonFiscalCommand;
+
+        public ICommand FinalizeazaBonFiscalCommand
+        {
+            get
+            {
+                if (finalizeazaBonFiscalCommand == null)
+                {
+                    finalizeazaBonFiscalCommand = new RelayCommand(FinalizeazaBonFiscal);
+                }
+
+                return finalizeazaBonFiscalCommand;
+            }
+        }
+
+        private void FinalizeazaBonFiscal(object commandParameter)
+        {
+            casierBL.FinalizeazaBonFiscal();
         }
     }
 }

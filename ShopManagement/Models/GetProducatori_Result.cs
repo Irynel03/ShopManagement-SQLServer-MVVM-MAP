@@ -10,22 +10,11 @@
 namespace ShopManagement.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Producator
+    public partial class GetProducatori_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Producator()
-        {
-            this.Produs = new HashSet<Produs>();
-        }
-    
         public string NumeProducator { get; set; }
         public string TaraDeOrigine { get; set; }
         public int Id { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Produs> Produs { get; set; }
     }
 }

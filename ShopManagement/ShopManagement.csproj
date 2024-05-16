@@ -104,6 +104,9 @@
     <Compile Include="Models\GetIncasariCasierPeZiLuna_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetProducatori_Result.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetProduseDeLaProducator_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
@@ -141,6 +144,9 @@
       <DependentUpon>ShopDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\StocProdus.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Utilizator.cs">

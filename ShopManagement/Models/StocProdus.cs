@@ -22,6 +22,7 @@ namespace ShopManagement.Models
         public string UnitateMasura { get; set; }
         public double PretAchizitie { get; set; }
         public double PretVanzare { get; set; }
+        public Nullable<bool> IsActive { get; set; }
 
         public StocProdus(int idStocProdus, int idProdus, int cantitate, DateTime dataAprovizionare, DateTime dataExpirare, string unitateMasura, double pretAchizitie, double pretVanzare)
         {
@@ -34,9 +35,6 @@ namespace ShopManagement.Models
             PretAchizitie = pretAchizitie;
             PretVanzare = pretVanzare;
         }
-
-
-
         public virtual Produs Produs { get; set; }
     }
 }

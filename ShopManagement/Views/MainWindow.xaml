@@ -39,8 +39,7 @@
                     Width="200"
                     Height="30"
                     Margin="0,0,0,20"
-                    FontSize="20"
-                    TextAlignment="Center" />
+                    FontSize="20" />
                 <TextBlock TextAlignment="Center">
                     Parola
                 </TextBlock>
@@ -53,11 +52,16 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="AdminMenuGrid" Visibility="Collapsed">
+        <Grid
+            x:Name="AdminMenuGrid"
+            Width="800"
+            Height="785"
+            Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+
             <Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>
@@ -195,7 +199,7 @@
             x:Name="CasierMenuGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <Grid.DataContext>
                 <ctx:CasierManagementVM />
             </Grid.DataContext>
