@@ -89,6 +89,12 @@
     <Compile Include="Models\CalculeazaSumaTotalaProduseCategoriaSpecifica_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetBonProdus_Result.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetBonuriFiscale_Result.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetIncasariCasierPeZiLuna_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
@@ -132,9 +138,6 @@
       <DependentUpon>ShopDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\StocProdus.cs">
-      <DependentUpon>ShopDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Utilizator.cs">
@@ -189,6 +192,8 @@
     <Resource Include="Images\backgroundMainMenu.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\shopBack.jpg" />
+    <Resource Include="Images\shopBack2.jpeg" />
     <Content Include="Models\ShopDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ShopDB.edmx</DependentUpon>

@@ -11,16 +11,11 @@ namespace ShopManagement.Models
 {
     using System;
     
-    public partial class GetStocProduse_Result
+    public partial class GetBonProdus_Result
     {
-        public int IdStocProdus { get; set; }
+        public int IdBon { get; set; }
         public int IdProdus { get; set; }
         public int Cantitate { get; set; }
-        public System.DateTime DataAprovizionare { get; set; }
-        public System.DateTime DataExpirare { get; set; }
-        public string UnitateMasura { get; set; }
-        public double PretAchizitie { get; set; }
-        public double PretVanzare { get; set; }
-        public bool IsActive { get; internal set; }
+        public double Subtotal { get; set; }
     }
 }

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
     xmlns:ctx="clr-namespace:ShopManagement.ViewModels"
-    xmlns:ctx1="clr-namespace:ShopManagement.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ShopManagement"
     xmlns:localConverter="clr-namespace:ShopManagement.Converters"
@@ -14,7 +13,11 @@
     Height="800"
     ResizeMode="NoResize"
     mc:Ignorable="d">
+
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="\Images\shopBack2.jpeg" Stretch="UniformToFill" />
+        </Grid.Background>
         <Grid x:Name="MainMenuGrid" Visibility="Collapsed">
             <Grid.Background>
                 <ImageBrush ImageSource="\Images\backgroundMainMenu.png" Stretch="UniformToFill" />
@@ -56,7 +59,7 @@
             x:Name="AdminMenuGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -98,6 +101,12 @@
                     FontSize="20"
                     Text="categoria..."
                     TextAlignment="Center" />
+                <!--<controls:AutoCompleteBox
+                    x:Name="CategoriePreturiCautareTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    ItemsSource="{Binding bsLogic.listaCateg}"/>-->
                 <Button
                     x:Name="btnAfisareSumeIncasateDeCasier"
                     Width="270"
@@ -174,15 +183,26 @@
                     FontSize="20"
                     Text="producatorul..."
                     TextAlignment="Center" />
+                <!--<controls:AutoCompleteBox
+                    x:Name="ProduseAleUnuiProducatorTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    ItemsSource="{Binding bsLogic.listaProducatori}" />-->
                 <Button
                     x:Name="btnAfisareCelMaiMareBonZiSelectata"
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Click="btnAfisareCelMaiMareBonZiSelectata_Click"
+                    Command="{Binding AfiseazaCMMBonDinZiuaCommand}"
                     FontSize="25">
                     CMM Bon din ziua:
                 </Button>
+                <DatePicker
+                    x:Name="AfisareBonDP"
+                    Width="220"
+                    Height="30"
+                    SelectedDate="{Binding ZiBonFiltrare, Mode=TwoWay}" />
                 <Button
                     x:Name="btnAdaugaProducator"
                     Width="270"
@@ -192,6 +212,15 @@
                     FontSize="25">
                     Adauga Producator:
                 </Button>
+                <Button
+                    x:Name="btnVisualizeData"
+                    Width="270"
+                    Height="70"
+                    Margin="0,25,0,0"
+                    Click="btnVisualizeData_Click"
+                    FontSize="25">
+                    Visualize Data
+                </Button>
             </StackPanel>
         </Grid>
 
@@ -199,7 +228,7 @@
             x:Name="CasierMenuGrid"
             Width="800"
             Height="785"
-            Visibility="Collapsed">
+            Visibility="Visible">
             <Grid.DataContext>
                 <ctx:CasierManagementVM />
             </Grid.DataContext>
@@ -207,14 +236,22 @@
                 Height="30"
                 Margin="51,47,380,707"
                 FontSize="20"><Run Text="Introdu Numele sau Codul Produselor" /><Run Language="ro-ro" Text=":" /></TextBlock>
-            <TextBox
+            <!--<TextBox
                 x:Name="ProdusSearchBarTB"
                 Width="300"
                 Height="40"
                 Margin="51,82,449,642"
                 FontSize="25"
                 Text="{Binding ProdusSearchText, Mode=TwoWay}"
-                TextAlignment="Center" />
+                TextAlignment="Center" />-->
+            <controls:AutoCompleteBox
+                x:Name="ProdusSearchBarATB"
+                Width="300"
+                Height="40"
+                Margin="51,82,449,642"
+                FontSize="25"
+                ItemsSource="{Binding casierBL.numeProduse}"
+                Text="{Binding ProdusSearchText, Mode=TwoWay}" />
             <TextBlock
                 Width="200"
                 Height="30"
@@ -295,12 +332,20 @@
                 Margin="480,216,120,548"
                 FontSize="15"
                 Text="Filtreaza dupa categorie" />
-            <TextBox
+            <!--<TextBox
                 x:Name="FiltreazaProduseDupaCategorieTB"
                 Width="220"
                 Height="30"
                 Margin="480,241,100,0"
                 VerticalAlignment="Top"
+                Text="{Binding CategorieFiltrareText, Mode=TwoWay}" />-->
+            <controls:AutoCompleteBox
+                x:Name="FiltreazaProduseDupaCategorieATB"
+                Width="220"
+                Height="30"
+                Margin="480,241,100,0"
+                VerticalAlignment="Top"
+                ItemsSource="{Binding casierBL.listaCateg}"
                 Text="{Binding CategorieFiltrareText, Mode=TwoWay}" />
             <Button
                 x:Name="btnFiltreazaDupaCategorie"
@@ -317,12 +362,20 @@
                 Margin="480,286,120,478"
                 FontSize="15"
                 Text="Filtreaza dupa producator:" />
-            <TextBox
+            <!--<TextBox
                 x:Name="FiltreazaProduseDupaProducatorTB"
                 Width="220"
                 Height="30"
                 Margin="480,311,100,0"
                 VerticalAlignment="Top"
+                Text="{Binding ProducatorFiltrareText, Mode=TwoWay}" />-->
+            <controls:AutoCompleteBox
+                x:Name="FiltreazaProduseDupaProducatorATB"
+                Width="220"
+                Height="30"
+                Margin="480,311,100,0"
+                VerticalAlignment="Top"
+                ItemsSource="{Binding casierBL.listaProducatori}"
                 Text="{Binding ProducatorFiltrareText, Mode=TwoWay}" />
             <Button
                 x:Name="btnFiltreazaDupaProducator"
@@ -339,13 +392,20 @@
                 Margin="480,356,120,408"
                 FontSize="15"
                 Text="Filtreaza produse expira dupa:" />
-            <TextBox
+            <!--<TextBox
                 x:Name="FiltreazaProduseExpiraDupaDataTB"
                 Width="220"
                 Height="30"
                 Margin="480,381,100,0"
                 VerticalAlignment="Top"
-                Text="{Binding DataExpirareFiltrareText, Mode=TwoWay}" />
+                Text="{Binding DataExpirareFiltrareText, Mode=TwoWay}" />-->
+            <DatePicker
+                x:Name="FiltreazaProduseExpiraDupaDataDP"
+                Width="220"
+                Height="30"
+                Margin="480,381,100,0"
+                VerticalAlignment="Top"
+                SelectedDate="{Binding DataExpirareFiltrare, Mode=TwoWay}" />
             <Button
                 x:Name="btnFiltreazaDupaDataExpirare"
                 Width="70"
@@ -432,7 +492,6 @@
             </StackPanel>
 
         </Grid>
-
         <Grid x:Name="AddProdusGrid" Visibility="Collapsed">
             <Grid.DataContext>
                 <ctx:AdminManagementVM />
@@ -537,13 +596,19 @@
             <StackPanel Margin="0,0,0,0">
                 <Label
                     HorizontalAlignment="Center"
-                    Content="Introdu Id-ul produsului"
+                    Content="Introdu Numele produsului"
                     FontSize="20" />
-                <TextBox
+                <!--<TextBox
                     x:Name="StocProdusIdProdusTB"
                     Width="300"
                     Height="50"
-                    Margin="0,0,0,10" />
+                    Margin="0,0,0,10" />-->
+                <controls:AutoCompleteBox
+                    x:Name="StocProdusIdProdusACB"
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10"
+                    ItemsSource="{Binding bsLogic.numeProduse}" />
                 <Label
                     HorizontalAlignment="Center"
                     Content="Introdu cantitatea"
@@ -594,11 +659,11 @@
                     Width="200"
                     Height="60"
                     Command="{Binding AddStocProdusCommand}"
-                    Content="Add Producator"
+                    Content="Add Stoc Produs"
                     FontSize="20">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource stocProdusConvert}">
-                            <Binding ElementName="StocProdusIdProdusTB" Path="Text" />
+                            <Binding ElementName="StocProdusIdProdusACB" Path="Text" />
                             <Binding ElementName="StocProdusCantitateTB" Path="Text" />
                             <Binding ElementName="StocProdusDataAprovizionareTB" Path="Text" />
                             <Binding ElementName="StocProdusDataExpirareTB" Path="Text" />
@@ -609,6 +674,137 @@
                 </Button>
             </StackPanel>
         </Grid>
+        <Grid
+            x:Name="VisualizeDataGrid"
+            Width="800"
+            Height="785"
+            Visibility="Collapsed">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+
+            <Button
+                Width="250"
+                Height="60"
+                Margin="52,55,498,670"
+                Command="{Binding AfiseazaDateleProdusuluiCommand}"
+                FontSize="20">
+                Afiseaza date produs
+            </Button>
+            <!--<TextBox
+                x:Name="NumeProdVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="77,115,523,640"
+                FontSize="20"
+                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
+                TextAlignment="Center" />-->
+            <controls:AutoCompleteBox
+                x:Name="NumeProdVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="77,115,523,640"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.numeProduse}"
+                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="52,218,498,507"
+                Command="{Binding AfiseazaDateleProducatoruluiCommand}"
+                FontSize="20">
+                Afiseaza Producator
+            </Button>
+            <!--<TextBox
+                x:Name="NumeProducatorVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="77,278,523,477"
+                FontSize="20"
+                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}"
+                TextAlignment="Center" />-->
+            <controls:AutoCompleteBox
+                x:Name="NumeProducatorVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="77,278,523,477"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.listaProducatori}"
+                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="52,393,498,332"
+                Command="{Binding AfiseazaDateleUtilizatoruluiCommand}"
+                FontSize="20">
+                Afiseaza Utilizator
+            </Button>
+            <TextBox
+                x:Name="NumeUtilizatorVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="77,453,523,302"
+                FontSize="20"
+                Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}"
+                TextAlignment="Center" />
+            <!--<controls:AutoCompleteBox
+    x:Name="NumeProdVisualizeTB"
+Width="200"
+Height="30"
+Margin="77,115,523,640"
+FontSize="20"
+Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
+    ItemsSource="{Binding bsLogic.listaProducatori}" />-->
+            <Button
+                Width="250"
+                Height="60"
+                Margin="497,55,53,670"
+                Command="{Binding AfiseazaDateleBonuluiFiscalCommand}"
+                FontSize="20">
+                Afiseaza BonFiscal
+            </Button>
+            <TextBox
+                x:Name="IdBonDFiscalVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="522,115,78,640"
+                FontSize="20"
+                Text="{Binding BonFiscalIdVisualizeText, Mode=TwoWay}"
+                TextAlignment="Center" />
+            <!--<controls:AutoCompleteBox
+    x:Name="NumeProdVisualizeTB"
+Width="200"
+Height="30"
+Margin="77,115,523,640"
+FontSize="20"
+Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
+    ItemsSource="{Binding bsLogic.listaProducatori}" />-->
+            <Button
+                Width="250"
+                Height="60"
+                Margin="497,218,53,507"
+                Command="{Binding AfiseazaDateStocProdusCommand}"
+                FontSize="20">
+                Afiseaza StocProdus
+            </Button>
+            <TextBox
+                x:Name="IdStocProdusVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="522,278,78,477"
+                FontSize="20"
+                Text="{Binding StocProdusIdVisualizeText, Mode=TwoWay}"
+                TextAlignment="Center" />
+
+
+
+
+
+
+
+        </Grid>
+
+
 
     </Grid>
 </Window>

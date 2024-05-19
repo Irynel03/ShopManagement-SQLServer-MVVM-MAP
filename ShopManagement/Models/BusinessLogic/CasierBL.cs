@@ -15,7 +15,10 @@ namespace ShopManagement.Models.BusinessLogic
 
         public double SumaTotalaProduseScanate { get; set; }
 
-        private List<Produs> produse = new List<Produs>();
+        public List<Produs> produse { get; set; } = new List<Produs>();
+        public List<String> numeProduse { get; set; } = new List<String>();
+        public List<String> listaProducatori { get; set; } = new List<String>();
+        public List<String> listaCateg { get; set; } = new List<String>();
         private List<StocProdus> stocProduse = new List<StocProdus>();
         public ObservableCollection<Tuple<string, BonProdus>> ProduseBon { get; set; } = new ObservableCollection<Tuple<string, BonProdus>>();
         public BonFiscal bonFiscal { get; set; }
@@ -29,20 +32,22 @@ namespace ShopManagement.Models.BusinessLogic
             bonFiscal = new BonFiscal(idCasier);
             this.idCasier = idCasier;
 
-
-
             stocProduse = GetStocProduse();
-            //UpdatareStocProduse();
 
             produse = GetProduse();
 
+            foreach (var prod in produse)
+            {
+                numeProduse.Add(prod.Nume);
+                if(!listaCateg.Contains(prod.Categorie))
+                    listaCateg.Add(prod.Categorie);
+            }
+            List<Tuple<string, int>> listaProd = GetListaProducatori();
+            foreach (var prod in listaProd)
+                listaProducatori.Add(prod.Item1);
+
 
             SumaTotalaProduseScanate = 0;
-
-            
-
-            //produse = produse.Where(x => x.IsActive).ToList();
-
         }
 
         private void UpdatareStocProduse()
@@ -74,7 +79,7 @@ namespace ShopManagement.Models.BusinessLogic
             if (produse.Any(p => p.Nume == produsSearchText) && ProdusPeStoc(produsSearchText))
             {
 
-                var produs = stocProduse.FirstOrDefault(p => p.IdProdus == GetProdusId(produsSearchText));
+                var produs = stocProduse.Where(p => p.IdProdus == GetProdusId(produsSearchText)).OrderBy(p => p.DataExpirare).FirstOrDefault();
                 produs.Cantitate--;
 
                 if (!ProduseBon.Any(pb => pb.Item2.IdProdus == produs.IdProdus))
@@ -92,7 +97,6 @@ namespace ShopManagement.Models.BusinessLogic
             {
                 MessageBox.Show("Produsul Nu este pe stoc");
             }
-
 
         }
         private void CalculeazaSumaTotalaDePeBon()
@@ -134,16 +138,12 @@ namespace ShopManagement.Models.BusinessLogic
                 MessageBox.Show("Exista categoria");
                 //produse = GetProduse();
                 produse = produse.Where(p => p.Categorie == categorieFiltrareText).ToList();
-
-
             }
             else
             {
                 MessageBox.Show("Nu exista categoria");
             }
-
         }
-
 
         internal void FiltreazaDupaProducator(string producatorFiltrareText)
         {
@@ -162,8 +162,6 @@ namespace ShopManagement.Models.BusinessLogic
                         break;
                     }
                 }
-                //produse = produse.Where(p => p.Producator_Id == 2).ToList();
-
             }
             else
             {
@@ -175,8 +173,6 @@ namespace ShopManagement.Models.BusinessLogic
         {
             produse = GetProduse();
         }
-
-
 
         internal void FinalizeazaBonFiscal()
         {
@@ -197,11 +193,9 @@ namespace ShopManagement.Models.BusinessLogic
                 context.UpdateCantitateStocProdus(stocProdus.IdStocProdus, stocProdus.Cantitate);
             }
 
-
             context.ActualizeazaStatusProdus();
 
             InitializareDupaFinalizareBon();
-
 
             // bonFiscal, BonProdus, UpdateCantitateStocProdus, UpdateStatusProdus
         }

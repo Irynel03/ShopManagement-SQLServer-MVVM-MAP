@@ -34,7 +34,6 @@ namespace ShopManagement.Models
         public virtual DbSet<Produs> Produs { get; set; }
         public virtual DbSet<StocProdus> StocProdus { get; set; }
         public virtual DbSet<Utilizator> Utilizator { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     
         public virtual int AdaugareBonFiscal(Nullable<int> idCasier, Nullable<double> sumaIncasata)
         {
@@ -179,7 +178,7 @@ namespace ShopManagement.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugrareStocProdus", idProdusParameter, cantitateParameter, dataAprovizionareParameter, dataExpirareParameter, unitateMasuraParameter, pretAchizitieParameter, pretVanzareParameter);
         }
     
-        public virtual int AdaugareStocProdus(Nullable<int> idProdus, Nullable<int> cantitate, Nullable<System.DateTime> dataAprovizionare, Nullable<System.DateTime> dataExpirare, string unitateMasura, Nullable<double> pretAchizitie, Nullable<double> pretVanzare)
+        public virtual int AdaugareStocProdus(Nullable<int> idProdus, Nullable<int> cantitate, Nullable<System.DateTime> dataAprovizionare, Nullable<System.DateTime> dataExpirare, string unitateMasura, Nullable<double> pretAchizitie, Nullable<double> pretVanzare, Nullable<bool> isActive)
         {
             var idProdusParameter = idProdus.HasValue ?
                 new ObjectParameter("IdProdus", idProdus) :
@@ -209,7 +208,11 @@ namespace ShopManagement.Models
                 new ObjectParameter("PretVanzare", pretVanzare) :
                 new ObjectParameter("PretVanzare", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareStocProdus", idProdusParameter, cantitateParameter, dataAprovizionareParameter, dataExpirareParameter, unitateMasuraParameter, pretAchizitieParameter, pretVanzareParameter);
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AdaugareStocProdus", idProdusParameter, cantitateParameter, dataAprovizionareParameter, dataExpirareParameter, unitateMasuraParameter, pretAchizitieParameter, pretVanzareParameter, isActiveParameter);
         }
     
         public virtual ObjectResult<GetProduseDeLaProducator_Result> GetProduseDeLaProducator(Nullable<int> producatorId)
@@ -362,6 +365,16 @@ namespace ShopManagement.Models
         public virtual int UpdateStocProdusIsActiveOnConditions()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateStocProdusIsActiveOnConditions");
+        }
+    
+        public virtual ObjectResult<GetBonProdus_Result> GetBonProdus()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBonProdus_Result>("GetBonProdus");
+        }
+    
+        public virtual ObjectResult<GetBonuriFiscale_Result> GetBonuriFiscale()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBonuriFiscale_Result>("GetBonuriFiscale");
         }
     }
 }

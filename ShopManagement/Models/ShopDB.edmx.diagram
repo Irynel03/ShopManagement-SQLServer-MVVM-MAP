@@ -17,7 +17,6 @@
         <AssociationConnector Association="ShopMngModel.FK_Oferta_Produs" ManuallyRouted="false" />
         <AssociationConnector Association="ShopMngModel.FK_Produs_Producator" ManuallyRouted="false" />
         <AssociationConnector Association="ShopMngModel.FK_StocProdus_Produs" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ShopMngModel.sysdiagrams" Width="1.5" PointX="0.5" PointY="10.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

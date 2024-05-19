@@ -19,6 +19,7 @@ namespace ShopManagement.ViewModels
     {
         //GeneralBLL bsLogic = new GeneralBLL();
         public CasierBL casierBL { get; set; }
+        public List<string> listaPLM {  get; set; } = new List<string>();
         
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -26,15 +27,13 @@ namespace ShopManagement.ViewModels
         public CasierManagementVM(int IdCasier)
         {
             casierBL = new CasierBL(IdCasier);
-            
 
+            dataExpirareFiltrare = DateTime.Now;
         }
         public CasierManagementVM()
         {
             casierBL = new CasierBL(1);
-            
-
-
+            dataExpirareFiltrare = DateTime.Now;
         }
 
         private RelayCommand cautaSiAdaugaProdusPeBonCommand;
@@ -73,9 +72,9 @@ namespace ShopManagement.ViewModels
         public string ProdusSearchText 
         { get => produsSearchText; set => SetProperty(ref produsSearchText, value); }
 
-        private string dataExpirareFiltrareText;
+        private DateTime dataExpirareFiltrare;
 
-        public string DataExpirareFiltrareText { get => dataExpirareFiltrareText; set => SetProperty(ref dataExpirareFiltrareText, value); }
+        public DateTime DataExpirareFiltrare { get => dataExpirareFiltrare; set => SetProperty(ref dataExpirareFiltrare, value); }
 
         private RelayCommand filtreazaDupaDataExpirareCommand;
 
@@ -94,20 +93,14 @@ namespace ShopManagement.ViewModels
 
         private void FiltreazaDupaDataExpirare(object commandParameter)
         {
-            DateTime dataExpirare;
-            if (DateTime.TryParseExact(dataExpirareFiltrareText, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataExpirare))
-            {
-                if(dataExpirare > DateTime.Now)
+            
+                if(dataExpirareFiltrare < DateTime.Now)
                 {
-                    casierBL.FiltreazaDupaDataExpirare(dataExpirare);
+                    casierBL.FiltreazaDupaDataExpirare(dataExpirareFiltrare);
                 }
                 else
                     MessageBox.Show("Data nu este una valida");
-            }
-            else
-            {
-                MessageBox.Show("Data nu este introdusa corect");
-            }
+            
         }
         private string producatorFiltrareText;
 
@@ -196,5 +189,6 @@ namespace ShopManagement.ViewModels
         {
             casierBL.FinalizeazaBonFiscal();
         }
+
     }
 }

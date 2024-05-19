@@ -14,6 +14,21 @@ namespace ShopManagement.Models
     
     public partial class StocProdus
     {
+        private string v;
+
+        public StocProdus(int idStocProdus, int idProdus, int cantitate, DateTime dataAprovizionare, DateTime dataExpirare, string v, double pretAchizitie, double pretVanzare)
+        {
+            IdStocProdus = idStocProdus;
+            IdProdus = idProdus;
+            Cantitate = cantitate;
+            DataAprovizionare = dataAprovizionare;
+            DataExpirare = dataExpirare;
+            this.v = v;
+            PretAchizitie = pretAchizitie;
+            PretVanzare = pretVanzare;
+            IsActive = true;
+        }
+
         public int IdStocProdus { get; set; }
         public int IdProdus { get; set; }
         public int Cantitate { get; set; }
@@ -23,18 +38,7 @@ namespace ShopManagement.Models
         public double PretAchizitie { get; set; }
         public double PretVanzare { get; set; }
         public Nullable<bool> IsActive { get; set; }
-
-        public StocProdus(int idStocProdus, int idProdus, int cantitate, DateTime dataAprovizionare, DateTime dataExpirare, string unitateMasura, double pretAchizitie, double pretVanzare)
-        {
-            IdStocProdus = idStocProdus;
-            IdProdus = idProdus;
-            Cantitate = cantitate;
-            DataAprovizionare = dataAprovizionare;
-            DataExpirare = dataExpirare;
-            UnitateMasura = unitateMasura;
-            PretAchizitie = pretAchizitie;
-            PretVanzare = pretVanzare;
-        }
+    
         public virtual Produs Produs { get; set; }
     }
 }

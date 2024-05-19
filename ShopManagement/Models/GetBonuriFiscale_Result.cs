@@ -10,14 +10,12 @@
 namespace ShopManagement.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class GetBonuriFiscale_Result
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public System.DateTime DataEliberare { get; set; }
+        public int IdCasier { get; set; }
+        public double SumaIncasata { get; set; }
+        public int IdBon { get; set; }
     }
 }

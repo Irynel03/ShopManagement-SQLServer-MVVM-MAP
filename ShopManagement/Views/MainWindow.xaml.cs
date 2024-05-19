@@ -114,5 +114,10 @@ namespace ShopManagement
         {
 
         }
+
+        private void btnVisualizeData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
