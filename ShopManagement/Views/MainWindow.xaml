@@ -149,6 +149,15 @@
                     FontSize="25">
                     Adauga Utilizator
                 </Button>
+                <Button
+                    x:Name="btnModificaData"
+                    Width="270"
+                    Height="70"
+                    Margin="0,25,0,0"
+                    Click="btnModificaData_Click"
+                    FontSize="25">
+                    Modifica Date
+                </Button>
             </StackPanel>
             <StackPanel
                 Grid.Column="1"
@@ -210,7 +219,7 @@
                     Margin="0,25,0,0"
                     Click="btnAdaugaProducator_Click"
                     FontSize="25">
-                    Adauga Producator:
+                    Adauga Producator
                 </Button>
                 <Button
                     x:Name="btnVisualizeData"
@@ -228,7 +237,7 @@
             x:Name="CasierMenuGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <Grid.DataContext>
                 <ctx:CasierManagementVM />
             </Grid.DataContext>
@@ -739,22 +748,22 @@
                 FontSize="20">
                 Afiseaza Utilizator
             </Button>
-            <TextBox
+            <!--<TextBox
                 x:Name="NumeUtilizatorVisualizeTB"
                 Width="200"
                 Height="30"
                 Margin="77,453,523,302"
                 FontSize="20"
                 Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}"
-                TextAlignment="Center" />
-            <!--<controls:AutoCompleteBox
-    x:Name="NumeProdVisualizeTB"
-Width="200"
-Height="30"
-Margin="77,115,523,640"
-FontSize="20"
-Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
-    ItemsSource="{Binding bsLogic.listaProducatori}" />-->
+                TextAlignment="Center" />-->
+            <controls:AutoCompleteBox
+                x:Name="NumeUtilizatorVisualizeTB"
+                Width="200"
+                Height="30"
+                Margin="77,453,523,302"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.listaUtilizatori}"
+                Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}" />
             <Button
                 Width="250"
                 Height="60"
@@ -795,14 +804,224 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 FontSize="20"
                 Text="{Binding StocProdusIdVisualizeText, Mode=TwoWay}"
                 TextAlignment="Center" />
+        </Grid>
+
+        <Grid
+            x:Name="ModifyGrid"
+            Width="800"
+            Height="785"
+            Visibility="Collapsed">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+            <Button
+                Width="250"
+                Height="60"
+                Margin="52,55,498,670"
+                Click="btnModificaDateProdus_Click"
+                Command="{Binding ModificaDateleProdusuluiCommand}"
+                FontSize="20">
+                Modifica date produs
+            </Button>
+            <controls:AutoCompleteBox
+                x:Name="NumeProdModifyTB"
+                Width="200"
+                Height="30"
+                Margin="77,115,523,640"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.numeProduse}"
+                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="52,218,498,507"
+                Click="btnModificaDateProducator_Click"
+                Command="{Binding ModificaDateleProducatoruluiCommand}"
+                FontSize="20">
+                Modifica Producator
+            </Button>
+            <controls:AutoCompleteBox
+                x:Name="NumeProducatorModifyTB"
+                Width="200"
+                Height="30"
+                Margin="77,278,523,477"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.listaProducatori}"
+                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="497,55,53,670"
+                Click="btnModificaDataUtilizator_Click"
+                Command="{Binding ModificaDateleUtilizatoruluiCommand}"
+                FontSize="20">
+                Modifica Utilizator
+            </Button>
+            <controls:AutoCompleteBox
+                x:Name="UtilizatorModifyTB"
+                Width="200"
+                Height="30"
+                Margin="522,115,78,640"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.listaUtilizatori}"
+                Text="{Binding NumeUtilizatorModifyText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="497,218,53,507"
+                Click="btnModificaDateStocProdus_Click"
+                Command="{Binding ModificaDateStocProdusCommand}"
+                FontSize="20">
+                Modifica StocProdus
+            </Button>
+            <TextBox
+                x:Name="IdStocProdusModifyTB"
+                Width="200"
+                Height="30"
+                Margin="522,278,78,477"
+                FontSize="20"
+                Text="{Binding StocProdusIdVisualizeText, Mode=TwoWay}"
+                TextAlignment="Center" />
+        </Grid>
 
 
+
+
+
+        <Grid
+            x:Name="SetActivityGrid"
+            Width="800"
+            Height="785"
+            Visibility="Visible">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+            <Button
+                Width="250"
+                Height="60"
+                Margin="52,55,498,670"
+                Command="{Binding ModificaActivitateaProdusuluiCommand}"
+                FontSize="20">
+                Numele Produsului
+            </Button>
+            <controls:AutoCompleteBox
+                x:Name="NumeProdSetActivityTB"
+                Width="200"
+                Height="30"
+                Margin="77,115,523,640"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.numeProduse}"
+                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="52,218,498,507"
+                Click="btnModificaDateProducator_Click"
+                Command="{Binding ModificaActivitateaProducatoruluiCommand}"
+                FontSize="20">
+                Numele Producatorului
+            </Button>
+            <controls:AutoCompleteBox
+                x:Name="NumeProducatorSetActivityTB"
+                Width="200"
+                Height="30"
+                Margin="77,278,523,477"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.listaProducatori}"
+                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="497,55,53,670"
+                Click="btnModificaDataUtilizator_Click"
+                Command="{Binding ModificaActivitateaUtilizatoruluiCommand}"
+                FontSize="20">
+                Numele Utilizator
+            </Button>
+            <controls:AutoCompleteBox
+                x:Name="UtilizatorSetActivityTB"
+                Width="200"
+                Height="30"
+                Margin="522,115,78,640"
+                FontSize="20"
+                ItemsSource="{Binding bsLogic.listaUtilizatori}"
+                Text="{Binding NumeUtilizatorModifyText, Mode=TwoWay}" />
+            <Button
+                Width="250"
+                Height="60"
+                Margin="497,218,53,507"
+                Click="btnModificaDateStocProdus_Click"
+                Command="{Binding ModificaActivitateaStocProdusCommand}"
+                FontSize="20">
+                Id-ul StocProdus
+            </Button>
+            <TextBox
+                x:Name="IdStocProdusSetActivityTB"
+                Width="200"
+                Height="30"
+                Margin="522,278,78,477"
+                FontSize="20"
+                Text="{Binding StocProdusIdVisualizeText, Mode=TwoWay}"
+                TextAlignment="Center" />
+        </Grid>
+
+        <Grid
+            x:Name="ModifyProdusGrid"
+            Width="800"
+            Height="785"
+            Visibility="Visible">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
 
 
 
 
 
         </Grid>
+        <Grid
+            x:Name="ModifyStocProdusGrid"
+            Width="800"
+            Height="785"
+            Visibility="Visible">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+
+
+
+
+
+        </Grid>
+        <Grid
+            x:Name="ModifyUtilizatorGrid"
+            Width="800"
+            Height="785"
+            Visibility="Visible">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+
+
+
+
+
+        </Grid>
+        <Grid
+            x:Name="ModifyProducatorGrid"
+            Width="800"
+            Height="785"
+            Visibility="Visible">
+            <Grid.DataContext>
+                <ctx:AdminManagementVM />
+            </Grid.DataContext>
+
+
+
+
+
+        </Grid>
+
 
 
 

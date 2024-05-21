@@ -47,6 +47,7 @@ namespace ShopManagement.Models.BusinessLogic
                 listaProducatori.Add(prod.Item1);
 
 
+            context.ActualizeazaStatusProdus();
             SumaTotalaProduseScanate = 0;
         }
 
@@ -283,7 +284,7 @@ namespace ShopManagement.Models.BusinessLogic
 
         public List<string> GetListaCategorii()
         {
-            var result = context.GetProduse();
+            var result = context.GetProduse();      // de modificat
             List<string> categExistente = new List<string>();
             foreach (var item in result)
             {
@@ -330,7 +331,6 @@ namespace ShopManagement.Models.BusinessLogic
 
             var result = context.GetProduseDeLaProducator(producatorId);
 
-            // Parsarea rezultatului și obținerea numelor produselor
             List<string> numeProduse = result.Select(r => r.Nume).ToList();
 
             return numeProduse;

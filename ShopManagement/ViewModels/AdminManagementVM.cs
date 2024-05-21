@@ -292,6 +292,9 @@ namespace ShopManagement.ViewModels
 
         private void AfiseazaCMMBonDinZiua(object commandParameter)
         {
+            // nu era implementat
+
+
         }
 
         private RelayCommand afiseazaDateleProdusuluiCommand;
@@ -439,6 +442,30 @@ namespace ShopManagement.ViewModels
             {
                 MessageBox.Show("Nu ai introdus corect un Id");
             }
+        }
+
+        private string numeUtilizatorModifyText;
+
+        public string NumeUtilizatorModifyText { get => numeUtilizatorModifyText; set => SetProperty(ref numeUtilizatorModifyText, value); }
+
+        private RelayCommand modificaActivitateaProdusuluiCommand;
+
+        public ICommand ModificaActivitateaProdusuluiCommand
+        {
+            get
+            {
+                if (modificaActivitateaProdusuluiCommand == null)
+                {
+                    modificaActivitateaProdusuluiCommand = new RelayCommand(ModificaActivitateaProdusului);
+                }
+
+                return modificaActivitateaProdusuluiCommand;
+            }
+        }
+
+        private void ModificaActivitateaProdusului(object commandParameter)
+        {
+            bsLogic.ModificaActivitateaProdusului(produsNameVisualizeText);
         }
         #endregion
     }

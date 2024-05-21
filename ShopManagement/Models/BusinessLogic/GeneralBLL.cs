@@ -417,5 +417,21 @@ namespace ShopManagement.Models.BusinessLogic
 
             MessageBox.Show("Nu exista un StocProdus cu acel Id");
         }
+
+        internal void ModificaActivitateaProdusului(string produsNameVisualizeText)
+        {
+            var produseDB = context.GetProduse();
+            foreach(var produs in produseDB)
+            {
+                if (produs.Nume.Trim() == produsNameVisualizeText)
+                {
+                    bool currentActivity = produs.IsActive;
+                    context.SetProdusActivity(produs.Nume.Trim(), !currentActivity);
+                    return;
+                }
+            }
+            MessageBox.Show("Produsul nu a fost gasit");
+
+        }
     }
 }

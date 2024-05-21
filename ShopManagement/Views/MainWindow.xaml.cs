@@ -35,7 +35,7 @@ namespace ShopManagement
 
 
 
-                        var casierManagementVM = new CasierManagementVM(Convert.ToInt32(utilizator.Item1));
+                        var casierManagementVM = new CasierManagementVM(Convert.ToInt32(utilizator.Item4));
 
                         CasierMenuGrid.DataContext = casierManagementVM;
                         CasierMenuGrid.Visibility = Visibility.Visible;
@@ -117,7 +117,42 @@ namespace ShopManagement
 
         private void btnVisualizeData_Click(object sender, RoutedEventArgs e)
         {
+            VisualizeDataGrid.Visibility = Visibility.Visible;
+            AdminMenuGrid.Visibility = Visibility.Collapsed;
+        }
 
+        private void btnModificaData_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyGrid.Visibility = Visibility.Visible;
+            AdminMenuGrid.Visibility = Visibility.Collapsed;
+        }
+
+
+
+
+
+        private void btnModificaDateProdus_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyProdusGrid.Visibility = Visibility.Visible;
+            ModifyGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModificaDataUtilizator_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyUtilizatorGrid.Visibility = Visibility.Visible;
+            ModifyGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModificaDateProducator_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyProducatorGrid.Visibility = Visibility.Visible;
+            ModifyGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModificaDateStocProdus_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyStocProdusGrid.Visibility = Visibility.Visible;
+            ModifyGrid.Visibility = Visibility.Collapsed;
         }
     }
 }
