@@ -46,7 +46,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Property Name="NumeProducator" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="TaraDeOrigine" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Produs">
           <Key>
@@ -70,7 +70,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Property Name="UnitateMasura" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="PretAchizitie" Type="float" Nullable="false" />
           <Property Name="PretVanzare" Type="float" Nullable="false" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Utilizator">
           <Key>
@@ -333,7 +333,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Property Name="TaraDeOrigine" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Produs" Relationship="Self.FK_Produs_Producator" FromRole="Producator" ToRole="Produs" />
-          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Produs">
           <Key>
@@ -361,7 +361,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Property Name="PretAchizitie" Type="Double" Nullable="false" />
           <Property Name="PretVanzare" Type="Double" Nullable="false" />
           <NavigationProperty Name="Produs" Relationship="Self.FK_StocProdus_Produs" FromRole="StocProdus" ToRole="Produs" />
-          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Utilizator">
           <Key>

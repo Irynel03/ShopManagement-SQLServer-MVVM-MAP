@@ -19,8 +19,8 @@ namespace ShopManagement.Models
         {
             this.Produs = new HashSet<Produs>();
         }
-
-        public Producator(string numeProducator, string taraDeOrigine, int id, bool? isActive)
+    
+        public Producator(string numeProducator, string taraDeOrigine, int id, bool isActive)
         {
             NumeProducator = numeProducator;
             TaraDeOrigine = taraDeOrigine;
@@ -31,7 +31,7 @@ namespace ShopManagement.Models
         public string NumeProducator { get; set; }
         public string TaraDeOrigine { get; set; }
         public int Id { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Produs> Produs { get; set; }

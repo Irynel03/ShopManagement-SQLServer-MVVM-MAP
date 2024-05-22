@@ -37,7 +37,7 @@ namespace ShopManagement.Models
         public string UnitateMasura { get; set; }
         public double PretAchizitie { get; set; }
         public double PretVanzare { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual Produs Produs { get; set; }
     }
