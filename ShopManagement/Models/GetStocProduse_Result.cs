@@ -21,5 +21,6 @@ namespace ShopManagement.Models
         public string UnitateMasura { get; set; }
         public double PretAchizitie { get; set; }
         public double PretVanzare { get; set; }
+        public bool IsActive { get; internal set; }
     }
 }

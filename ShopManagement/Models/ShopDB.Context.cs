@@ -452,5 +452,14 @@ namespace ShopManagement.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUtilizator", idParameter, numeParameter, parolaParameter, tipParameter);
         }
+    
+        public virtual ObjectResult<Nullable<bool>> GetActivityProducator(string numeProducator)
+        {
+            var numeProducatorParameter = numeProducator != null ?
+                new ObjectParameter("NumeProducator", numeProducator) :
+                new ObjectParameter("NumeProducator", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetActivityProducator", numeProducatorParameter);
+        }
     }
 }

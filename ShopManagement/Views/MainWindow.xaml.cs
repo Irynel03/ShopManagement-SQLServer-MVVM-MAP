@@ -122,17 +122,10 @@ namespace ShopManagement
 
         private void btnModificaData_Click(object sender, RoutedEventArgs e)
         {
-            // ---------------------- aci de modificas
-
-            SetActivityGrid.Visibility = Visibility.Visible;
-            //ModifyGrid.Visibility = Visibility.Visible;
+            ModifyGrid.Visibility = Visibility.Visible;
             AdminMenuGrid.Visibility = Visibility.Collapsed;
         }
-
-
-
-
-
+        
         private void btnModificaDateProdus_Click(object sender, RoutedEventArgs e)
         {
             ModifyProdusGrid.Visibility = Visibility.Visible;
@@ -155,6 +148,12 @@ namespace ShopManagement
         {
             ModifyStocProdusGrid.Visibility = Visibility.Visible;
             ModifyGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModificaActivity_Click(object sender, RoutedEventArgs e)
+        {
+            SetActivityGrid.Visibility = Visibility.Visible;
+            AdminMenuGrid.Visibility = Visibility.Collapsed;
         }
     }
 }

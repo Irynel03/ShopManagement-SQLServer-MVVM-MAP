@@ -16,5 +16,6 @@ namespace ShopManagement.Models
         public string NumeProducator { get; set; }
         public string TaraDeOrigine { get; set; }
         public int Id { get; set; }
+        public bool IsActive { get; internal set; }
     }
 }

@@ -35,10 +35,10 @@ namespace ShopManagement.ViewModels
         {
             if (obj is Tuple<string, string> tupleParams)
             {
-                int idCasier = System.Convert.ToInt32(tupleParams.Item1);
+                //int idCasier = System.Convert.ToInt32(tupleParams.Item1);
                 int luna = System.Convert.ToInt32(tupleParams.Item2);
 
-                List<string> sumePeZile = bsLogic.GetSumePeZileTimpDeOLuna(idCasier, luna);
+                List<string> sumePeZile = bsLogic.GetSumePeZileTimpDeOLuna2(tupleParams.Item1, luna);
 
                 if (sumePeZile.Count > 0)
                 {
@@ -293,7 +293,7 @@ namespace ShopManagement.ViewModels
         private void AfiseazaCMMBonDinZiua(object commandParameter)
         {
             // nu era implementat
-
+            bsLogic.AfiseazaCMMBonDinZiua(ZiBonFiltrare);
 
         }
 
@@ -507,6 +507,7 @@ namespace ShopManagement.ViewModels
 
         private void ModificaActivitateaUtilizatorului(object commandParameter)
         {
+            bsLogic.ModifyUtilizatorActivity(numeUtilizatorModifyText);
         }
 
         private RelayCommand modificaActivitateaStocProdusCommand;
@@ -526,6 +527,179 @@ namespace ShopManagement.ViewModels
 
         private void ModificaActivitateaStocProdus(object commandParameter)
         {
+            bsLogic.ModifyActivityStocProdus(stocProdusIdVisualizeText);
+        }
+
+        private string producatorNameModifyText;
+
+        public string ProducatorNameModifyText { get => producatorNameModifyText; set => SetProperty(ref producatorNameModifyText, value); }
+
+        private string producatorTaraOrigineModifyText;
+
+        public string ProducatorTaraOrigineModifyText { get => producatorTaraOrigineModifyText; set => SetProperty(ref producatorTaraOrigineModifyText, value); }
+
+        private RelayCommand modificaDateleProducatoruluiCommand;
+
+        public ICommand ModificaDateleProducatoruluiCommand
+        {
+            get
+            {
+                if (modificaDateleProducatoruluiCommand == null)
+                {
+                    modificaDateleProducatoruluiCommand = new RelayCommand(ModificaDateleProducatorului);
+                }
+
+                return modificaDateleProducatoruluiCommand;
+            }
+        }
+
+        private void ModificaDateleProducatorului(object commandParameter)
+        {
+            bsLogic.SetProducatorPentruModificare(producatorNameVisualizeText);
+        }
+
+        private RelayCommand modifyProducator;
+
+        public ICommand ModifyProducator
+        {
+            get
+            {
+                if (modifyProducator == null)
+                {
+                    modifyProducator = new RelayCommand(PerformModifyProducator);
+                }
+
+                return modifyProducator;
+            }
+        }
+
+        private void PerformModifyProducator(object commandParameter)
+        {
+            bsLogic.ModifyProducator(producatorNameModifyText, producatorTaraOrigineModifyText);
+        }
+
+        private string utilizatorParolaModifyText;
+
+        public string UtilizatorParolaModifyText { get => utilizatorParolaModifyText; set => SetProperty(ref utilizatorParolaModifyText, value); }
+
+        private RelayCommand modifyUtilizator;
+
+        public ICommand ModifyUtilizator
+        {
+            get
+            {
+                if (modifyUtilizator == null)
+                {
+                    modifyUtilizator = new RelayCommand(PerformModifyUtilizator);
+                }
+
+                return modifyUtilizator;
+            }
+        }
+
+        private void PerformModifyUtilizator(object commandParameter)
+        {
+            bsLogic.ModifyUtilizator(producatorNameModifyText, producatorTaraOrigineModifyText, utilizatorParolaModifyText);
+        }
+
+        private RelayCommand modificaDateleUtilizatoruluiCommand;
+
+        public ICommand ModificaDateleUtilizatoruluiCommand
+        {
+            get
+            {
+                if (modificaDateleUtilizatoruluiCommand == null)
+                {
+                    modificaDateleUtilizatoruluiCommand = new RelayCommand(ModificaDateleUtilizatorului);
+                }
+
+                return modificaDateleUtilizatoruluiCommand;
+            }
+        }
+
+        private void ModificaDateleUtilizatorului(object commandParameter)
+        {
+            bsLogic.SetUtilizatorPentruModificari(numeUtilizatorModifyText);
+        }
+
+        private RelayCommand modificaDateStocProdusCommand;
+
+        public ICommand ModificaDateStocProdusCommand
+        {
+            get
+            {
+                if (modificaDateStocProdusCommand == null)
+                {
+                    modificaDateStocProdusCommand = new RelayCommand(ModificaDateStocProdus);
+                }
+
+                return modificaDateStocProdusCommand;
+            }
+        }
+
+        private void ModificaDateStocProdus(object commandParameter)
+        {
+            bsLogic.SetStocProdusToModify(stocProdusIdVisualizeText);
+        }
+
+        private RelayCommand modifyStocProdus;
+
+        public ICommand ModifyStocProdus
+        {
+            get
+            {
+                if (modifyStocProdus == null)
+                {
+                    modifyStocProdus = new RelayCommand(PerformModifyStocProdus);
+                }
+
+                return modifyStocProdus;
+            }
+        }
+
+        private void PerformModifyStocProdus(object commandParameter)
+        {
+            bsLogic.ModifyStocProdus(ProducatorNameModifyText, ProducatorTaraOrigineModifyText, UtilizatorParolaModifyText);
+        }
+
+        private RelayCommand modifyProdus;
+
+        public ICommand ModifyProdus
+        {
+            get
+            {
+                if (modifyProdus == null)
+                {
+                    modifyProdus = new RelayCommand(PerformModifyProdus);
+                }
+
+                return modifyProdus;
+            }
+        }
+
+        private void PerformModifyProdus(object commandParameter)
+        {
+            bsLogic.ModifyProdus(ProducatorNameModifyText, ProducatorTaraOrigineModifyText, UtilizatorParolaModifyText);
+        }
+
+        private RelayCommand modificaDateleProdusuluiCommand;
+
+        public ICommand ModificaDateleProdusuluiCommand
+        {
+            get
+            {
+                if (modificaDateleProdusuluiCommand == null)
+                {
+                    modificaDateleProdusuluiCommand = new RelayCommand(ModificaDateleProdusului);
+                }
+
+                return modificaDateleProdusuluiCommand;
+            }
+        }
+
+        private void ModificaDateleProdusului(object commandParameter)
+        {
+            bsLogic.SetProdusToModify(produsNameVisualizeText);
         }
         #endregion
     }

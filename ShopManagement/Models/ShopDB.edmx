@@ -188,6 +188,9 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
         <Function Name="CalculeazaSumaTotalaProduseCategoriaSpecifica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NumeCategorie" Type="char" Mode="In" />
         </Function>
+        <Function Name="GetActivityProducator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeProducator" Type="nchar" Mode="In" />
+        </Function>
         <Function Name="GetBonProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetBonuriFiscale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetIncasariCasierPeZiLuna" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -580,6 +583,9 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
             <Parameter Name="Parola" Mode="In" Type="String" />
             <Parameter Name="Tip" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetActivityProducator" ReturnType="Collection(Boolean)">
+            <Parameter Name="NumeProducator" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetProduseDeLaProducator_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -844,6 +850,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <FunctionImportMapping FunctionImportName="UpdateProdus" FunctionName="ShopMngModel.Store.UpdateProdus" />
           <FunctionImportMapping FunctionImportName="UpdateStocProdus" FunctionName="ShopMngModel.Store.UpdateStocProdus" />
           <FunctionImportMapping FunctionImportName="UpdateUtilizator" FunctionName="ShopMngModel.Store.UpdateUtilizator" />
+          <FunctionImportMapping FunctionImportName="GetActivityProducator" FunctionName="ShopMngModel.Store.GetActivityProducator" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

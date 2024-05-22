@@ -18,7 +18,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="\Images\shopBack2.jpeg" Stretch="UniformToFill" />
         </Grid.Background>
-        <Grid x:Name="MainMenuGrid" Visibility="Visible">
+        <Grid x:Name="MainMenuGrid" Visibility="Collapsed">
             <Grid.Background>
                 <ImageBrush ImageSource="\Images\backgroundMainMenu.png" Stretch="UniformToFill" />
             </Grid.Background>
@@ -59,7 +59,7 @@
             x:Name="AdminMenuGrid"
             Width="800"
             Height="785"
-            Visibility="Collapsed">
+            Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -94,19 +94,19 @@
                         <Binding ElementName="CategoriePreturiCautareTB" Path="Text" />
                     </Button.CommandParameter>
                 </Button>
-                <TextBox
+                <!--<TextBox
                     x:Name="CategoriePreturiCautareTB"
                     Width="200"
                     Height="30"
                     FontSize="20"
                     Text="categoria..."
-                    TextAlignment="Center" />
-                <!--<controls:AutoCompleteBox
+                    TextAlignment="Center" />-->
+                <controls:AutoCompleteBox
                     x:Name="CategoriePreturiCautareTB"
                     Width="200"
                     Height="30"
                     FontSize="20"
-                    ItemsSource="{Binding bsLogic.listaCateg}"/>-->
+                    ItemsSource="{Binding bsLogic.listaCateg}" />
                 <Button
                     x:Name="btnAfisareSumeIncasateDeCasier"
                     Width="270"
@@ -126,13 +126,19 @@
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
-                <TextBox
+                <!--<TextBox
                     x:Name="IdCasierToSearchAfisareSumeTB"
                     Width="200"
                     Height="30"
                     FontSize="20"
                     Text="id casier..."
-                    TextAlignment="Center" />
+                    TextAlignment="Center" />-->
+                <controls:AutoCompleteBox
+                    x:Name="IdCasierToSearchAfisareSumeTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    ItemsSource="{Binding bsLogic.listaUtilizatori}" />
                 <TextBox
                     x:Name="LunaSelectAfisareSumeTB"
                     Width="200"
@@ -185,19 +191,19 @@
                         <Binding ElementName="ProduseAleUnuiProducatorTB" Path="Text" />
                     </Button.CommandParameter>
                 </Button>
-                <TextBox
+                <!--<TextBox
                     x:Name="ProduseAleUnuiProducatorTB"
                     Width="200"
                     Height="30"
                     FontSize="20"
                     Text="producatorul..."
-                    TextAlignment="Center" />
-                <!--<controls:AutoCompleteBox
+                    TextAlignment="Center" />-->
+                <controls:AutoCompleteBox
                     x:Name="ProduseAleUnuiProducatorTB"
                     Width="200"
                     Height="30"
                     FontSize="20"
-                    ItemsSource="{Binding bsLogic.listaProducatori}" />-->
+                    ItemsSource="{Binding bsLogic.listaProducatori}" />
                 <Button
                     x:Name="btnAfisareCelMaiMareBonZiSelectata"
                     Width="270"
@@ -229,6 +235,15 @@
                     Click="btnVisualizeData_Click"
                     FontSize="25">
                     Visualize Data
+                </Button>
+                <Button
+                    x:Name="btnModificaActivity"
+                    Width="270"
+                    Height="70"
+                    Margin="0,25,0,0"
+                    Click="btnModificaActivity_Click"
+                    FontSize="25">
+                    Modifica Activity
                 </Button>
             </StackPanel>
         </Grid>
@@ -883,11 +898,6 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 Text="{Binding StocProdusIdVisualizeText, Mode=TwoWay}"
                 TextAlignment="Center" />
         </Grid>
-
-
-
-
-
         <Grid
             x:Name="SetActivityGrid"
             Width="800"
@@ -964,16 +974,53 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 Text="{Binding StocProdusIdVisualizeText, Mode=TwoWay}"
                 TextAlignment="Center" />
         </Grid>
-
         <Grid
             x:Name="ModifyProdusGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>-->
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,170,400,565"
+                Content="{Binding bsLogic.produsDeModificat.Item2}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,170,50,565"
+                Text="{Binding ProducatorNameModifyText, Mode=TwoWay}" />
 
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,392,400,343"
+                Content="{Binding bsLogic.produsDeModificat.Item3}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,392,50,343"
+                Text="{Binding ProducatorTaraOrigineModifyText, Mode=TwoWay}" />
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,290,400,445"
+                Content="{Binding bsLogic.produsDeModificat.Item4}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,290,50,445"
+                Text="{Binding UtilizatorParolaModifyText, Mode=TwoWay}" />
+            <Button
+                Width="300"
+                Height="50"
+                Margin="250,519,250,216"
+                Command="{Binding ModifyProdus}"
+                FontSize="20">
+                Modifica datele Produsului
+            </Button>
 
 
 
@@ -983,11 +1030,49 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             x:Name="ModifyStocProdusGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>-->
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,170,400,565"
+                Content="{Binding bsLogic.stocProdusDeModificat.Item2}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,170,50,565"
+                Text="{Binding ProducatorNameModifyText, Mode=TwoWay}" />
 
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,392,400,343"
+                Content="{Binding bsLogic.stocProdusDeModificat.Item3}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,392,50,343"
+                Text="{Binding ProducatorTaraOrigineModifyText, Mode=TwoWay}" />
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,290,400,445"
+                Content="{Binding bsLogic.stocProdusDeModificat.Item4}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,290,50,445"
+                Text="{Binding UtilizatorParolaModifyText, Mode=TwoWay}" />
+            <Button
+                Width="300"
+                Height="50"
+                Margin="250,519,250,216"
+                Command="{Binding ModifyStocProdus}"
+                FontSize="20">
+                Modifica datele Stocului
+            </Button>
 
 
 
@@ -997,11 +1082,49 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             x:Name="ModifyUtilizatorGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>-->
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,170,400,565"
+                Content="{Binding bsLogic.utilDeModificat.Item2}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,170,50,565"
+                Text="{Binding ProducatorNameModifyText, Mode=TwoWay}" />
 
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,392,400,343"
+                Content="{Binding bsLogic.utilDeModificat.Item3}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,392,50,343"
+                Text="{Binding ProducatorTaraOrigineModifyText, Mode=TwoWay}" />
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,290,400,445"
+                Content="{Binding bsLogic.utilDeModificat.Item4}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,290,50,445"
+                Text="{Binding UtilizatorParolaModifyText, Mode=TwoWay}" />
+            <Button
+                Width="300"
+                Height="50"
+                Margin="250,519,250,216"
+                Command="{Binding ModifyUtilizator}"
+                FontSize="20">
+                Modifica datele Utilizatorului
+            </Button>
 
 
 
@@ -1011,18 +1134,46 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             x:Name="ModifyProducatorGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>-->
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,170,400,565"
+                Content="{Binding bsLogic.prodDeModificat.Item1}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,170,50,565"
+                Text="{Binding ProducatorNameModifyText, Mode=TwoWay}" />
 
+            <Label
+                Width="350"
+                Height="50"
+                Margin="50,392,400,343"
+                Content="{Binding bsLogic.prodDeModificat.Item2}" />
+            <TextBox
+                Width="350"
+                Height="50"
+                Margin="400,392,50,343"
+                Text="{Binding ProducatorTaraOrigineModifyText, Mode=TwoWay}" />
 
-
-
+            <Button
+                Width="300"
+                Height="50"
+                Margin="250,519,250,216"
+                Command="{Binding ModifyProducator}"
+                FontSize="20">
+                Modifica datele Producatorului
+            </Button>
 
         </Grid>
 
-
+        <Grid.DataContext>
+            <ctx:AdminManagementVM />
+        </Grid.DataContext>
 
 
     </Grid>
