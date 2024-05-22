@@ -178,7 +178,7 @@ namespace ShopManagement.Models.BusinessLogic
         internal void FinalizeazaBonFiscal()
         {
             context.AdaugareBonFiscal(idCasier, SumaTotalaProduseScanate);
-
+            context.UpdateStocProdusIsActiveOnConditions();
             //int idBonFiscal = Convert.ToInt32(context.GetLastBonFiscalId());
 
             int? idBonFiscalNullable = context.GetLastBonFiscalId().FirstOrDefault();

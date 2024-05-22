@@ -19,7 +19,15 @@ namespace ShopManagement.Models
         {
             this.Produs = new HashSet<Produs>();
         }
-    
+
+        public Producator(string numeProducator, string taraDeOrigine, int id, bool? isActive)
+        {
+            NumeProducator = numeProducator;
+            TaraDeOrigine = taraDeOrigine;
+            Id = id;
+            IsActive = isActive;
+        }
+
         public string NumeProducator { get; set; }
         public string TaraDeOrigine { get; set; }
         public int Id { get; set; }

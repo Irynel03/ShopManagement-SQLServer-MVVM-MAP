@@ -20,7 +20,6 @@ namespace ShopManagement
             string parolaUtilizator = ParolaLoginPB.Password;
 
             GeneralBLL gbl = new GeneralBLL();
-
             List<Tuple<string, string, string, int>> utilizatori = gbl.GetUtilizatoriData();
 
             bool utilizatorGasit = false;
@@ -46,7 +45,7 @@ namespace ShopManagement
                     {
                         var adminManagementVM = new AdminManagementVM();
 
-                        AdminMenuGrid.DataContext = adminManagementVM;
+                        this.DataContext = adminManagementVM;
                         AdminMenuGrid.Visibility = Visibility.Visible;
                         MainMenuGrid.Visibility = Visibility.Collapsed;
                     }
@@ -123,7 +122,10 @@ namespace ShopManagement
 
         private void btnModificaData_Click(object sender, RoutedEventArgs e)
         {
-            ModifyGrid.Visibility = Visibility.Visible;
+            // ---------------------- aci de modificas
+
+            SetActivityGrid.Visibility = Visibility.Visible;
+            //ModifyGrid.Visibility = Visibility.Visible;
             AdminMenuGrid.Visibility = Visibility.Collapsed;
         }
 

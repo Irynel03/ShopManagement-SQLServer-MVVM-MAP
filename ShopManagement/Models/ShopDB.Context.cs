@@ -323,17 +323,17 @@ namespace ShopManagement.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetProducatorActivity", numeProducatorParameter, isActiveParameter);
         }
     
-        public virtual int SetProdusActivity(string numeProdus, Nullable<bool> isActive)
+        public virtual int SetProdusActivity(string nume, Nullable<bool> isActive)
         {
-            var numeProdusParameter = numeProdus != null ?
-                new ObjectParameter("NumeProdus", numeProdus) :
-                new ObjectParameter("NumeProdus", typeof(string));
+            var numeParameter = nume != null ?
+                new ObjectParameter("Nume", nume) :
+                new ObjectParameter("Nume", typeof(string));
     
             var isActiveParameter = isActive.HasValue ?
                 new ObjectParameter("IsActive", isActive) :
                 new ObjectParameter("IsActive", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetProdusActivity", numeProdusParameter, isActiveParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetProdusActivity", numeParameter, isActiveParameter);
         }
     
         public virtual int SetStocProdusActivity(Nullable<int> idStocProdus, Nullable<bool> isActive)
@@ -375,6 +375,82 @@ namespace ShopManagement.Models
         public virtual ObjectResult<GetBonuriFiscale_Result> GetBonuriFiscale()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBonuriFiscale_Result>("GetBonuriFiscale");
+        }
+    
+        public virtual int UpdateProducator(Nullable<int> id, string numeProducator, string taraDeOrigine)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var numeProducatorParameter = numeProducator != null ?
+                new ObjectParameter("NumeProducator", numeProducator) :
+                new ObjectParameter("NumeProducator", typeof(string));
+    
+            var taraDeOrigineParameter = taraDeOrigine != null ?
+                new ObjectParameter("TaraDeOrigine", taraDeOrigine) :
+                new ObjectParameter("TaraDeOrigine", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateProducator", idParameter, numeProducatorParameter, taraDeOrigineParameter);
+        }
+    
+        public virtual int UpdateProdus(Nullable<int> id, string numeProdus, string categorie, Nullable<int> producator_Id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var numeProdusParameter = numeProdus != null ?
+                new ObjectParameter("NumeProdus", numeProdus) :
+                new ObjectParameter("NumeProdus", typeof(string));
+    
+            var categorieParameter = categorie != null ?
+                new ObjectParameter("Categorie", categorie) :
+                new ObjectParameter("Categorie", typeof(string));
+    
+            var producator_IdParameter = producator_Id.HasValue ?
+                new ObjectParameter("Producator_Id", producator_Id) :
+                new ObjectParameter("Producator_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateProdus", idParameter, numeProdusParameter, categorieParameter, producator_IdParameter);
+        }
+    
+        public virtual int UpdateStocProdus(Nullable<int> id, Nullable<int> cantitate, Nullable<double> pretVanzare)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var cantitateParameter = cantitate.HasValue ?
+                new ObjectParameter("Cantitate", cantitate) :
+                new ObjectParameter("Cantitate", typeof(int));
+    
+            var pretVanzareParameter = pretVanzare.HasValue ?
+                new ObjectParameter("PretVanzare", pretVanzare) :
+                new ObjectParameter("PretVanzare", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateStocProdus", idParameter, cantitateParameter, pretVanzareParameter);
+        }
+    
+        public virtual int UpdateUtilizator(Nullable<int> id, string nume, string parola, string tip)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var numeParameter = nume != null ?
+                new ObjectParameter("Nume", nume) :
+                new ObjectParameter("Nume", typeof(string));
+    
+            var parolaParameter = parola != null ?
+                new ObjectParameter("Parola", parola) :
+                new ObjectParameter("Parola", typeof(string));
+    
+            var tipParameter = tip != null ?
+                new ObjectParameter("Tip", tip) :
+                new ObjectParameter("Tip", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUtilizator", idParameter, numeParameter, parolaParameter, tipParameter);
         }
     }
 }

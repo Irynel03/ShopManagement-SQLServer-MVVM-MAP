@@ -321,7 +321,9 @@ namespace ShopManagement.ViewModels
 
         private string produsNameVisualizeText;
 
-        public string ProdusNameVisualizeText { get => produsNameVisualizeText; set => SetProperty(ref produsNameVisualizeText, value); }
+        public string ProdusNameVisualizeText 
+        { get => produsNameVisualizeText; 
+            set => SetProperty(ref produsNameVisualizeText, value); }
 
         private string producatorNameVisualizeText;
 
@@ -466,6 +468,64 @@ namespace ShopManagement.ViewModels
         private void ModificaActivitateaProdusului(object commandParameter)
         {
             bsLogic.ModificaActivitateaProdusului(produsNameVisualizeText);
+        }
+
+        private RelayCommand modificaActivitateaProducatoruluiCommand;
+
+        public ICommand ModificaActivitateaProducatoruluiCommand
+        {
+            get
+            {
+                if (modificaActivitateaProducatoruluiCommand == null)
+                {
+                    modificaActivitateaProducatoruluiCommand = new RelayCommand(ModificaActivitateaProducatorului);
+                }
+
+                return modificaActivitateaProducatoruluiCommand;
+            }
+        }
+
+        private void ModificaActivitateaProducatorului(object commandParameter)
+        {
+            bsLogic.ModificaActivitateaProducatorului(producatorNameVisualizeText);
+        }
+
+        private RelayCommand modificaActivitateaUtilizatoruluiCommand;
+
+        public ICommand ModificaActivitateaUtilizatoruluiCommand
+        {
+            get
+            {
+                if (modificaActivitateaUtilizatoruluiCommand == null)
+                {
+                    modificaActivitateaUtilizatoruluiCommand = new RelayCommand(ModificaActivitateaUtilizatorului);
+                }
+
+                return modificaActivitateaUtilizatoruluiCommand;
+            }
+        }
+
+        private void ModificaActivitateaUtilizatorului(object commandParameter)
+        {
+        }
+
+        private RelayCommand modificaActivitateaStocProdusCommand;
+
+        public ICommand ModificaActivitateaStocProdusCommand
+        {
+            get
+            {
+                if (modificaActivitateaStocProdusCommand == null)
+                {
+                    modificaActivitateaStocProdusCommand = new RelayCommand(ModificaActivitateaStocProdus);
+                }
+
+                return modificaActivitateaStocProdusCommand;
+            }
+        }
+
+        private void ModificaActivitateaStocProdus(object commandParameter)
+        {
         }
         #endregion
     }

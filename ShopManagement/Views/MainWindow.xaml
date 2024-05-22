@@ -18,7 +18,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="\Images\shopBack2.jpeg" Stretch="UniformToFill" />
         </Grid.Background>
-        <Grid x:Name="MainMenuGrid" Visibility="Collapsed">
+        <Grid x:Name="MainMenuGrid" Visibility="Visible">
             <Grid.Background>
                 <ImageBrush ImageSource="\Images\backgroundMainMenu.png" Stretch="UniformToFill" />
             </Grid.Background>
@@ -65,9 +65,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
             <StackPanel
                 Grid.Column="0"
                 Margin="0,80,0,0"
@@ -449,9 +449,9 @@
         </Grid>
 
         <Grid x:Name="AddUtilizatorGrid" Visibility="Collapsed">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
             <Grid.Resources>
                 <localConverter:UtilizatorConvert x:Key="utilizatorConvert" />
             </Grid.Resources>
@@ -502,9 +502,9 @@
 
         </Grid>
         <Grid x:Name="AddProdusGrid" Visibility="Collapsed">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
             <Grid.Resources>
                 <localConverter:ProdusConvert x:Key="produsConvert" />
             </Grid.Resources>
@@ -554,9 +554,9 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="AddProducatorGrid" Visibility="Collapsed">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
             <Grid.Resources>
                 <localConverter:ProducatorConvert x:Key="producatorConvert" />
             </Grid.Resources>
@@ -596,9 +596,9 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="AddStocProdusGrid" Visibility="Collapsed">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
             <Grid.Resources>
                 <localConverter:StocProdusConvert x:Key="stocProdusConvert" />
             </Grid.Resources>
@@ -688,9 +688,9 @@
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
 
             <Button
                 Width="250"
@@ -811,9 +811,9 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
             <Button
                 Width="250"
                 Height="60"
@@ -892,10 +892,10 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             x:Name="SetActivityGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
-            <Grid.DataContext>
+            Visibility="Collapsed">
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
             <Button
                 Width="250"
                 Height="60"
@@ -970,9 +970,9 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Visible">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
 
 
 
@@ -984,9 +984,9 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Visible">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
 
 
 
@@ -998,9 +998,9 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Visible">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
 
 
 
@@ -1012,9 +1012,9 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Visible">
-            <Grid.DataContext>
+            <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
-            </Grid.DataContext>
+            </Grid.DataContext>-->
 
 
 

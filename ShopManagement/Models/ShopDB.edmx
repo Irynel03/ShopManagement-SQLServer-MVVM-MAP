@@ -213,7 +213,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Parameter Name="IsActive" Type="bit" Mode="In" />
         </Function>
         <Function Name="SetProdusActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="NumeProdus" Type="char" Mode="In" />
+          <Parameter Name="Nume" Type="char" Mode="In" />
           <Parameter Name="IsActive" Type="bit" Mode="In" />
         </Function>
         <Function Name="SetStocProdusActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -228,7 +228,29 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Parameter Name="IdStocProdus" Type="int" Mode="In" />
           <Parameter Name="NouaCantitate" Type="int" Mode="In" />
         </Function>
+        <Function Name="UpdateProducator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="NumeProducator" Type="nchar" Mode="In" />
+          <Parameter Name="TaraDeOrigine" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="NumeProdus" Type="char" Mode="In" />
+          <Parameter Name="Categorie" Type="char" Mode="In" />
+          <Parameter Name="Producator_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateStocProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Cantitate" Type="int" Mode="In" />
+          <Parameter Name="PretVanzare" Type="float" Mode="In" />
+        </Function>
         <Function Name="UpdateStocProdusIsActiveOnConditions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UpdateUtilizator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Nume" Type="nchar" Mode="In" />
+          <Parameter Name="Parola" Type="nchar" Mode="In" />
+          <Parameter Name="Tip" Type="nchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ShopMngModelStoreContainer">
           <EntitySet Name="BonFiscal" EntityType="Self.BonFiscal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Oferta" EntityType="Self.Oferta" Schema="dbo" store:Type="Tables" />
@@ -522,7 +544,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
             <Parameter Name="IsActive" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="SetProdusActivity">
-            <Parameter Name="NumeProdus" Mode="In" Type="String" />
+            <Parameter Name="Nume" Mode="In" Type="String" />
             <Parameter Name="IsActive" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="SetStocProdusActivity">
@@ -536,6 +558,28 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <FunctionImport Name="UpdateStocProdusIsActiveOnConditions" />
           <FunctionImport Name="GetBonProdus" ReturnType="Collection(ShopMngModel.GetBonProdus_Result)" />
           <FunctionImport Name="GetBonuriFiscale" ReturnType="Collection(ShopMngModel.GetBonuriFiscale_Result)" />
+          <FunctionImport Name="UpdateProducator">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="NumeProducator" Mode="In" Type="String" />
+            <Parameter Name="TaraDeOrigine" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProdus">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="NumeProdus" Mode="In" Type="String" />
+            <Parameter Name="Categorie" Mode="In" Type="String" />
+            <Parameter Name="Producator_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateStocProdus">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Cantitate" Mode="In" Type="Int32" />
+            <Parameter Name="PretVanzare" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUtilizator">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Nume" Mode="In" Type="String" />
+            <Parameter Name="Parola" Mode="In" Type="String" />
+            <Parameter Name="Tip" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetProduseDeLaProducator_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -796,6 +840,10 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateProducator" FunctionName="ShopMngModel.Store.UpdateProducator" />
+          <FunctionImportMapping FunctionImportName="UpdateProdus" FunctionName="ShopMngModel.Store.UpdateProdus" />
+          <FunctionImportMapping FunctionImportName="UpdateStocProdus" FunctionName="ShopMngModel.Store.UpdateStocProdus" />
+          <FunctionImportMapping FunctionImportName="UpdateUtilizator" FunctionName="ShopMngModel.Store.UpdateUtilizator" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

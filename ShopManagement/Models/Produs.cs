@@ -14,15 +14,14 @@ namespace ShopManagement.Models
     
     public partial class Produs
     {
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Produs(int id)
+        public Produs()
         {
             this.Oferta = new HashSet<Oferta>();
             this.StocProdus = new HashSet<StocProdus>();
         }
-
-        public Produs(int id, string v, string categorie, int producator_Id, bool isActive) : this(id)
+    
+        public Produs(int id, string v, string categorie, int producator_Id, bool isActive)
         {
             this.Id = id;
             this.Nume = v;

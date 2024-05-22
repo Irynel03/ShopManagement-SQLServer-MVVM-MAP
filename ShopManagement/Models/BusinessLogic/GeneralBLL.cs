@@ -10,6 +10,7 @@ namespace ShopManagement.Models.BusinessLogic
         private ShopMngEntities2 context = new ShopMngEntities2();
 
         public List<Produs> produse2 { get; set; } = new List<Produs>();
+        public List<Producator> producatori { get; set; } = new List<Producator>();
         public List<String> numeProduse { get; set; } = new List<String>();
         public List<String> listaCateg { get; set; } = new List<String>();
         public List<String> listaProducatori { get; set; } = new List<String>();
@@ -27,6 +28,7 @@ namespace ShopManagement.Models.BusinessLogic
             var produse = context.GetProduse();
 
             produse2 = GetProduse();
+            producatori = GetProducatori();
             foreach (var prod in produse)
             {
                 numeProduse.Add(prod.Nume.Trim());
@@ -41,10 +43,26 @@ namespace ShopManagement.Models.BusinessLogic
                 listaUtilizatori.Add(utilizator.Nume.Trim());
             }
 
+            
+            context.UpdateStocProdusIsActiveOnConditions();
+            
             List<Tuple<string, int>> listaProd = GetListaProducatori();
             foreach (var prod in listaProd)
                 listaProducatori.Add(prod.Item1);
 
+        }
+
+        private List<Producator> GetProducatori()
+        {
+            var producatoriDB = context.GetProducatori();
+            List<Producator> producatoriF = new List<Producator>();
+
+            foreach(var producator in producatoriDB)
+            {
+                producatoriF.Add(new Producator(producator.NumeProducator, producator.TaraDeOrigine, producator.Id, producator.IsActive));
+            }
+
+            return producatoriF;
         }
 
         private void VerrificareStocuri()
@@ -420,18 +438,41 @@ namespace ShopManagement.Models.BusinessLogic
 
         internal void ModificaActivitateaProdusului(string produsNameVisualizeText)
         {
-            var produseDB = context.GetProduse();
-            foreach(var produs in produseDB)
+            foreach (var produs in produse2)
             {
                 if (produs.Nume.Trim() == produsNameVisualizeText)
                 {
-                    bool currentActivity = produs.IsActive;
-                    context.SetProdusActivity(produs.Nume.Trim(), !currentActivity);
+                    // Inversați valoarea actuală a activității
+                    bool newActivity = !produs.IsActive;
+
+                    // Actualizați activitatea produsului în baza de date
+                    context.UpdateStocProdusIsActiveOnConditions();
+                    context.SetProdusActivity(produs.Nume, newActivity);
+                    context.SaveChanges(); // Salvați modificările în baza de date
+                    produse2 = GetProduse();
                     return;
                 }
             }
-            MessageBox.Show("Produsul nu a fost gasit");
 
+            // Dacă produsul nu a fost găsit, afișați un mesaj
+            MessageBox.Show("Produsul nu a fost găsit");
+        }
+
+
+        internal void ModificaActivitateaProducatorului(string produsNameVisualizeText)
+        {
+            foreach(var producator in producatori)
+            {
+                if(producator.NumeProducator.Trim() == produsNameVisualizeText)
+                {
+                    bool currentActivity = (bool)producator.IsActive;
+                    context.SetProducatorActivity(producator.NumeProducator, !currentActivity);
+                    producatori = GetProducatori();
+                    return;
+                }
+            }
+            MessageBox.Show("Nu am gasit producatorul.");
+        
         }
     }
 }
