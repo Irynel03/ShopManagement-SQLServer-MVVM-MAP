@@ -1,15 +1,8 @@
 ﻿using ShopManagement.Helpers;
-using ShopManagement.Models;
 using ShopManagement.Models.BusinessLogic;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,9 +10,7 @@ namespace ShopManagement.ViewModels
 {
     internal class CasierManagementVM : INotifyPropertyChanged
     {
-        //GeneralBLL bsLogic = new GeneralBLL();
         public CasierBL casierBL { get; set; }
-        public List<string> listaPLM {  get; set; } = new List<string>();
         
 
         public event PropertyChangedEventHandler PropertyChanged;

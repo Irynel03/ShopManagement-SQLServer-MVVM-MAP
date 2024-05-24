@@ -1,13 +1,9 @@
 ﻿using ShopManagement.Helpers;
-using ShopManagement.Models;
 using ShopManagement.Models.BusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -324,8 +320,7 @@ namespace ShopManagement.ViewModels
         private void AfiseazaDateleProdusului(object commandParameter)
         {
             bsLogic.AfiseazaDateleProdusuluiVisualizeGrid(produsNameVisualizeText);
-
-
+            ProdusNameVisualizeText = "";
         }
 
         private string produsNameVisualizeText;
@@ -356,6 +351,7 @@ namespace ShopManagement.ViewModels
         private void AfiseazaDateleProducatorului(object commandParameter)
         {
             bsLogic.AfiseazaDateleProducatoruluiVisualizeGrid(producatorNameVisualizeText);
+            ProducatorNameVisualizeText = "";
         }
 
         private RelayCommand afiseazaDateleUtilizatoruluiCommand;
@@ -376,6 +372,7 @@ namespace ShopManagement.ViewModels
         private void AfiseazaDateleUtilizatorului(object commandParameter)
         {
             bsLogic.AfiseazaDateleUtilizatorului(utilizatorNameVisualizeText);
+            UtilizatorNameVisualizeText = "";
         }
 
         private string utilizatorNameVisualizeText;
@@ -407,6 +404,7 @@ namespace ShopManagement.ViewModels
             if (conversieReusita)
             {
                 bsLogic.AfisareDateBonFiscal(idBonFiscal);
+                BonFiscalIdVisualizeText = "";
             }
             else
             {
@@ -448,6 +446,7 @@ namespace ShopManagement.ViewModels
             if (conversieReusita)
             {
                 bsLogic.AfisareDateStocProdus(idStocProdus);
+                StocProdusIdVisualizeText = "";
             }
             else
             {
@@ -477,6 +476,7 @@ namespace ShopManagement.ViewModels
         private void ModificaActivitateaProdusului(object commandParameter)
         {
             bsLogic.ModificaActivitateaProdusului(produsNameVisualizeText);
+            ProdusNameVisualizeText = "";
         }
 
         private RelayCommand modificaActivitateaProducatoruluiCommand;
@@ -497,6 +497,7 @@ namespace ShopManagement.ViewModels
         private void ModificaActivitateaProducatorului(object commandParameter)
         {
             bsLogic.ModificaActivitateaProducatorului(producatorNameVisualizeText);
+            ProducatorNameVisualizeText = "";
         }
 
         private RelayCommand modificaActivitateaUtilizatoruluiCommand;
@@ -517,6 +518,7 @@ namespace ShopManagement.ViewModels
         private void ModificaActivitateaUtilizatorului(object commandParameter)
         {
             bsLogic.ModifyUtilizatorActivity(numeUtilizatorModifyText);
+            NumeUtilizatorModifyText = "";
         }
 
         private RelayCommand modificaActivitateaStocProdusCommand;
@@ -537,6 +539,7 @@ namespace ShopManagement.ViewModels
         private void ModificaActivitateaStocProdus(object commandParameter)
         {
             bsLogic.ModifyActivityStocProdus(stocProdusIdVisualizeText);
+            StocProdusIdVisualizeText = "";
         }
 
         private string producatorNameModifyText;
@@ -565,6 +568,7 @@ namespace ShopManagement.ViewModels
         private void ModificaDateleProducatorului(object commandParameter)
         {
             bsLogic.SetProducatorPentruModificare(producatorNameVisualizeText);
+            ProducatorNameVisualizeText = "";
         }
 
         private RelayCommand modifyProducator;
@@ -585,6 +589,7 @@ namespace ShopManagement.ViewModels
         private void PerformModifyProducator(object commandParameter)
         {
             bsLogic.ModifyProducator(producatorNameModifyText, producatorTaraOrigineModifyText);
+            ProducatorNameModifyText = ""; ProducatorTaraOrigineModifyText = "";
         }
 
         private string utilizatorParolaModifyText;
@@ -609,6 +614,7 @@ namespace ShopManagement.ViewModels
         private void PerformModifyUtilizator(object commandParameter)
         {
             bsLogic.ModifyUtilizator(producatorNameModifyText, utilizatorParolaModifyText, producatorTaraOrigineModifyText);
+            ProducatorNameModifyText = ""; ProducatorTaraOrigineModifyText = ""; utilizatorParolaModifyText = "";
         }
 
         private RelayCommand modificaDateleUtilizatoruluiCommand;
@@ -650,6 +656,7 @@ namespace ShopManagement.ViewModels
         private void ModificaDateStocProdus(object commandParameter)
         {
             bsLogic.SetStocProdusToModify(stocProdusIdVisualizeText);
+            StocProdusIdVisualizeText = "";
         }
 
         private RelayCommand modifyStocProdus;
@@ -670,6 +677,7 @@ namespace ShopManagement.ViewModels
         private void PerformModifyStocProdus(object commandParameter)
         {
             bsLogic.ModifyStocProdus(ProducatorNameModifyText, ProducatorTaraOrigineModifyText, UtilizatorParolaModifyText);
+            ProducatorNameModifyText = ""; ProducatorTaraOrigineModifyText = ""; UtilizatorParolaModifyText = "";
         }
 
         private RelayCommand modifyProdus;
@@ -710,6 +718,7 @@ namespace ShopManagement.ViewModels
         private void ModificaDateleProdusului(object commandParameter)
         {
             bsLogic.SetProdusToModify(produsNameVisualizeText);
+            ProdusNameVisualizeText = "";
         }
         #endregion
     }

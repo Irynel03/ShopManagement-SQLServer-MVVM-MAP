@@ -20,7 +20,7 @@ namespace ShopManagement
             string parolaUtilizator = ParolaLoginPB.Password;
 
             GeneralBLL gbl = new GeneralBLL();
-            List<Tuple<string, string, string, int>> utilizatori = gbl.GetUtilizatoriData();
+            List<Tuple<string, string, string, int, bool>> utilizatori = gbl.GetUtilizatoriData();
 
             bool utilizatorGasit = false;
             foreach (var utilizator in utilizatori)
@@ -28,6 +28,12 @@ namespace ShopManagement
                 if (utilizator.Item1.ToString() == numeUtilizator && utilizator.Item2.ToString() == parolaUtilizator)
                 {
                     utilizatorGasit = true;
+                    if(utilizator.Item5 == false)
+                    {
+                        MessageBox.Show("Acest utilizator nu mai face parte din acest magazin");
+                        return;
+                    }
+
                     if (utilizator.Item3 == "Casier")
                     {
                         var casierManagementVM = new CasierManagementVM(Convert.ToInt32(utilizator.Item4));

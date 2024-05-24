@@ -68,15 +68,6 @@
                 Grid.Column="0"
                 Margin="0,80,0,0"
                 VerticalAlignment="Top">
-                <!--<Button
-                    x:Name="btnAdaugaProdus"
-                    Width="270"
-                    Height="70"
-                    Margin="0,25,0,0"
-                    Click="btnAdaugaProdus_Click"
-                    FontSize="25">
-                    AdaugaProdus
-                </Button>-->
                 <Button
                     x:Name="btnSelectareProdListareProduse"
                     Width="270"
@@ -161,16 +152,6 @@
                     Width="220"
                     Height="30"
                     SelectedDate="{Binding ZiBonFiltrare, Mode=TwoWay}" />
-                <!--<Button
-                    x:Name="btnAdaugareUtilizator"
-                    Width="270"
-                    Height="70"
-                    Margin="0,25,0,0"
-                    Click="btnAdaugareUtilizator_Click"
-                    FontSize="25">
-                    Adauga Utilizator
-                </Button>-->
-
             </StackPanel>
             <StackPanel
                 Grid.Column="1"
@@ -477,9 +458,6 @@
 
 
         <Grid x:Name="AddUtilizatorGrid" Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Grid.Resources>
                 <localConverter:UtilizatorConvert x:Key="utilizatorConvert" />
             </Grid.Resources>
@@ -763,9 +741,6 @@
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
 
             <Button
                 Width="250"
@@ -775,14 +750,6 @@
                 FontSize="20">
                 Afiseaza date produs
             </Button>
-            <!--<TextBox
-                x:Name="NumeProdVisualizeTB"
-                Width="200"
-                Height="30"
-                Margin="77,115,523,640"
-                FontSize="20"
-                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
-                TextAlignment="Center" />-->
             <controls:AutoCompleteBox
                 x:Name="NumeProdVisualizeTB"
                 Width="200"
@@ -799,14 +766,6 @@
                 FontSize="20">
                 Afiseaza Producator
             </Button>
-            <!--<TextBox
-                x:Name="NumeProducatorVisualizeTB"
-                Width="200"
-                Height="30"
-                Margin="77,278,523,477"
-                FontSize="20"
-                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}"
-                TextAlignment="Center" />-->
             <controls:AutoCompleteBox
                 x:Name="NumeProducatorVisualizeTB"
                 Width="200"
@@ -823,14 +782,6 @@
                 FontSize="20">
                 Afiseaza Utilizator
             </Button>
-            <!--<TextBox
-                x:Name="NumeUtilizatorVisualizeTB"
-                Width="200"
-                Height="30"
-                Margin="77,453,523,302"
-                FontSize="20"
-                Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}"
-                TextAlignment="Center" />-->
             <controls:AutoCompleteBox
                 x:Name="NumeUtilizatorVisualizeTB"
                 Width="200"
@@ -855,14 +806,6 @@
                 FontSize="20"
                 Text="{Binding BonFiscalIdVisualizeText, Mode=TwoWay}"
                 TextAlignment="Center" />
-            <!--<controls:AutoCompleteBox
-    x:Name="NumeProdVisualizeTB"
-Width="200"
-Height="30"
-Margin="77,115,523,640"
-FontSize="20"
-Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
-    ItemsSource="{Binding bsLogic.listaProducatori}" />-->
             <Button
                 Width="250"
                 Height="60"
@@ -896,9 +839,6 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Button
                 Width="250"
                 Height="60"
@@ -983,9 +923,6 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Button
                 Width="250"
                 Height="60"
@@ -1064,9 +1001,6 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Label
                 Width="350"
                 Height="50"
@@ -1116,18 +1050,12 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 Click="btnModifyProdusBackToModidy_Click"
                 Content="Back"
                 FontSize="20" />
-
-
-
         </Grid>
         <Grid
             x:Name="ModifyStocProdusGrid"
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Label
                 Width="350"
                 Height="50"
@@ -1177,18 +1105,12 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 Click="btnModifyStocProdusBackToModidy_Click"
                 Content="Back"
                 FontSize="20" />
-
-
-
         </Grid>
         <Grid
             x:Name="ModifyUtilizatorGrid"
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Label
                 Width="350"
                 Height="50"
@@ -1238,18 +1160,12 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 Click="btnModifyUtilizatorBackToModidy_Click"
                 Content="Back"
                 FontSize="20" />
-
-
-
         </Grid>
         <Grid
             x:Name="ModifyProducatorGrid"
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Label
                 Width="350"
                 Height="50"
@@ -1290,7 +1206,6 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 Click="btnModifyProducatorBackToModidy_Click"
                 Content="Back"
                 FontSize="20" />
-
         </Grid>
 
         <Grid.DataContext>

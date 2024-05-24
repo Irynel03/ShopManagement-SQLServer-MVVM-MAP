@@ -85,16 +85,9 @@ namespace ShopManagement.Models.BusinessLogic
         public GeneralBLL()
         {
             VerrificareStocuri();
-
             SetareActivitateProduseDupaStoc();
-            
-            
-
 
             var produse = context.GetProduse();
-
-            
-
 
             produse2 = GetProduse();
             producatori = GetProducatori();
@@ -146,7 +139,7 @@ namespace ShopManagement.Models.BusinessLogic
 
             foreach(var producator in producatoriDB)
             {
-                producatoriF.Add(new Producator(producator.NumeProducator, producator.TaraDeOrigine, producator.Id, producator.IsActive));
+                producatoriF.Add(new Producator(producator.NumeProducator, producator.TaraDeOrigine, producator.Id, (bool)context.GetProducatorActivity(producator.Id).FirstOrDefault()));
             }
 
             return producatoriF;
@@ -157,12 +150,8 @@ namespace ShopManagement.Models.BusinessLogic
             var stocProduse = context.GetStocProduse();
             foreach (var stocProdus in stocProduse)
             {
-                if(stocProdus.DataExpirare < DateTime.Now && stocProdus.IsActive == true)
-                {
+                if(stocProdus.DataExpirare < DateTime.Now && context.GetStocProdusActivity(stocProdus.IdStocProdus).FirstOrDefault() == true)
                     context.SetStocProdusActivity(stocProdus.IdStocProdus, false);
-                }
-
-                
 
             }
 
@@ -206,15 +195,15 @@ namespace ShopManagement.Models.BusinessLogic
             return produse;
         }
 
-        public List<Tuple<string, string, string, int>> GetUtilizatoriData()
+        public List<Tuple<string, string, string, int, bool>> GetUtilizatoriData()
         {
             var result = context.SelectUtilizatori();
 
-            List<Tuple<string, string, string, int>> dateUtilizatori = new List<Tuple<string, string, string, int>>();
+            List<Tuple<string, string, string, int, bool>> dateUtilizatori = new List<Tuple<string, string, string, int, bool>>();
 
             foreach(var item in result)
             {
-                dateUtilizatori.Add(Tuple.Create(item.Nume.Trim(), item.Parola.Trim(), item.Tip.Trim(), item.IdUtilizator));
+                dateUtilizatori.Add(Tuple.Create(item.Nume.Trim(), item.Parola.Trim(), item.Tip.Trim(), item.IdUtilizator, (bool)context.GetUtilizatorActivity(item.IdUtilizator).FirstOrDefault()));
             }
 
             return dateUtilizatori;
@@ -447,8 +436,6 @@ namespace ShopManagement.Models.BusinessLogic
                 message +="Numele produsului: "+  prod.Nume + "\n"+ "ID Producator: "+ prod.Producator_Id + "\n"+"Activ: "+ prod.IsActive + "\n" +"Id Produs:"+ prod.Id;
 
 
-
-
                 MessageBox.Show(message);
             }
             else
@@ -470,7 +457,8 @@ namespace ShopManagement.Models.BusinessLogic
                     if(producator.NumeProducator.Trim() == producatorNameVisualizeText)
                     {
                         data = "Numele producatorului: " + producator.NumeProducator + "\n" + "Id-ul producatorului: " +
-                               producator.Id + "\n" + "Tara de origine: " + producator.TaraDeOrigine + "\n";
+                               producator.Id + "\n" + "Tara de origine: " + producator.TaraDeOrigine + "\n" + "IsActive: " +
+                               (bool)context.GetProducatorActivity(producator.Id).FirstOrDefault();
                         break;
                     }
 
@@ -490,7 +478,8 @@ namespace ShopManagement.Models.BusinessLogic
                 if(utilizator.Nume.Trim() == utilizatorNameVisualizeText)
                 {
                     string data = "Nume Utilizator: " + utilizator.Nume.Trim() + "\n" + "Id: " + utilizator.IdUtilizator + "\n" +
-                        "Tip: " + utilizator.Tip.Trim() + "\n" + "Parola: " + utilizator.Parola.Trim() + "\n";
+                        "Tip: " + utilizator.Tip.Trim() + "\n" + "Parola: " + utilizator.Parola.Trim() + "\n" +
+                        "IsActive: " + (bool)context.GetUtilizatorActivity(utilizator.IdUtilizator).FirstOrDefault();
 
                     MessageBox.Show(data);
 
@@ -520,8 +509,8 @@ namespace ShopManagement.Models.BusinessLogic
                     {
                         if(bonProdus.IdBon == bonFiscal.IdBon)
                         {
-                            data += GetNumeProdusFromId(bonProdus.IdProdus) + "..." + bonProdus.Cantitate +
-                                "..." + bonProdus.Subtotal + "\n";
+                            data += GetNumeProdusFromId(bonProdus.IdProdus) + " ... " + bonProdus.Cantitate +
+                                " ... " + bonProdus.Subtotal + "\n";
                         }
                     }
 
@@ -570,6 +559,7 @@ namespace ShopManagement.Models.BusinessLogic
                     context.SetProdusActivity(produs.Nume, newActivity);
                     context.SaveChanges(); // Salvați modificările în baza de date
                     produse2 = GetProduse();
+                    MessageBox.Show("S-a modificat cu succes");
                     return;
                 }
             }
@@ -579,15 +569,23 @@ namespace ShopManagement.Models.BusinessLogic
         }
 
 
-        internal void ModificaActivitateaProducatorului(string produsNameVisualizeText)
+        internal void ModificaActivitateaProducatorului(string numeProd)
         {
             foreach(var producator in producatori)
             {
-                if(producator.NumeProducator.Trim() == produsNameVisualizeText)
+                if(producator.NumeProducator.Trim() == numeProd)
                 {
-                    bool currentActivity = (bool)producator.IsActive;
-                    context.SetProducatorActivity(producator.NumeProducator, !currentActivity);
+                    bool currentActivity = (bool)context.GetProducatorActivity(producator.Id).FirstOrDefault();
+                    if (currentActivity)
+                    {
+                        context.SetProducatorActivityToFalseOnCascade(producator.Id);
+                        produse2 = GetProduse();
+                    }
+                    else
+                        context.SetProducatorActivity(producator.NumeProducator, !currentActivity);
+
                     producatori = GetProducatori();
+                    MessageBox.Show("S-a modificat cu succes.");
                     return;
                 }
             }
@@ -602,9 +600,10 @@ namespace ShopManagement.Models.BusinessLogic
                 if (producator.NumeProducator.Trim() == producatorNameVisualizeText)
                 {
                     prodDeModificat = new Tuple<string, string>(producator.NumeProducator.Trim(), producator.TaraDeOrigine.Trim());
-                    
+                    return;
                 }
             }
+            MessageBox.Show("Nu s-a gasit producatorul.");
         }
 
         internal void ModifyProducator(string numeNou, string taraNoua)
@@ -644,7 +643,7 @@ namespace ShopManagement.Models.BusinessLogic
                     return;
                 }
             }
-
+            MessageBox.Show("Nu s-a gasit utilizatorul");
         }
 
         internal void SetStocProdusToModify(string stocProdusIdVisualizeText)
@@ -659,7 +658,7 @@ namespace ShopManagement.Models.BusinessLogic
                     return;
                 }
             }
-
+            MessageBox.Show("Nu s-a gasit stocul");
         }
         public double ConvertStringToDouble(string pretVanzareString)
         {
@@ -678,6 +677,7 @@ namespace ShopManagement.Models.BusinessLogic
         internal void ModifyStocProdus(string cantitate, string unitateMasura, string pretVanzare)
         {
             context.UpdateStocProdus(stocProdusDeModificat.Item1, System.Convert.ToInt32(cantitate), ConvertStringToDouble(pretVanzare));
+            MessageBox.Show("S-a modificat cu succes");
             // de modificat in baza de date procedura incat sa modificam si unitatea de masura
         }
 
@@ -696,6 +696,7 @@ namespace ShopManagement.Models.BusinessLogic
         internal void ModifyProdus(string nume, string categorie, string producatorId)
         {
             context.UpdateProdus(produsDeModificat.Item1, nume, categorie, System.Convert.ToInt32(producatorId));
+            MessageBox.Show("S-a modificat cu succes");
         }
 
         private bool VerificareExistaStocProdus(int id)
@@ -753,7 +754,26 @@ namespace ShopManagement.Models.BusinessLogic
         internal void ModifyUtilizatorActivity(string numeUtil)
         {
             int id = GetUtilIdFromNume(numeUtil);
-            context.SetUilizatorActivity(numeUtil, false);
+            bool existaUtilizator = VerificaExistentaUtilizator(id);
+            if (existaUtilizator)
+            {
+                context.SetUilizatorActivity(numeUtil, !context.GetUtilizatorActivity(id).FirstOrDefault());
+                MessageBox.Show("S-a modificat cu succes");
+            }
+            else
+                MessageBox.Show("Nu s-a gasit utilizatorul");
+        }
+
+        private bool VerificaExistentaUtilizator(int id)
+        {
+            var utilizatori = context.SelectUtilizatori();
+            foreach (var u in utilizatori)
+            {
+                if (u.IdUtilizator == id)
+                    return true;
+            }
+
+            return false;
         }
 
         internal void AfiseazaCMMBonDinZiua(DateTime ziBonFiltrare)

@@ -470,5 +470,32 @@ namespace ShopManagement.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetStocProdusActivity", idParameter);
         }
+    
+        public virtual ObjectResult<Nullable<bool>> GetProducatorActivity(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetProducatorActivity", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<bool>> GetUtilizatorActivity(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetUtilizatorActivity", idParameter);
+        }
+    
+        public virtual int SetProducatorActivityToFalseOnCascade(Nullable<int> producatorId)
+        {
+            var producatorIdParameter = producatorId.HasValue ?
+                new ObjectParameter("ProducatorId", producatorId) :
+                new ObjectParameter("ProducatorId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetProducatorActivityToFalseOnCascade", producatorIdParameter);
+        }
     }
 }

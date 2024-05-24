@@ -199,6 +199,9 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Parameter Name="An" Type="int" Mode="In" />
         </Function>
         <Function Name="GetLastBonFiscalId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetProducatorActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetProducatori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetProduse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetProduseDeLaProducator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -208,6 +211,9 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="GetStocProduse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetUtilizatorActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="ModificaStocProdus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdStocProdus" Type="int" Mode="In" />
           <Parameter Name="NouaCantitate" Type="int" Mode="In" />
@@ -217,6 +223,9 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
         <Function Name="SetProducatorActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NumeProducator" Type="nchar" Mode="In" />
           <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SetProducatorActivityToFalseOnCascade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProducatorId" Type="int" Mode="In" />
         </Function>
         <Function Name="SetProdusActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nume" Type="char" Mode="In" />
@@ -590,7 +599,16 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Parameter Name="NumeProducator" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetStocProdusActivity" ReturnType="Collection(Boolean)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProducatorActivity" ReturnType="Collection(Boolean)">
             <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetUtilizatorActivity" ReturnType="Collection(Boolean)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SetProducatorActivityToFalseOnCascade">
+            <Parameter Name="ProducatorId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetProduseDeLaProducator_Result">
@@ -858,6 +876,9 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <FunctionImportMapping FunctionImportName="UpdateUtilizator" FunctionName="ShopMngModel.Store.UpdateUtilizator" />
           <FunctionImportMapping FunctionImportName="GetActivityProducator" FunctionName="ShopMngModel.Store.GetActivityProducator" />
           <FunctionImportMapping FunctionImportName="GetStocProdusActivity" FunctionName="ShopMngModel.Store.GetStocProdusActivity" />
+          <FunctionImportMapping FunctionImportName="GetProducatorActivity" FunctionName="ShopMngModel.Store.GetProducatorActivity" />
+          <FunctionImportMapping FunctionImportName="GetUtilizatorActivity" FunctionName="ShopMngModel.Store.GetUtilizatorActivity" />
+          <FunctionImportMapping FunctionImportName="SetProducatorActivityToFalseOnCascade" FunctionName="ShopMngModel.Store.SetProducatorActivityToFalseOnCascade" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
