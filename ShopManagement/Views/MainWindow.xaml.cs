@@ -155,5 +155,11 @@ namespace ShopManagement
             SetActivityGrid.Visibility = Visibility.Visible;
             AdminMenuGrid.Visibility = Visibility.Collapsed;
         }
+
+        private void btnBackToAdminMenuFromAddProdus_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddProdusGrid.Visibility = Visibility.Collapsed;
+        }
     }
 }

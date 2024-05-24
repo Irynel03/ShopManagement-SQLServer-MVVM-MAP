@@ -516,7 +516,7 @@
             </StackPanel>
 
         </Grid>
-        <Grid x:Name="AddProdusGrid" Visibility="Collapsed">
+        <Grid x:Name="AddProdusGrid" Visibility="Visible">
             <!--<Grid.DataContext>
                 <ctx:AdminManagementVM />
             </Grid.DataContext>-->
@@ -532,7 +532,9 @@
                     x:Name="ProdusNumeTB"
                     Width="300"
                     Height="80"
-                    Margin="0,0,0,30" />
+                    Margin="0,0,0,30"
+                    FontSize="20"
+                    FontWeight="Bold" />
                 <Label
                     HorizontalAlignment="Center"
                     Content="Introdu categoria"
@@ -541,20 +543,33 @@
                     x:Name="ProdusCategorieTB"
                     Width="300"
                     Height="80"
-                    Margin="0,0,0,30" />
+                    Margin="0,0,0,30"
+                    FontSize="20"
+                    FontWeight="Bold" />
                 <Label
                     HorizontalAlignment="Center"
-                    Content="Introdu IdProducator"
+                    Content="Introdu Nume Producator"
                     FontSize="20" />
-                <TextBox
-                    x:Name="ProdusProducatorIdTB"
+                <!--<TextBox
+                    x:Name="ProdusProducatorNumeTB"
                     Width="300"
                     Height="80"
-                    Margin="0,0,0,30" />
+                    Margin="0,0,0,30"
+                    FontSize="20"
+                    FontWeight="Bold" />-->
+                <controls:AutoCompleteBox
+                    x:Name="ProdusProducatorNumeTB"
+                    Width="300"
+                    Height="80"
+                    Margin="0,0,0,30"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    ItemsSource="{Binding bsLogic.listaProducatori}" />
                 <Button
                     x:Name="btnAddProdus"
                     Width="200"
                     Height="60"
+                    Margin="0,0,0,30"
                     Command="{Binding AddProdusCommand}"
                     Content="Add Produs"
                     FontSize="20">
@@ -562,9 +577,17 @@
                         <MultiBinding Converter="{StaticResource produsConvert}">
                             <Binding ElementName="ProdusNumeTB" Path="Text" />
                             <Binding ElementName="ProdusCategorieTB" Path="Text" />
-                            <Binding ElementName="ProdusProducatorIdTB" Path="Text" />
+                            <Binding ElementName="ProdusProducatorNumeTB" Path="Text" />
                         </MultiBinding>
                     </Button.CommandParameter>
+                </Button>
+                <Button
+                    x:Name="btnBackToAdminMenuFromAddProdus"
+                    Width="200"
+                    Height="60"
+                    Click="btnBackToAdminMenuFromAddProdus_Click"
+                    FontSize="20">
+                    back
                 </Button>
             </StackPanel>
         </Grid>

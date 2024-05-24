@@ -12,11 +12,16 @@ namespace ShopManagement.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            int intValue;
-            if (values[0] != null && values[1] != null && int.TryParse(values[2].ToString(), out intValue))
-            {
+            //int intValue;
+            //if (values[0] != null && values[1] != null && int.TryParse(values[2].ToString(), out intValue))
+            //{
                 
-                return Tuple.Create(values[0].ToString(), values[1].ToString(), System.Convert.ToInt32(values[2].ToString()));
+            //    return Tuple.Create(values[0].ToString(), values[1].ToString(), System.Convert.ToInt32(values[2].ToString()));
+            //}
+            if (values[0] != null && values[1] != null && values[2] != null)
+            {
+
+                return Tuple.Create(values[0].ToString(), values[1].ToString(), values[2].ToString());
             }
             else
             {

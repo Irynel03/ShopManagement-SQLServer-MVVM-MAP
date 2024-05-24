@@ -23,6 +23,9 @@ namespace ShopManagement.Models.BusinessLogic
         public List<String> listaCateg { get; set; } = new List<String>();
         public List<String> listaProducatori { get; set; } = new List<String>();
         public List<String> listaUtilizatori { get; set; } = new List<String>();
+
+
+
         private Tuple<string, string> _prodDeModificat;
         public Tuple<string, string> prodDeModificat
         {
@@ -83,7 +86,15 @@ namespace ShopManagement.Models.BusinessLogic
         public GeneralBLL()
         {
             VerrificareStocuri();
+
+            SetareActivitateProduseDupaStoc();
+            
+            
+            
             var produse = context.GetProduse();
+
+            
+
 
             produse2 = GetProduse();
             producatori = GetProducatori();
@@ -95,7 +106,6 @@ namespace ShopManagement.Models.BusinessLogic
             }
 
             var listaUtil = context.SelectUtilizatori();
-
             foreach (var utilizator in listaUtil)
             {
                 listaUtilizatori.Add(utilizator.Nume.Trim());
@@ -107,6 +117,15 @@ namespace ShopManagement.Models.BusinessLogic
             List<Tuple<string, int>> listaProd = GetListaProducatori();
             foreach (var prod in listaProd)
                 listaProducatori.Add(prod.Item1);
+
+        }
+
+        private void SetareActivitateProduseDupaStoc()
+        {
+            var stocProduse = context.GetStocProduse();
+            foreach (var stocProdus in stocProduse)
+                if (stocProdus.IsActive == true)
+                    context.SetProdusActivity(GetNumeProdusFromId(stocProdus.IdProdus), true);
 
         }
 
@@ -133,9 +152,9 @@ namespace ShopManagement.Models.BusinessLogic
                     context.SetStocProdusActivity(stocProdus.IdStocProdus, false);
                 }
 
+                
+
             }
-
-
 
         }
         public List<Tuple<string, int>> GetListaProducatori()
@@ -338,17 +357,34 @@ namespace ShopManagement.Models.BusinessLogic
             if (stocProdus.Item5 != "")
             {
                 context.AdaugareStocProdus(idProdus, stocProdus.Item2, stocProdus.Item3, stocProdus.Item4, stocProdus.Item5, stocProdus.Item6, pretFinal, true);
+                
+                MessageBox.Show("Stocul a fost adaugat.");
             }
         }
         public void AddProdus(object obj)
         {
-            Tuple<string, string, int> produs = obj as Tuple<string, string, int>;
+            //Tuple<string, string, int> produs = obj as Tuple<string, string, int>;
+            Tuple<string, string, string> produs = obj as Tuple<string, string, string>;
+            int idProducator = -1;
 
+            foreach(Producator p in producatori)
+                if(p.NumeProducator.Trim() == produs.Item3)
+                {
+                    idProducator = p.Id;
+                    break;
+                }
 
+            if(idProducator == -1)
+            {
+                MessageBox.Show("Producatorul nu exista.");
+                return;
+            }
             if (produs.Item1 != "" && produs.Item2 != "")
             {
-                context.AdaugareProdus(produs.Item1, produs.Item2, produs.Item3, true);
+                context.AdaugareProdus(produs.Item1, produs.Item2, idProducator, true);
+                MessageBox.Show("Produsul a fost adaugat cu succes.");
             }
+
         }
         public void AddOferta(object obj)
         {
