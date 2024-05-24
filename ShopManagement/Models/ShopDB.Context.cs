@@ -461,5 +461,14 @@ namespace ShopManagement.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetActivityProducator", numeProducatorParameter);
         }
+    
+        public virtual ObjectResult<Nullable<bool>> GetStocProdusActivity(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetStocProdusActivity", idParameter);
+        }
     }
 }

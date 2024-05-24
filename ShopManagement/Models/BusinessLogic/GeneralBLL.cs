@@ -25,7 +25,6 @@ namespace ShopManagement.Models.BusinessLogic
         public List<String> listaUtilizatori { get; set; } = new List<String>();
 
 
-
         private Tuple<string, string> _prodDeModificat;
         public Tuple<string, string> prodDeModificat
         {
@@ -90,7 +89,8 @@ namespace ShopManagement.Models.BusinessLogic
             SetareActivitateProduseDupaStoc();
             
             
-            
+
+
             var produse = context.GetProduse();
 
             
@@ -119,14 +119,24 @@ namespace ShopManagement.Models.BusinessLogic
                 listaProducatori.Add(prod.Item1);
 
         }
-
         private void SetareActivitateProduseDupaStoc()
         {
+            List<string> produseDeSetatActive = new List<string>();
             var stocProduse = context.GetStocProduse();
             foreach (var stocProdus in stocProduse)
-                if (stocProdus.IsActive == true)
-                    context.SetProdusActivity(GetNumeProdusFromId(stocProdus.IdProdus), true);
+            {
+                bool isActive = (bool)context.GetStocProdusActivity(stocProdus.IdStocProdus).FirstOrDefault();
+                string numeProdus = GetNumeProdusFromId(stocProdus.IdProdus);
+                if (isActive)
+                    produseDeSetatActive.Add(numeProdus);
+            }
+            SetareActiveDinLista(produseDeSetatActive);
+        }
 
+        private void SetareActiveDinLista(List<string> produseDeSetatActive)
+        {
+            foreach (string produsNume in produseDeSetatActive)
+                context.SetProdusActivity(produsNume, true);
         }
 
         private List<Producator> GetProducatori()
@@ -687,9 +697,32 @@ namespace ShopManagement.Models.BusinessLogic
             context.UpdateProdus(produsDeModificat.Item1, nume, categorie, System.Convert.ToInt32(producatorId));
         }
 
+        private bool VerificareExistaStocProdus(int id)
+        {
+            var stocuriProduse = context.GetStocProduse();
+            foreach (var s in stocuriProduse)
+                if (s.IdStocProdus == id)
+                    return true;
+            return false;
+        }
         internal void ModifyActivityStocProdus(string stocProdusId)
         {
-            context.SetStocProdusActivity(System.Convert.ToInt32(stocProdusId), false);
+            int id;
+            if (int.TryParse(stocProdusId, out id))
+            {
+                if (VerificareExistaStocProdus(id))
+                {       
+                    context.SetStocProdusActivity(id, !(bool)context.GetStocProdusActivity(id).FirstOrDefault());
+
+                    MessageBox.Show("Modificarea s-a facut cu succes");
+                }
+                else
+                MessageBox.Show("Nu exista un stoc cu acest id");
+            }
+            else
+                MessageBox.Show("Id-ul trebuie sa fie un numar");
+
+                
         }
         private int GetUtilIdFromNume(string nume)
         {

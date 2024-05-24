@@ -33,21 +33,30 @@ namespace ShopManagement.ViewModels
 
         public void AfisareSumeIncasatePeZileTimpDeOLuna(object obj)
         {
+            // cand am facut functia asta am uitat ca trebuia sa respect mvvm
+
             if (obj is Tuple<string, string> tupleParams)
             {
                 //int idCasier = System.Convert.ToInt32(tupleParams.Item1);
-                int luna = System.Convert.ToInt32(tupleParams.Item2);
+                int luna; 
+                bool lunaValida = int.TryParse(tupleParams.Item2, out luna);
+                if(!lunaValida || luna < 1 || luna > 12)
+                {
+                    MessageBox.Show("Trebuie introdusa o valoare intre 1-12");
+                    return;
+                }
+
 
                 List<string> sumePeZile = bsLogic.GetSumePeZileTimpDeOLuna2(tupleParams.Item1, luna);
 
                 if (sumePeZile.Count > 0)
                 {
                     string sumeText = string.Join(Environment.NewLine, sumePeZile);
-                    MessageBox.Show(sumeText, "Sume încasate pe zile timp de o lună", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(sumeText, "Sume încasate pe zile timp de o lună de " + tupleParams.Item1, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Nu există sume încasate pentru luna specificată.", "Informare", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Nu există sume încasate de " + tupleParams.Item1+ " pentru luna specificată.", "Informare", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else

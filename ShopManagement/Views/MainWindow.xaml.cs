@@ -40,6 +40,8 @@ namespace ShopManagement
                         CasierMenuGrid.Visibility = Visibility.Visible;
                         MainMenuGrid.Visibility = Visibility.Collapsed;
 
+                        NumeLoginTB.Text = "";
+                        ParolaLoginPB.Password = "";
                     }
                     else
                     {
@@ -48,6 +50,9 @@ namespace ShopManagement
                         this.DataContext = adminManagementVM;
                         AdminMenuGrid.Visibility = Visibility.Visible;
                         MainMenuGrid.Visibility = Visibility.Collapsed;
+
+                        NumeLoginTB.Text = "";
+                        ParolaLoginPB.Password = "";
                     }
                     break;
                 }
@@ -160,6 +165,78 @@ namespace ShopManagement
         {
             AdminMenuGrid.Visibility = Visibility.Visible;
             AddProdusGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnGoToLoginFromAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMenuGrid.Visibility = Visibility.Collapsed;
+            MainMenuGrid.Visibility = Visibility.Visible;
+        }
+
+        private void btnBackToLoginCasier_Click(object sender, RoutedEventArgs e)
+        {
+            CasierMenuGrid.Visibility = Visibility.Collapsed;
+            MainMenuGrid.Visibility = Visibility.Visible;
+        }
+
+        private void btnAddStocProdusBackToAdminMenu_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddStocProdusGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnAddProducatorBackToAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddProducatorGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnSetActivityBackToAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMenuGrid.Visibility = Visibility.Visible;
+            SetActivityGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnVisualizeDataBackToAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            VisualizeDataGrid.Visibility = Visibility.Collapsed;
+            AdminMenuGrid.Visibility = Visibility.Visible;
+        }
+
+        private void btnModifyBackToAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMenuGrid.Visibility = Visibility.Visible;
+            ModifyGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnAddUtilizatorBackToAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddUtilizatorGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModifyProdusBackToModidy_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyGrid.Visibility = Visibility.Visible;
+            ModifyProdusGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModifyProducatorBackToModidy_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyGrid.Visibility = Visibility.Visible;
+            ModifyProducatorGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModifyStocProdusBackToModidy_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyGrid.Visibility = Visibility.Visible;
+            ModifyStocProdusGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnModifyUtilizatorBackToModidy_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyGrid.Visibility = Visibility.Visible;
+            ModifyUtilizatorGrid.Visibility = Visibility.Collapsed;
         }
     }
 }
