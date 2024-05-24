@@ -87,7 +87,7 @@ namespace ShopManagement.Models.BusinessLogic
             VerrificareStocuri();
             SetareActivitateProduseDupaStoc();
 
-            var produse = context.GetProduse();
+            var produse = context.GetProduse1();
 
             produse2 = GetProduse();
             producatori = GetProducatori();
@@ -184,12 +184,12 @@ namespace ShopManagement.Models.BusinessLogic
 
         public List<Produs> GetProduse()
         {
-            var result = context.GetProduse();
+            var result = context.GetProduse1();
             List<Produs> produse = new List<Produs>();
 
             foreach (var item in result)
             {
-                produse.Add(new Produs(item.Id, item.Nume.Trim(), item.Categorie, item.Producator_Id, item.IsActive));
+                produse.Add(new Produs(item.Id, item.Nume.Trim(), item.Categorie, item.Producator_Id, item.IsActive, item.CodDeBare));
             }
 
             return produse;
@@ -277,7 +277,7 @@ namespace ShopManagement.Models.BusinessLogic
                 return;
             }
 
-            var produse = context.GetProduse();
+            var produse = context.GetProduse1();
             List<string> produseList = new List<string>();
             foreach(var item in produse)
             {
@@ -318,7 +318,7 @@ namespace ShopManagement.Models.BusinessLogic
 
         private int GetIdProdusFromNume(string numeProd)
         {
-            var produse = context.GetProduse();
+            var produse = context.GetProduse1();
             foreach (var item in produse)
             {
                 if (item.Nume.Trim() == numeProd)
@@ -328,7 +328,7 @@ namespace ShopManagement.Models.BusinessLogic
         }
         private string GetNumeProdusFromId(int id)
         {
-            var produse3 = context.GetProduse();
+            var produse3 = context.GetProduse1();
             foreach (var item in produse3)
             {
                 if (item.Id == id)

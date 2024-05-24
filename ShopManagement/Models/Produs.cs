@@ -21,13 +21,14 @@ namespace ShopManagement.Models
             this.StocProdus = new HashSet<StocProdus>();
         }
     
-        public Produs(int id, string v, string categorie, int producator_Id, bool isActive)
+        public Produs(int id, string v, string categorie, int producator_Id, bool isActive, string codBare)
         {
             this.Id = id;
             this.Nume = v;
             Categorie = categorie;
             Producator_Id = producator_Id;
             IsActive = isActive;
+            this.CodDeBare = codBare;
         }
 
         public int Id { get; set; }
@@ -35,6 +36,7 @@ namespace ShopManagement.Models
         public string Categorie { get; set; }
         public int Producator_Id { get; set; }
         public bool IsActive { get; set; }
+        public string CodDeBare { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Oferta> Oferta { get; set; }

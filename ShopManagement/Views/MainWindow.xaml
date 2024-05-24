@@ -73,7 +73,6 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Click="btnSelectareProdListareProduse_Click"
                     Command="{Binding AfisareProduseProducatorCommand}"
                     Content="ProduseProducator"
                     FontSize="25">
@@ -92,7 +91,6 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Click="btnAfisarePreturiProduseDupaCategoriaSpecificata_Click"
                     Command="{Binding AfisareSumaProduseDupaCategorieCommand}"
                     Content="Cost total la Categoria"
                     FontSize="25">
@@ -111,7 +109,6 @@
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Click="btnAfisareSumeIncasateDeCasier_Click"
                     Command="{Binding AfisareSumeIncasatePeZileTimpDeOLunaCommand}"
                     Content="AfisareSumeIncasate de:"
                     FontSize="25">
@@ -243,8 +240,7 @@
                     Height="450"
                     HorizontalContentAlignment="Center"
                     Background="Transparent"
-                    ItemsSource="{Binding casierBL.ProduseBon}"
-                    SelectionChanged="listBoxProduseScanate_SelectionChanged">
+                    ItemsSource="{Binding casierBL.ProduseBon}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -516,9 +512,6 @@
 
         </Grid>
         <Grid x:Name="AddProdusGrid" Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Grid.Resources>
                 <localConverter:ProdusConvert x:Key="produsConvert" />
             </Grid.Resources>
@@ -591,9 +584,6 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="AddProducatorGrid" Visibility="Collapsed">
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <Grid.Resources>
                 <localConverter:ProducatorConvert x:Key="producatorConvert" />
             </Grid.Resources>
@@ -833,7 +823,6 @@
                 Content="Back"
                 FontSize="20" />
         </Grid>
-
         <Grid
             x:Name="ModifyGrid"
             Width="800"
@@ -1207,6 +1196,7 @@
                 Content="Back"
                 FontSize="20" />
         </Grid>
+
 
         <Grid.DataContext>
             <ctx:AdminManagementVM />

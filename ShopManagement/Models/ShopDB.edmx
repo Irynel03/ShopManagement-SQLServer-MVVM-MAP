@@ -57,6 +57,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Property Name="Categorie" Type="char" MaxLength="30" Nullable="false" />
           <Property Name="Producator_Id" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CodDeBare" Type="varchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="StocProdus">
           <Key>
@@ -362,6 +363,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <NavigationProperty Name="Producator" Relationship="Self.FK_Produs_Producator" FromRole="Produs" ToRole="Producator" />
           <NavigationProperty Name="StocProdus" Relationship="Self.FK_StocProdus_Produs" FromRole="Produs" ToRole="StocProdus" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CodDeBare" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="StocProdus">
           <Key>
@@ -602,14 +604,15 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetProducatorActivity" ReturnType="Collection(Boolean)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUtilizatorActivity" ReturnType="Collection(Boolean)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SetProducatorActivityToFalseOnCascade">
-            <Parameter Name="ProducatorId" Mode="In" Type="Int32" />
+          <Parameter Name="ProducatorId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetProduse1" ReturnType="Collection(ShopMngModel.GetProduse1_Result)" />
         </EntityContainer>
         <ComplexType Name="GetProduseDeLaProducator_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -672,6 +675,14 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <Property Type="Double" Name="SumaIncasata" Nullable="false" />
           <Property Type="Int32" Name="IdBon" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="GetProduse1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nume" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Categorie" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="Producator_Id" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="CodDeBare" Nullable="true" MaxLength="6" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -723,6 +734,7 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <EntitySetMapping Name="Produs">
             <EntityTypeMapping TypeName="ShopMngModel.Produs">
               <MappingFragment StoreEntitySet="Produs">
+                <ScalarProperty Name="CodDeBare" ColumnName="CodDeBare" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nume" ColumnName="Nume" />
@@ -809,17 +821,6 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetProduse" FunctionName="ShopMngModel.Store.GetProduse">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShopMngModel.GetProduse_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nume" ColumnName="Nume" />
-                <ScalarProperty Name="Categorie" ColumnName="Categorie" />
-                <ScalarProperty Name="Producator_Id" ColumnName="Producator_Id" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetStocProduse" FunctionName="ShopMngModel.Store.GetStocProduse">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ShopMngModel.GetStocProduse_Result">
@@ -879,6 +880,18 @@ warning 6002: The table/view 'ShopMng.dbo.BonProdus' does not have a primary key
           <FunctionImportMapping FunctionImportName="GetProducatorActivity" FunctionName="ShopMngModel.Store.GetProducatorActivity" />
           <FunctionImportMapping FunctionImportName="GetUtilizatorActivity" FunctionName="ShopMngModel.Store.GetUtilizatorActivity" />
           <FunctionImportMapping FunctionImportName="SetProducatorActivityToFalseOnCascade" FunctionName="ShopMngModel.Store.SetProducatorActivityToFalseOnCascade" />
+          <FunctionImportMapping FunctionImportName="GetProduse1" FunctionName="ShopMngModel.Store.GetProduse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShopMngModel.GetProduse1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+                <ScalarProperty Name="Producator_Id" ColumnName="Producator_Id" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CodDeBare" ColumnName="CodDeBare" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

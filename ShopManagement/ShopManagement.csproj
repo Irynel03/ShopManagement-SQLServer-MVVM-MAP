@@ -101,6 +101,9 @@
     <Compile Include="Models\GetProducatori_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetProduse1_Result.cs">
+      <DependentUpon>ShopDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetProduseDeLaProducator_Result.cs">
       <DependentUpon>ShopDB.tt</DependentUpon>
     </Compile>

@@ -497,5 +497,10 @@ namespace ShopManagement.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetProducatorActivityToFalseOnCascade", producatorIdParameter);
         }
+    
+        public virtual ObjectResult<GetProduse1_Result> GetProduse1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProduse1_Result>("GetProduse1");
+        }
     }
 }

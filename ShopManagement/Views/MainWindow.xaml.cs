@@ -71,16 +71,6 @@ namespace ShopManagement
             AddProdusGrid.Visibility = Visibility.Visible;
         }
 
-        private void btnAfisarePreturiProduseDupaCategoriaSpecificata_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAfisareSumeIncasateDeCasier_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnAdaugareUtilizator_Click(object sender, RoutedEventArgs e)
         {
             AddUtilizatorGrid.Visibility = Visibility.Visible;
@@ -94,31 +84,11 @@ namespace ShopManagement
             AddGrid.Visibility = Visibility.Collapsed;
         }
 
-        private void btnSelectareProdListareProduse_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAfisareCelMaiMareBonZiSelectata_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnAdaugaProducator_Click(object sender, RoutedEventArgs e)
         {
 
             AddProducatorGrid.Visibility = Visibility.Visible;
             AddGrid.Visibility = Visibility.Collapsed;
-        }
-
-        private void listBoxProduseScanate_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void btnAdaugaProdusBon_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btnVisualizeData_Click(object sender, RoutedEventArgs e)
