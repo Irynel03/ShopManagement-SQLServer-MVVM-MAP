@@ -177,6 +177,12 @@ namespace ShopManagement.Models.BusinessLogic
 
         internal void FinalizeazaBonFiscal()
         {
+            if(ProduseBon.Count == 0)
+            {
+                MessageBox.Show("Nu ai scanat niciun produs.");
+                return;
+            }
+
             context.AdaugareBonFiscal(idCasier, SumaTotalaProduseScanate);
             context.UpdateStocProdusIsActiveOnConditions();
             //int idBonFiscal = Convert.ToInt32(context.GetLastBonFiscalId());

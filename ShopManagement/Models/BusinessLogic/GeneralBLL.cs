@@ -535,6 +535,7 @@ namespace ShopManagement.Models.BusinessLogic
 
         internal void AfisareDateStocProdus(int idStocProdus)
         {
+
             var listaStocProdus = context.GetStocProduse();
 
             foreach(var stocProdus in listaStocProdus)
@@ -544,7 +545,7 @@ namespace ShopManagement.Models.BusinessLogic
                     string data = "Id: " + stocProdus.IdStocProdus + "\n" + "Nume Produs: " + GetNumeProdusFromId(stocProdus.IdProdus) + "\n" +
                         "Cantitate: " + stocProdus.Cantitate + "\n" + "Data Expirare: " + stocProdus.DataExpirare + "\n" +
                         "Data Aprovizionare: " + stocProdus.DataAprovizionare + "\n" + "Pret achizitie: " + stocProdus.PretAchizitie + "\n" +
-                        "Pret Vanzare: " + stocProdus.PretVanzare + "\n" + "IsActive: " + stocProdus.IsActive;
+                        "Pret Vanzare: " + stocProdus.PretVanzare + "\n" + "IsActive: " + context.GetStocProdusActivity(stocProdus.IdStocProdus).FirstOrDefault();
 
                     MessageBox.Show(data);
 
@@ -748,18 +749,6 @@ namespace ShopManagement.Models.BusinessLogic
             }
             return "";
         }
-        //private bool GetUtilActivityFromNume(string nume)
-        //{
-        //    var utilizatori = context.SelectUtilizatori();
-        //    foreach (var u in utilizatori)
-        //    {
-        //        if (u.Nume.Trim() == nume)
-        //        {
-        //            return u.IsActive;
-        //        }
-        //    }
-        //    return false;
-        //}
 
         internal void ModifyUtilizatorActivity(string numeUtil)
         {

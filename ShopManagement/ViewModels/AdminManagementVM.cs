@@ -437,7 +437,7 @@ namespace ShopManagement.ViewModels
                 return afiseazaDateStocProdusCommand;
             }
         }
-
+        
         private void AfiseazaDateStocProdus(object commandParameter)
         {
             int idStocProdus;
@@ -608,7 +608,7 @@ namespace ShopManagement.ViewModels
 
         private void PerformModifyUtilizator(object commandParameter)
         {
-            bsLogic.ModifyUtilizator(producatorNameModifyText, producatorTaraOrigineModifyText, utilizatorParolaModifyText);
+            bsLogic.ModifyUtilizator(producatorNameModifyText, utilizatorParolaModifyText, producatorTaraOrigineModifyText);
         }
 
         private RelayCommand modificaDateleUtilizatoruluiCommand;
@@ -629,6 +629,7 @@ namespace ShopManagement.ViewModels
         private void ModificaDateleUtilizatorului(object commandParameter)
         {
             bsLogic.SetUtilizatorPentruModificari(numeUtilizatorModifyText);
+            NumeUtilizatorModifyText = "";
         }
 
         private RelayCommand modificaDateStocProdusCommand;

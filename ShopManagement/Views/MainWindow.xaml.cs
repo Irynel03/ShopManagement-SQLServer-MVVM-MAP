@@ -30,13 +30,9 @@ namespace ShopManagement
                     utilizatorGasit = true;
                     if (utilizator.Item3 == "Casier")
                     {
-                        MessageBox.Show("de implementat");
-
-
-
                         var casierManagementVM = new CasierManagementVM(Convert.ToInt32(utilizator.Item4));
 
-                        CasierMenuGrid.DataContext = casierManagementVM;
+                        this.DataContext = casierManagementVM;
                         CasierMenuGrid.Visibility = Visibility.Visible;
                         MainMenuGrid.Visibility = Visibility.Collapsed;
 
@@ -65,7 +61,7 @@ namespace ShopManagement
         }
         private void btnAdaugaProdus_Click(object sender, RoutedEventArgs e)
         {
-            AdminMenuGrid.Visibility = Visibility.Collapsed;
+            AddGrid.Visibility = Visibility.Collapsed;
             AddProdusGrid.Visibility = Visibility.Visible;
         }
 
@@ -82,14 +78,14 @@ namespace ShopManagement
         private void btnAdaugareUtilizator_Click(object sender, RoutedEventArgs e)
         {
             AddUtilizatorGrid.Visibility = Visibility.Visible;
-            AdminMenuGrid.Visibility = Visibility.Collapsed;
+            AddGrid.Visibility = Visibility.Collapsed;
         }
 
         private void btnAdaugaStocProdus_Click(object sender, RoutedEventArgs e)
         {
 
             AddStocProdusGrid.Visibility = Visibility.Visible;
-            AdminMenuGrid.Visibility = Visibility.Collapsed;
+            AddGrid.Visibility = Visibility.Collapsed;
         }
 
         private void btnSelectareProdListareProduse_Click(object sender, RoutedEventArgs e)
@@ -106,7 +102,7 @@ namespace ShopManagement
         {
 
             AddProducatorGrid.Visibility = Visibility.Visible;
-            AdminMenuGrid.Visibility = Visibility.Collapsed;
+            AddGrid.Visibility = Visibility.Collapsed;
         }
 
         private void listBoxProduseScanate_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -163,7 +159,7 @@ namespace ShopManagement
 
         private void btnBackToAdminMenuFromAddProdus_Click(object sender, RoutedEventArgs e)
         {
-            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddGrid.Visibility = Visibility.Visible;
             AddProdusGrid.Visibility = Visibility.Collapsed;
         }
 
@@ -181,13 +177,13 @@ namespace ShopManagement
 
         private void btnAddStocProdusBackToAdminMenu_Click(object sender, RoutedEventArgs e)
         {
-            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddGrid.Visibility = Visibility.Visible;
             AddStocProdusGrid.Visibility = Visibility.Collapsed;
         }
 
         private void btnAddProducatorBackToAdmin_Click(object sender, RoutedEventArgs e)
         {
-            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddGrid.Visibility = Visibility.Visible;
             AddProducatorGrid.Visibility = Visibility.Collapsed;
         }
 
@@ -211,7 +207,7 @@ namespace ShopManagement
 
         private void btnAddUtilizatorBackToAdmin_Click(object sender, RoutedEventArgs e)
         {
-            AdminMenuGrid.Visibility = Visibility.Visible;
+            AddGrid.Visibility = Visibility.Visible;
             AddUtilizatorGrid.Visibility = Visibility.Collapsed;
         }
 
@@ -237,6 +233,18 @@ namespace ShopManagement
         {
             ModifyGrid.Visibility = Visibility.Visible;
             ModifyUtilizatorGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnAddDataGrid_Click(object sender, RoutedEventArgs e)
+        {
+            AddGrid.Visibility = Visibility.Visible;
+            AdminMenuGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnGoToAdminMenuFromAddGrid_Click(object sender, RoutedEventArgs e)
+        {
+            AddGrid.Visibility = Visibility.Collapsed;
+            AdminMenuGrid.Visibility = Visibility.Visible;
         }
     }
 }

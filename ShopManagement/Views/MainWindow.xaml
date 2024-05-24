@@ -64,15 +64,11 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
-            <!--<Grid.DataContext>
-                <ctx:AdminManagementVM />
-            </Grid.DataContext>-->
             <StackPanel
                 Grid.Column="0"
                 Margin="0,80,0,0"
                 VerticalAlignment="Top">
-                <Button
+                <!--<Button
                     x:Name="btnAdaugaProdus"
                     Width="270"
                     Height="70"
@@ -80,7 +76,26 @@
                     Click="btnAdaugaProdus_Click"
                     FontSize="25">
                     AdaugaProdus
+                </Button>-->
+                <Button
+                    x:Name="btnSelectareProdListareProduse"
+                    Width="270"
+                    Height="70"
+                    Margin="0,25,0,0"
+                    Click="btnSelectareProdListareProduse_Click"
+                    Command="{Binding AfisareProduseProducatorCommand}"
+                    Content="ProduseProducator"
+                    FontSize="25">
+                    <Button.CommandParameter>
+                        <Binding ElementName="ProduseAleUnuiProducatorTB" Path="Text" />
+                    </Button.CommandParameter>
                 </Button>
+                <controls:AutoCompleteBox
+                    x:Name="ProduseAleUnuiProducatorTB"
+                    Width="200"
+                    Height="30"
+                    FontSize="20"
+                    ItemsSource="{Binding bsLogic.listaProducatori}" />
                 <Button
                     x:Name="btnAfisarePreturiProduseDupaCategoriaSpecificata"
                     Width="270"
@@ -94,13 +109,6 @@
                         <Binding ElementName="CategoriePreturiCautareTB" Path="Text" />
                     </Button.CommandParameter>
                 </Button>
-                <!--<TextBox
-                    x:Name="CategoriePreturiCautareTB"
-                    Width="200"
-                    Height="30"
-                    FontSize="20"
-                    Text="categoria..."
-                    TextAlignment="Center" />-->
                 <controls:AutoCompleteBox
                     x:Name="CategoriePreturiCautareTB"
                     Width="200"
@@ -126,13 +134,6 @@
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
-                <!--<TextBox
-                    x:Name="IdCasierToSearchAfisareSumeTB"
-                    Width="200"
-                    Height="30"
-                    FontSize="20"
-                    Text="id casier..."
-                    TextAlignment="Center" />-->
                 <controls:AutoCompleteBox
                     x:Name="IdCasierToSearchAfisareSumeTB"
                     Width="200"
@@ -147,73 +148,6 @@
                     Text="luna..."
                     TextAlignment="Center" />
                 <Button
-                    x:Name="btnAdaugareUtilizator"
-                    Width="270"
-                    Height="70"
-                    Margin="0,25,0,0"
-                    Click="btnAdaugareUtilizator_Click"
-                    FontSize="25">
-                    Adauga Utilizator
-                </Button>
-                <Button
-                    x:Name="btnModificaData"
-                    Width="270"
-                    Height="70"
-                    Margin="0,25,0,0"
-                    Click="btnModificaData_Click"
-                    FontSize="25">
-                    Modifica Date
-                </Button>
-                <Button
-                    x:Name="btnBackToLoginAdmin"
-                    Width="270"
-                    Height="70"
-                    Margin="0,25,0,0"
-                    Click="btnGoToLoginFromAdmin_Click"
-                    FontSize="25">
-                    Go to Login
-                </Button>
-            </StackPanel>
-            <StackPanel
-                Grid.Column="1"
-                Margin="0,80,0,0"
-                VerticalAlignment="Top">
-                <Button
-                    x:Name="btnAdaugaStocProdus"
-                    Width="270"
-                    Height="70"
-                    Margin="0,25,0,0"
-                    Click="btnAdaugaStocProdus_Click"
-                    FontSize="25">
-                    AdaugaStocProdus
-                </Button>
-                <Button
-                    x:Name="btnSelectareProdListareProduse"
-                    Width="270"
-                    Height="70"
-                    Margin="0,25,0,0"
-                    Click="btnSelectareProdListareProduse_Click"
-                    Command="{Binding AfisareProduseProducatorCommand}"
-                    Content="ProduseProducator"
-                    FontSize="25">
-                    <Button.CommandParameter>
-                        <Binding ElementName="ProduseAleUnuiProducatorTB" Path="Text" />
-                    </Button.CommandParameter>
-                </Button>
-                <!--<TextBox
-                    x:Name="ProduseAleUnuiProducatorTB"
-                    Width="200"
-                    Height="30"
-                    FontSize="20"
-                    Text="producatorul..."
-                    TextAlignment="Center" />-->
-                <controls:AutoCompleteBox
-                    x:Name="ProduseAleUnuiProducatorTB"
-                    Width="200"
-                    Height="30"
-                    FontSize="20"
-                    ItemsSource="{Binding bsLogic.listaProducatori}" />
-                <Button
                     x:Name="btnAfisareCelMaiMareBonZiSelectata"
                     Width="270"
                     Height="70"
@@ -227,15 +161,21 @@
                     Width="220"
                     Height="30"
                     SelectedDate="{Binding ZiBonFiltrare, Mode=TwoWay}" />
-                <Button
-                    x:Name="btnAdaugaProducator"
+                <!--<Button
+                    x:Name="btnAdaugareUtilizator"
                     Width="270"
                     Height="70"
                     Margin="0,25,0,0"
-                    Click="btnAdaugaProducator_Click"
+                    Click="btnAdaugareUtilizator_Click"
                     FontSize="25">
-                    Adauga Producator
-                </Button>
+                    Adauga Utilizator
+                </Button>-->
+
+            </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                Margin="0,80,0,0"
+                VerticalAlignment="Top">
                 <Button
                     x:Name="btnVisualizeData"
                     Width="270"
@@ -249,10 +189,37 @@
                     x:Name="btnModificaActivity"
                     Width="270"
                     Height="70"
-                    Margin="0,25,0,0"
+                    Margin="0,40,0,0"
                     Click="btnModificaActivity_Click"
                     FontSize="25">
                     Modifica Activity
+                </Button>
+                <Button
+                    x:Name="btnAddDataGrid"
+                    Width="270"
+                    Height="70"
+                    Margin="0,40,0,0"
+                    Click="btnAddDataGrid_Click"
+                    FontSize="25">
+                    Add Data
+                </Button>
+                <Button
+                    x:Name="btnModificaData"
+                    Width="270"
+                    Height="70"
+                    Margin="0,40,0,0"
+                    Click="btnModificaData_Click"
+                    FontSize="25">
+                    Modifica Date
+                </Button>
+                <Button
+                    x:Name="btnBackToLoginAdmin"
+                    Width="180"
+                    Height="50"
+                    Margin="80,180,0,0"
+                    Click="btnGoToLoginFromAdmin_Click"
+                    FontSize="25">
+                    Go to Login
                 </Button>
             </StackPanel>
         </Grid>
@@ -269,14 +236,6 @@
                 Height="30"
                 Margin="51,47,380,707"
                 FontSize="20"><Run Text="Introdu Numele sau Codul Produselor" /><Run Language="ro-ro" Text=":" /></TextBlock>
-            <!--<TextBox
-                x:Name="ProdusSearchBarTB"
-                Width="300"
-                Height="40"
-                Margin="51,82,449,642"
-                FontSize="25"
-                Text="{Binding ProdusSearchText, Mode=TwoWay}"
-                TextAlignment="Center" />-->
             <controls:AutoCompleteBox
                 x:Name="ProdusSearchBarATB"
                 Width="300"
@@ -365,13 +324,6 @@
                 Margin="480,216,120,548"
                 FontSize="15"
                 Text="Filtreaza dupa categorie" />
-            <!--<TextBox
-                x:Name="FiltreazaProduseDupaCategorieTB"
-                Width="220"
-                Height="30"
-                Margin="480,241,100,0"
-                VerticalAlignment="Top"
-                Text="{Binding CategorieFiltrareText, Mode=TwoWay}" />-->
             <controls:AutoCompleteBox
                 x:Name="FiltreazaProduseDupaCategorieATB"
                 Width="220"
@@ -395,13 +347,6 @@
                 Margin="480,286,120,478"
                 FontSize="15"
                 Text="Filtreaza dupa producator:" />
-            <!--<TextBox
-                x:Name="FiltreazaProduseDupaProducatorTB"
-                Width="220"
-                Height="30"
-                Margin="480,311,100,0"
-                VerticalAlignment="Top"
-                Text="{Binding ProducatorFiltrareText, Mode=TwoWay}" />-->
             <controls:AutoCompleteBox
                 x:Name="FiltreazaProduseDupaProducatorATB"
                 Width="220"
@@ -425,13 +370,6 @@
                 Margin="480,356,120,408"
                 FontSize="15"
                 Text="Filtreaza produse expira dupa:" />
-            <!--<TextBox
-                x:Name="FiltreazaProduseExpiraDupaDataTB"
-                Width="220"
-                Height="30"
-                Margin="480,381,100,0"
-                VerticalAlignment="Top"
-                Text="{Binding DataExpirareFiltrareText, Mode=TwoWay}" />-->
             <DatePicker
                 x:Name="FiltreazaProduseExpiraDupaDataDP"
                 Width="220"
@@ -462,25 +400,81 @@
                 x:Name="btnAdaugaBonFiscal"
                 Width="150"
                 Height="60"
-                Margin="618,690,32,34"
+                Margin="0,0,220,50"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
                 Command="{Binding FinalizeazaBonFiscalCommand}"
                 FontSize="20">
                 Finalizeaza Bon
             </Button>
             <Button
                 x:Name="btnBackToLoginCasier"
-                Width="270"
-                Height="70"
-                HorizontalAlignment="Left"
+                Width="150"
+                Height="50"
+                Margin="0,0,30,30"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="btnBackToLoginCasier_Click"
-                FontSize="25">
+                FontSize="20">
                 Go to Login
             </Button>
+        </Grid>
 
-
+        <Grid
+            x:Name="AddGrid"
+            Width="800"
+            Height="785"
+            Visibility="Collapsed">
+            <StackPanel>
+                <Button
+                    x:Name="btnAdaugaProducator"
+                    Width="270"
+                    Height="70"
+                    Margin="0,100,0,0"
+                    Click="btnAdaugaProducator_Click"
+                    FontSize="25">
+                    Adauga Producator
+                </Button>
+                <Button
+                    x:Name="btnAdaugaProdus"
+                    Width="270"
+                    Height="70"
+                    Margin="0,50,0,0"
+                    Click="btnAdaugaProdus_Click"
+                    FontSize="25">
+                    AdaugaProdus
+                </Button>
+                <Button
+                    x:Name="btnAdaugaStocProdus"
+                    Width="270"
+                    Height="70"
+                    Margin="0,50,0,0"
+                    Click="btnAdaugaStocProdus_Click"
+                    FontSize="25">
+                    AdaugaStocProdus
+                </Button>
+                <Button
+                    x:Name="btnAdaugareUtilizator"
+                    Width="270"
+                    Height="70"
+                    Margin="0,50,0,0"
+                    Click="btnAdaugareUtilizator_Click"
+                    FontSize="25">
+                    Adauga Utilizator
+                </Button>
+                <Button
+                    x:Name="btnGoToAdminMenuFromAddGrid"
+                    Width="200"
+                    Height="50"
+                    Margin="0,50,0,0"
+                    Click="btnGoToAdminMenuFromAddGrid_Click"
+                    FontSize="25">
+                    Back
+                </Button>
+            </StackPanel>
 
         </Grid>
+
 
         <Grid x:Name="AddUtilizatorGrid" Visibility="Collapsed">
             <!--<Grid.DataContext>
@@ -1116,11 +1110,11 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 x:Name="btnModifyProdusBackToModidy"
                 Width="200"
                 Height="60"
+                Margin="50"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="btnModifyProdusBackToModidy_Click"
                 Content="Back"
-                Margin="50"
                 FontSize="20" />
 
 
@@ -1177,9 +1171,9 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 x:Name="btnModifyStocProdusBackToModidy"
                 Width="200"
                 Height="60"
+                Margin="50"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="50"
                 Click="btnModifyStocProdusBackToModidy_Click"
                 Content="Back"
                 FontSize="20" />
@@ -1238,8 +1232,8 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 x:Name="btnModifyUtilizatorBackToModidy"
                 Width="200"
                 Height="60"
-                HorizontalAlignment="Right"
                 Margin="50"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="btnModifyUtilizatorBackToModidy_Click"
                 Content="Back"
@@ -1290,9 +1284,9 @@ Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}"
                 x:Name="btnModifyProducatorBackToModidy"
                 Width="200"
                 Height="60"
+                Margin="50"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="50"
                 Click="btnModifyProducatorBackToModidy_Click"
                 Content="Back"
                 FontSize="20" />
