@@ -1,4 +1,5 @@
 ﻿using ShopManagement.Helpers;
+using ShopManagement.Models;
 using ShopManagement.Models.BusinessLogic;
 using System;
 using System.ComponentModel;
@@ -44,6 +45,26 @@ namespace ShopManagement.ViewModels
         private void CautaSiAdaugaProdusPeBon(object commandParameter)
         {
             casierBL.CautaSiAdaugaProdusPeBon(produsSearchText);
+        }
+        private ICommand _stergeProdusCommand;
+        public ICommand StergeProdusCommand
+        {
+            get
+            {
+                if (_stergeProdusCommand == null)
+                {
+                    _stergeProdusCommand = new RelayCommand(StergeProdus);
+                }
+                return _stergeProdusCommand;
+            }
+        }
+
+        private void StergeProdus(object parameter)
+        {
+            if (parameter is Tuple<string, BonProdus> produs)
+            {
+                casierBL.StergeProdusDePeBon(produs);
+            }
         }
 
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

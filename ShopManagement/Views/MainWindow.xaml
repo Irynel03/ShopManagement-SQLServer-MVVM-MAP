@@ -59,7 +59,7 @@
             x:Name="AdminMenuGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -248,17 +248,18 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
                                     Grid.Column="0"
-                                    Width="150"
+                                    Width="120"
                                     Height="30"
                                     HorizontalAlignment="Left"
                                     FontSize="20"
                                     Text="{Binding Item1}" />
                                 <TextBlock
                                     Grid.Column="1"
-                                    Width="120"
+                                    Width="100"
                                     FontSize="20"
                                     Text="{Binding Item2.Cantitate}" />
                                 <TextBlock
@@ -267,6 +268,13 @@
                                     FontSize="20"
                                     Text="{Binding Item2.Subtotal}"
                                     TextAlignment="Right" />
+                                <Button
+                                    Grid.Column="3"
+                                    Margin="5,0,0,0"
+                                    Command="{Binding DataContext.StergeProdusCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}"
+                                    Content="Șterge"
+                                    FontSize="20" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -740,14 +748,14 @@
                 FontSize="20">
                 Afiseaza date produs
             </Button>
-            <controls:AutoCompleteBox
+            <!--<controls:AutoCompleteBox
                 x:Name="NumeProdVisualizeTB"
                 Width="200"
                 Height="30"
                 Margin="77,115,523,640"
                 FontSize="20"
                 ItemsSource="{Binding bsLogic.numeProduse}"
-                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}" />
+                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}" />-->
             <Button
                 Width="250"
                 Height="60"
@@ -756,14 +764,14 @@
                 FontSize="20">
                 Afiseaza Producator
             </Button>
-            <controls:AutoCompleteBox
+            <!--<controls:AutoCompleteBox
                 x:Name="NumeProducatorVisualizeTB"
                 Width="200"
                 Height="30"
                 Margin="77,278,523,477"
                 FontSize="20"
                 ItemsSource="{Binding bsLogic.listaProducatori}"
-                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}" />
+                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}" />-->
             <Button
                 Width="250"
                 Height="60"
@@ -772,14 +780,14 @@
                 FontSize="20">
                 Afiseaza Utilizator
             </Button>
-            <controls:AutoCompleteBox
+            <!--<controls:AutoCompleteBox
                 x:Name="NumeUtilizatorVisualizeTB"
                 Width="200"
                 Height="30"
                 Margin="77,453,523,302"
                 FontSize="20"
                 ItemsSource="{Binding bsLogic.listaUtilizatori}"
-                Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}" />
+                Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}" />-->
             <Button
                 Width="250"
                 Height="60"
@@ -797,31 +805,210 @@
                 Text="{Binding BonFiscalIdVisualizeText, Mode=TwoWay}"
                 TextAlignment="Center" />
             <Button
-                Width="250"
-                Height="60"
-                Margin="497,218,53,507"
-                Command="{Binding AfiseazaDateStocProdusCommand}"
-                FontSize="20">
-                Afiseaza StocProdus
-            </Button>
-            <TextBox
-                x:Name="IdStocProdusVisualizeTB"
-                Width="200"
-                Height="30"
-                Margin="522,278,78,477"
-                FontSize="20"
-                Text="{Binding StocProdusIdVisualizeText, Mode=TwoWay}"
-                TextAlignment="Center" />
-            <Button
                 x:Name="btnVisualizeDataBackToAdmin"
                 Width="200"
                 Height="60"
                 Margin="50"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Click="btnVisualizeDataBackToAdmin_Click"
                 Content="Back"
                 FontSize="20" />
+            <TextBlock
+                Width="200"
+                Height="40"
+                Margin="0,0,230,550"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                FontSize="25"
+                Text="Bonuri Fiscale" />
+            <ListBox
+                x:Name="listBoxBonuri"
+                Width="380"
+                Height="200"
+                Margin="0,0,50,350"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="Transparent"
+                ItemsSource="{Binding bsLogic.bonuri}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="5"
+                            Padding="10"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+                            <Grid Width="300">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="ID Bon:" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="{Binding IdBon}" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="ID Casier:" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding IdCasier}" />
+
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Text="Suma Încasată:" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Text="{Binding SumaIncasata, StringFormat={}{0:N2} RON}" />
+
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Text="Data Eliberare:" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Text="{Binding DataEliberare, StringFormat={}{0:dd/MM/yyyy}}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock
+                Width="200"
+                Height="40"
+                Margin="0,0,230,290"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                FontSize="25"
+                Text="Stocuri Produse" />
+            <ListBox
+                x:Name="listBoxStocProduse"
+                Width="380"
+                Height="250"
+                Margin="0,0,50,50"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                HorizontalContentAlignment="Center"
+                Background="Transparent"
+                ItemsSource="{Binding bsLogic.stocuri}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="5"
+                            Padding="10"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+                            <Grid Width="300">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="ID Stoc Produs:" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="{Binding IdStocProdus}" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="ID Produs:" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding IdProdus}" />
+
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Text="Cantitate:" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Text="{Binding Cantitate}" />
+
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Text="Data Aprovizionare:" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Text="{Binding DataAprovizionare, StringFormat=\{0:dd/MM/yyyy\}}" />
+
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Text="Data Expirare:" />
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Text="{Binding DataExpirare, StringFormat=\{0:dd/MM/yyyy\}}" />
+
+                                <TextBlock
+                                    Grid.Row="5"
+                                    Grid.Column="0"
+                                    Text="Preț Achiziție:" />
+                                <TextBlock
+                                    Grid.Row="5"
+                                    Grid.Column="1"
+                                    Text="{Binding PretAchizitie, StringFormat=\{0:N2\} RON}" />
+
+                                <TextBlock
+                                    Grid.Row="6"
+                                    Grid.Column="0"
+                                    Text="Preț Vânzare:" />
+                                <TextBlock
+                                    Grid.Row="6"
+                                    Grid.Column="1"
+                                    Text="{Binding PretVanzare, StringFormat=\{0:N2\} RON}" />
+
+                                <TextBlock
+                                    Grid.Row="7"
+                                    Grid.Column="0"
+                                    Text="Unitate Măsură:" />
+                                <TextBlock
+                                    Grid.Row="7"
+                                    Grid.Column="1"
+                                    Text="{Binding UnitateMasura}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
         </Grid>
         <Grid
             x:Name="ModifyGrid"
@@ -989,12 +1176,13 @@
             x:Name="ModifyProdusGrid"
             Width="800"
             Height="785"
-            Visibility="Collapsed">
+            Visibility="Visible">
             <Label
                 Width="350"
                 Height="50"
                 Margin="50,170,400,565"
-                Content="{Binding bsLogic.produsDeModificat.Item2}" />
+                Content="{Binding bsLogic.produsDeModificat.Item2}"
+                ContentStringFormat="Nume: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1005,6 +1193,7 @@
                 Width="350"
                 Height="50"
                 Margin="50,392,400,343"
+                ContentStringFormat="Categorie: {0}"
                 Content="{Binding bsLogic.produsDeModificat.Item3}" />
             <TextBox
                 Width="350"
@@ -1015,6 +1204,7 @@
                 Width="350"
                 Height="50"
                 Margin="50,290,400,445"
+                ContentStringFormat="Id Producator: {0}"
                 Content="{Binding bsLogic.produsDeModificat.Item4}" />
             <TextBox
                 Width="350"
@@ -1049,6 +1239,7 @@
                 Width="350"
                 Height="50"
                 Margin="50,170,400,565"
+                ContentStringFormat="Cantitate: {0}"
                 Content="{Binding bsLogic.stocProdusDeModificat.Item2}" />
             <TextBox
                 Width="350"
@@ -1060,6 +1251,7 @@
                 Width="350"
                 Height="50"
                 Margin="50,392,400,343"
+                ContentStringFormat="Unitate Masura: {0}"
                 Content="{Binding bsLogic.stocProdusDeModificat.Item3}" />
             <TextBox
                 Width="350"
@@ -1070,6 +1262,7 @@
                 Width="350"
                 Height="50"
                 Margin="50,290,400,445"
+                ContentStringFormat="Pret Vanzare: {0}"
                 Content="{Binding bsLogic.stocProdusDeModificat.Item4}" />
             <TextBox
                 Width="350"
@@ -1159,6 +1352,7 @@
                 Width="350"
                 Height="50"
                 Margin="50,170,400,565"
+                ContentStringFormat="Nume: {0}"
                 Content="{Binding bsLogic.prodDeModificat.Item1}" />
             <TextBox
                 Width="350"
@@ -1170,6 +1364,7 @@
                 Width="350"
                 Height="50"
                 Margin="50,392,400,343"
+                ContentStringFormat="Tara De Origine: {0}"
                 Content="{Binding bsLogic.prodDeModificat.Item2}" />
             <TextBox
                 Width="350"

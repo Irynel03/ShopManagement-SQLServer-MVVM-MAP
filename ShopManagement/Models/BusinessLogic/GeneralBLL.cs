@@ -9,7 +9,7 @@ namespace ShopManagement.Models.BusinessLogic
 {
     public class GeneralBLL : INotifyPropertyChanged
     {
-        private ShopMngEntities2 context = new ShopMngEntities2();
+        public ShopMngEntities2 context = new ShopMngEntities2();
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -23,7 +23,8 @@ namespace ShopManagement.Models.BusinessLogic
         public List<String> listaCateg { get; set; } = new List<String>();
         public List<String> listaProducatori { get; set; } = new List<String>();
         public List<String> listaUtilizatori { get; set; } = new List<String>();
-
+        public List<StocProdus> stocuri { get; set; } = new List<StocProdus>();
+        public List<BonFiscal> bonuri { get; set; } = new List<BonFiscal>();
 
         private Tuple<string, string> _prodDeModificat;
         public Tuple<string, string> prodDeModificat
@@ -111,7 +112,34 @@ namespace ShopManagement.Models.BusinessLogic
             foreach (var prod in listaProd)
                 listaProducatori.Add(prod.Item1);
 
+            stocuri = GetStocuri();
+            bonuri = GetBonuri();
+
         }
+
+        private List<BonFiscal> GetBonuri()
+        {
+            List<BonFiscal> bonuriS = new List<BonFiscal>();
+            var bonuriDB = context.GetBonuriFiscale();
+            foreach(var b in bonuriDB)
+            {
+                bonuriS.Add(new BonFiscal(b.IdBon, b.IdCasier, b.SumaIncasata, b.DataEliberare));
+            }
+            return bonuriS;
+        }
+
+        private List<StocProdus> GetStocuri()
+        {
+            List<StocProdus> stocuriS = new List<StocProdus>();
+            var stocuriDB = context.GetStocProduse();
+            foreach(var s in stocuriDB)
+            {
+                stocuriS.Add(new StocProdus(s.IdStocProdus, s.IdProdus, s.Cantitate, s.UnitateMasura, s.DataAprovizionare, s.DataExpirare, s.PretAchizitie, s.PretVanzare));
+            }
+
+            return stocuriS;
+        }
+
         private void SetareActivitateProduseDupaStoc()
         {
             List<string> produseDeSetatActive = new List<string>();
@@ -174,8 +202,8 @@ namespace ShopManagement.Models.BusinessLogic
 
             foreach (var item in result)
             {
-                stocProduse.Add(new StocProdus(item.IdStocProdus, item.IdProdus, item.Cantitate, item.DataAprovizionare,
-                    item.DataExpirare, item.UnitateMasura.Trim(), item.PretAchizitie, item.PretVanzare));
+                stocProduse.Add(new StocProdus(item.IdStocProdus, item.IdProdus, item.Cantitate, item.UnitateMasura.Trim(), item.DataAprovizionare,
+                    item.DataExpirare,  item.PretAchizitie, item.PretVanzare));
             }
 
             return stocProduse;

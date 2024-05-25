@@ -308,8 +308,8 @@ namespace ShopManagement.Models.BusinessLogic
 
             foreach (var item in result)
             {
-                stocProduse.Add(new StocProdus(item.IdStocProdus, item.IdProdus, item.Cantitate, item.DataAprovizionare,
-                    item.DataExpirare, item.UnitateMasura.Trim(), item.PretAchizitie, item.PretVanzare));
+                stocProduse.Add(new StocProdus(item.IdStocProdus, item.IdProdus, item.Cantitate, item.UnitateMasura.Trim(), item.DataAprovizionare,
+                    item.DataExpirare, item.PretAchizitie, item.PretVanzare));
             }
 
             return stocProduse;
@@ -430,6 +430,18 @@ namespace ShopManagement.Models.BusinessLogic
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+        internal void StergeProdusDePeBon(Tuple<string, BonProdus> produs)
+        {
+            foreach(var b in ProduseBon)
+            {
+                if (b.Item1 == produs.Item1)
+                {
+                    ProduseBon.Remove(b);
+                    var stoc = stocProduse.Where(p => p.IdProdus == GetProdusId(produs.Item1)).OrderBy(p => p.DataExpirare).FirstOrDefault();
+                    stoc.Cantitate += produs.Item2.Cantitate;
+                    return;
+                }
+            }
+        }
     }
 }

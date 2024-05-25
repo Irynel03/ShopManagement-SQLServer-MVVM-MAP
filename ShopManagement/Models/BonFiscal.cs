@@ -24,6 +24,13 @@ namespace ShopManagement.Models
         {
             IdCasier = idCasier;
         }
+        public BonFiscal(int IdBon, int IdCasier, double suma, DateTime DataElibirare)
+        {
+            this.IdBon = IdBon;
+            this.IdCasier = IdCasier;
+            this.SumaIncasata = suma;
+            this.DataEliberare = DataElibirare;
+        }
 
         public System.DateTime DataEliberare { get; set; }
         public int IdCasier { get; set; }

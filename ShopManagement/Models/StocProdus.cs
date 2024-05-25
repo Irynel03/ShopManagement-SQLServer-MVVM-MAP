@@ -14,19 +14,17 @@ namespace ShopManagement.Models
     
     public partial class StocProdus
     {
-        private string v;
-
-        public StocProdus(int idStocProdus, int idProdus, int cantitate, DateTime dataAprovizionare, DateTime dataExpirare, string v, double pretAchizitie, double pretVanzare)
+        public StocProdus(int idStocProdus, int idProdus, int cantitate, string v, DateTime dataAprovizionare, DateTime dataExpirare, double pretAchizitie, double pretVanzare)
         {
             IdStocProdus = idStocProdus;
             IdProdus = idProdus;
             Cantitate = cantitate;
             DataAprovizionare = dataAprovizionare;
             DataExpirare = dataExpirare;
-            this.v = v;
             PretAchizitie = pretAchizitie;
             PretVanzare = pretVanzare;
             IsActive = true;
+            UnitateMasura = v;
         }
 
         public int IdStocProdus { get; set; }
