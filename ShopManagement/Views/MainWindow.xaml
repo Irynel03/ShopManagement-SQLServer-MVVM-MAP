@@ -18,7 +18,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="\Images\shopBack2.jpeg" Stretch="UniformToFill" />
         </Grid.Background>
-        <Grid x:Name="MainMenuGrid" Visibility="Collapsed">
+        <Grid x:Name="MainMenuGrid" Visibility="Visible">
             <Grid.Background>
                 <ImageBrush ImageSource="\Images\backgroundMainMenu.png" Stretch="UniformToFill" />
             </Grid.Background>
@@ -207,9 +207,6 @@
             Width="800"
             Height="785"
             Visibility="Collapsed">
-            <Grid.DataContext>
-                <ctx:CasierManagementVM />
-            </Grid.DataContext>
             <TextBlock
                 Height="30"
                 Margin="51,47,380,707"
@@ -748,14 +745,14 @@
                 FontSize="20">
                 Afiseaza date produs
             </Button>
-            <!--<controls:AutoCompleteBox
+            <controls:AutoCompleteBox
                 x:Name="NumeProdVisualizeTB"
                 Width="200"
                 Height="30"
                 Margin="77,115,523,640"
                 FontSize="20"
                 ItemsSource="{Binding bsLogic.numeProduse}"
-                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}" />-->
+                Text="{Binding ProdusNameVisualizeText, Mode=TwoWay}" />
             <Button
                 Width="250"
                 Height="60"
@@ -764,14 +761,14 @@
                 FontSize="20">
                 Afiseaza Producator
             </Button>
-            <!--<controls:AutoCompleteBox
+            <controls:AutoCompleteBox
                 x:Name="NumeProducatorVisualizeTB"
                 Width="200"
                 Height="30"
                 Margin="77,278,523,477"
                 FontSize="20"
                 ItemsSource="{Binding bsLogic.listaProducatori}"
-                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}" />-->
+                Text="{Binding ProducatorNameVisualizeText, Mode=TwoWay}" />
             <Button
                 Width="250"
                 Height="60"
@@ -780,14 +777,14 @@
                 FontSize="20">
                 Afiseaza Utilizator
             </Button>
-            <!--<controls:AutoCompleteBox
+            <controls:AutoCompleteBox
                 x:Name="NumeUtilizatorVisualizeTB"
                 Width="200"
                 Height="30"
                 Margin="77,453,523,302"
                 FontSize="20"
                 ItemsSource="{Binding bsLogic.listaUtilizatori}"
-                Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}" />-->
+                Text="{Binding UtilizatorNameVisualizeText, Mode=TwoWay}" />
             <Button
                 Width="250"
                 Height="60"
@@ -1176,7 +1173,7 @@
             x:Name="ModifyProdusGrid"
             Width="800"
             Height="785"
-            Visibility="Visible">
+            Visibility="Collapsed">
             <Label
                 Width="350"
                 Height="50"
@@ -1193,8 +1190,8 @@
                 Width="350"
                 Height="50"
                 Margin="50,392,400,343"
-                ContentStringFormat="Categorie: {0}"
-                Content="{Binding bsLogic.produsDeModificat.Item3}" />
+                Content="{Binding bsLogic.produsDeModificat.Item3}"
+                ContentStringFormat="Categorie: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1204,8 +1201,8 @@
                 Width="350"
                 Height="50"
                 Margin="50,290,400,445"
-                ContentStringFormat="Id Producator: {0}"
-                Content="{Binding bsLogic.produsDeModificat.Item4}" />
+                Content="{Binding bsLogic.produsDeModificat.Item4}"
+                ContentStringFormat="Id Producator: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1239,8 +1236,8 @@
                 Width="350"
                 Height="50"
                 Margin="50,170,400,565"
-                ContentStringFormat="Cantitate: {0}"
-                Content="{Binding bsLogic.stocProdusDeModificat.Item2}" />
+                Content="{Binding bsLogic.stocProdusDeModificat.Item2}"
+                ContentStringFormat="Cantitate: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1251,8 +1248,8 @@
                 Width="350"
                 Height="50"
                 Margin="50,392,400,343"
-                ContentStringFormat="Unitate Masura: {0}"
-                Content="{Binding bsLogic.stocProdusDeModificat.Item3}" />
+                Content="{Binding bsLogic.stocProdusDeModificat.Item3}"
+                ContentStringFormat="Unitate Masura: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1262,8 +1259,8 @@
                 Width="350"
                 Height="50"
                 Margin="50,290,400,445"
-                ContentStringFormat="Pret Vanzare: {0}"
-                Content="{Binding bsLogic.stocProdusDeModificat.Item4}" />
+                Content="{Binding bsLogic.stocProdusDeModificat.Item4}"
+                ContentStringFormat="Pret Vanzare: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1352,8 +1349,8 @@
                 Width="350"
                 Height="50"
                 Margin="50,170,400,565"
-                ContentStringFormat="Nume: {0}"
-                Content="{Binding bsLogic.prodDeModificat.Item1}" />
+                Content="{Binding bsLogic.prodDeModificat.Item1}"
+                ContentStringFormat="Nume: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1364,8 +1361,8 @@
                 Width="350"
                 Height="50"
                 Margin="50,392,400,343"
-                ContentStringFormat="Tara De Origine: {0}"
-                Content="{Binding bsLogic.prodDeModificat.Item2}" />
+                Content="{Binding bsLogic.prodDeModificat.Item2}"
+                ContentStringFormat="Tara De Origine: {0}" />
             <TextBox
                 Width="350"
                 Height="50"
@@ -1391,12 +1388,6 @@
                 Content="Back"
                 FontSize="20" />
         </Grid>
-
-
-        <Grid.DataContext>
-            <ctx:AdminManagementVM />
-        </Grid.DataContext>
-
 
     </Grid>
 </Window>

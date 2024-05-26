@@ -16,7 +16,7 @@ namespace ShopManagement.Models.BusinessLogic
         public double SumaTotalaProduseScanate { get; set; }
 
         public List<Produs> produse { get; set; } = new List<Produs>();
-        public List<String> numeProduse { get; set; } = new List<String>();
+        public ObservableCollection<String> numeProduse { get; set; } = new ObservableCollection<String>();
         public List<String> listaProducatori { get; set; } = new List<String>();
         public List<String> listaCateg { get; set; } = new List<String>();
         private List<StocProdus> stocProduse = new List<StocProdus>();
@@ -36,7 +36,7 @@ namespace ShopManagement.Models.BusinessLogic
 
             produse = GetProduse();
 
-            UpdateListaNumeProduse();
+            
             foreach (var prod in produse)
             {
                 if(!listaCateg.Contains(prod.Categorie))
@@ -49,6 +49,7 @@ namespace ShopManagement.Models.BusinessLogic
 
             context.ActualizeazaStatusProdus();
             SumaTotalaProduseScanate = 0;
+            UpdateListaNumeProduse();
         }
         private void UpdateListaNumeProduse()
         {
@@ -159,6 +160,7 @@ namespace ShopManagement.Models.BusinessLogic
                         if (produs.Id == stocProdus.IdProdus)
                         {
                             produse.Remove(produs);
+                            UpdateListaNumeProduse();
                         }
                     }
                 }
@@ -238,6 +240,7 @@ namespace ShopManagement.Models.BusinessLogic
             }
 
             context.ActualizeazaStatusProdus();
+            context.SaveChanges();
 
             InitializareDupaFinalizareBon();
 
