@@ -85,7 +85,12 @@ namespace ShopManagement.Models.BusinessLogic
         {
             if (produse.Any(p => p.Nume == produsSearchText) && ProdusPeStoc(produsSearchText))
             {
-                var produs = stocProduse.Where(p => p.IdProdus == GetProdusId(produsSearchText)).OrderBy(p => p.DataExpirare).FirstOrDefault();
+                //var produs = stocProduse.Where(p => p.IdProdus == GetProdusId(produsSearchText)).OrderBy(p => p.DataExpirare).FirstOrDefault();
+                var produs = stocProduse
+                .Where(p => p.IdProdus == GetProdusId(produsSearchText) && p.Cantitate > 0)
+                .OrderBy(p => p.DataExpirare)
+                .FirstOrDefault();
+
                 produs.Cantitate--;
 
                 if (!ProduseBon.Any(pb => pb.Item2.IdProdus == produs.IdProdus))

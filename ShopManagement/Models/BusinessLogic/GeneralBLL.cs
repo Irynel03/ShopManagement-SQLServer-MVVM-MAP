@@ -461,7 +461,7 @@ namespace ShopManagement.Models.BusinessLogic
             {
                 Produs prod = produse2.First(p => p.Nume == produsNameVisualizeText);
                 string message = "";
-                message +="Numele produsului: "+  prod.Nume + "\n"+ "ID Producator: "+ prod.Producator_Id + "\n"+"Activ: "+ prod.IsActive + "\n" +"Id Produs:"+ prod.Id;
+                message += "Numele produsului: " + prod.Nume + "\n" + "ID Producator: " + prod.Producator_Id + "\n" + "Activ: " + prod.IsActive + "\n" + "Id Produs:" + prod.Id + "\n"+"Cod de Bare: "+ prod.CodDeBare;
 
 
                 MessageBox.Show(message);
@@ -610,7 +610,7 @@ namespace ShopManagement.Models.BusinessLogic
                         produse2 = GetProduse();
                     }
                     else
-                        context.SetProducatorActivity(producator.NumeProducator, !currentActivity);
+                        context.SetProducatorActivity(producator.NumeProducator.Trim(), true);
 
                     producatori = GetProducatori();
                     MessageBox.Show("S-a modificat cu succes.");
@@ -724,6 +724,12 @@ namespace ShopManagement.Models.BusinessLogic
         internal void ModifyProdus(string nume, string categorie, string producatorId)
         {
             context.UpdateProdus(produsDeModificat.Item1, nume, categorie, System.Convert.ToInt32(producatorId));
+            produse2 = GetProduse();
+            //producatori = GetProducatori();
+            //foreach (var prod in produse2)
+            //{
+            //    numeProduse.Add(prod.Nume.Trim());
+            //}
             MessageBox.Show("S-a modificat cu succes");
         }
 
